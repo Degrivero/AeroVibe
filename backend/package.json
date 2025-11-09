@@ -2,6 +2,7 @@
   "name": "aerovibe-api",
   "version": "1.0.0",
   "type": "module",
+  "main": "app.js",
   "engines": {
     "node": "20.x"
   },
