@@ -2,12 +2,13 @@
   "name": "aerovibe-api",
   "version": "1.0.0",
   "type": "module",
+  "engines": { "node": "20.x" },
   "scripts": {
     "start": "node app.js",
     "dev": "node --watch app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "express": "4.21.2"
   }
 }
