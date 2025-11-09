@@ -2,12 +2,15 @@
   "name": "aerovibe-api",
   "version": "1.0.0",
   "type": "module",
-  "engines": { "node": "20.x" },
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "start": "node app.js",
     "dev": "node --watch app.js"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.80.0",
     "cors": "^2.8.5",
     "express": "4.21.2"
   }
