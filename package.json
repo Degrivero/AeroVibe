@@ -1,0 +1,11 @@
+{
+  "name": "aerovibe",
+  "private": true,
+  "scripts": {
+    "bootstrap": "./scripts/bootstrap.sh",
+    "dev": "./scripts/dev.sh",
+    "start": "npm run dev",
+    "build": "./scripts/build.sh",
+    "test": "./scripts/test.sh"
+  }
+}
