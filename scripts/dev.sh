@@ -20,7 +20,7 @@ else
 fi
 
 echo "==> Starting NATS/Redis"
-"${COMPOSE_CMD[@]}" -f "$ROOT_DIR/aerovibe-nats-redis/docker-compose.yml" up -d
+"${COMPOSE_CMD[@]}" -f "$ROOT_DIR/docker-compose.yml" up -d
 sleep 2
 
 echo "==> Setting up NATS streams"

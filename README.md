@@ -11,7 +11,7 @@ npm run dev
 Esto ejecuta:
 - Crea `.env` desde `.env.example` en cada servicio si falta.
 - Instala dependencias Node y Flutter.
-- Levanta NATS/Redis con Docker Compose.
+- Levanta NATS/Redis con Docker Compose (root `docker-compose.yml`).
 - Arranca gateway + servicios + workers.
 
 ## Requisitos
@@ -32,6 +32,15 @@ Cada servicio usa su propio archivo `.env`:
 - `aerovibe-nats-redis/.env`
 
 Completá los valores en base a los `.env.example` de cada servicio.
+Los `.env` no se versionan (ver `.gitignore`).
+
+## Docker Compose (infra)
+
+Si querés levantar solo infraestructura:
+
+```bash
+docker compose up -d
+```
 
 ## Comandos útiles
 
