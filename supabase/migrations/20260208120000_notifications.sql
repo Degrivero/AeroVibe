@@ -19,6 +19,25 @@ create table if not exists public.notifications (
   created_at timestamptz not null default now()
 );
 
+-- Ensure columns exist (in case table was created manually before)
+alter table public.notifications
+  add column if not exists recipient_id uuid,
+  add column if not exists actor_id uuid,
+  add column if not exists type text,
+  add column if not exists title text,
+  add column if not exists body text,
+  add column if not exists entity_id uuid,
+  add column if not exists spot_id uuid,
+  add column if not exists spot_title text,
+  add column if not exists user_name text,
+  add column if not exists user_avatar_url text,
+  add column if not exists is_read boolean,
+  add column if not exists created_at timestamptz;
+
+alter table public.notifications
+  alter column is_read set default false,
+  alter column created_at set default now();
+
 create index if not exists notifications_recipient_idx
   on public.notifications (recipient_id);
 create index if not exists notifications_recipient_unread_idx
@@ -68,6 +87,30 @@ create table if not exists public.notification_settings (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.notification_settings
+  add column if not exists enabled boolean,
+  add column if not exists comment_on_my_spot boolean,
+  add column if not exists reply_to_my_comment boolean,
+  add column if not exists added_as_copilot boolean,
+  add column if not exists removed_as_copilot boolean,
+  add column if not exists spot_favorited boolean,
+  add column if not exists flight_intent boolean,
+  add column if not exists report_moderation boolean,
+  add column if not exists created_at timestamptz,
+  add column if not exists updated_at timestamptz;
+
+alter table public.notification_settings
+  alter column enabled set default true,
+  alter column comment_on_my_spot set default true,
+  alter column reply_to_my_comment set default true,
+  alter column added_as_copilot set default true,
+  alter column removed_as_copilot set default true,
+  alter column spot_favorited set default true,
+  alter column flight_intent set default true,
+  alter column report_moderation set default true,
+  alter column created_at set default now(),
+  alter column updated_at set default now();
 
 alter table public.notification_settings enable row level security;
 
