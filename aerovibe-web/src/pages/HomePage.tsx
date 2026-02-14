@@ -3,20 +3,30 @@ import { useTranslation } from 'react-i18next'
 import styles from './HomePage.module.css'
 import { useMeta } from '../app/useMeta'
 
-function StoreButtons() {
+function StoreBadges() {
   const { t } = useTranslation()
   const appStoreUrl = (import.meta.env.VITE_APP_STORE_URL as string | undefined) || '#'
   const googlePlayUrl = (import.meta.env.VITE_GOOGLE_PLAY_URL as string | undefined) || '#'
 
   return (
-    <div className={styles.storeRow}>
-      <a className={styles.storeBtn} href={appStoreUrl} target="_blank" rel="noreferrer">
-        <span className={styles.storeTop}>{t('common.download_app')}</span>
-        <span className={styles.storeBottom}>{t('common.app_store')}</span>
+    <div className={styles.storeBadges}>
+      <a className={styles.badgeLink} href={appStoreUrl} target="_blank" rel="noreferrer">
+        <img
+          className={styles.badgeImg}
+          src="/assets/badges/app-store.svg"
+          alt={t('common.badge_app_store_alt')}
+          height={48}
+          loading="lazy"
+        />
       </a>
-      <a className={styles.storeBtn} href={googlePlayUrl} target="_blank" rel="noreferrer">
-        <span className={styles.storeTop}>{t('common.download_app')}</span>
-        <span className={styles.storeBottom}>{t('common.google_play')}</span>
+      <a className={styles.badgeLink} href={googlePlayUrl} target="_blank" rel="noreferrer">
+        <img
+          className={styles.badgeImg}
+          src="/assets/badges/google-play.svg"
+          alt={t('common.badge_google_play_alt')}
+          height={48}
+          loading="lazy"
+        />
       </a>
     </div>
   )
@@ -78,22 +88,38 @@ export function HomePage() {
         </div>
 
         <div className={styles.heroInner}>
-          <div className={styles.kicker}>{t('hero.kicker')}</div>
-          <h1 className={styles.title}>{t('hero.title')}</h1>
-          <p className={styles.subtitle}>{t('hero.subtitle')}</p>
+          <div className={styles.heroGrid}>
+            <div className={styles.heroLeft}>
+              <div className={styles.kicker}>{t('hero.kicker')}</div>
+              <h1 className={styles.title}>{t('hero.title')}</h1>
+              <p className={styles.subtitle}>{t('hero.subtitle')}</p>
 
-          <div className={styles.heroCtas}>
-            <a className={styles.primaryCta} href="#pricing">
-              {t('hero.cta_primary')}
-            </a>
-            <a className={styles.secondaryCta} href="#features">
-              {t('hero.cta_secondary')}
-            </a>
+              <div className={styles.heroCtas}>
+                <a className={styles.primaryCta} href="#pricing">
+                  {t('hero.cta_primary')}
+                </a>
+                <a className={styles.secondaryCta} href="#features">
+                  {t('hero.cta_secondary')}
+                </a>
+              </div>
+            </div>
+
+            <div className={styles.heroRight} aria-hidden="true">
+              <div className={styles.heroPanel}>
+                <div className={styles.heroPanelGrid} />
+                <div className={styles.heroPanelSweep} />
+                <div className={styles.heroPin} style={{ left: '18%', top: '38%' }} />
+                <div className={styles.heroPin} style={{ left: '62%', top: '30%' }} />
+                <div className={styles.heroPin} style={{ left: '46%', top: '64%' }} />
+                <div className={styles.heroPath} />
+              </div>
+            </div>
           </div>
 
-          <div className={styles.note}>{t('hero.note')}</div>
-
-          <StoreButtons />
+          <div className={styles.heroBottom}>
+            <div className={styles.noteCentered}>{t('hero.note')}</div>
+            <StoreBadges />
+          </div>
 
           <div className={styles.statsRow}>
             <div className={styles.stat}>
@@ -146,38 +172,6 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className={styles.section}>
-        <div className={styles.sectionInner}>
-          <h2 className={styles.h2}>{t('sections.showcase.title')}</h2>
-          <p className={styles.sectionSub}>{t('sections.showcase.subtitle')}</p>
-
-          <div className={styles.chipRow}>
-            <span className={styles.chip}>{t('sections.showcase.chips.dark')}</span>
-            <span className={styles.chip}>{t('sections.showcase.chips.light')}</span>
-            <span className={styles.chip}>{t('sections.showcase.chips.i18n')}</span>
-          </div>
-
-          <div className={styles.screenRow}>
-            <div className={styles.screen}>
-              <div className={styles.screenTitle}>{t('sections.showcase.screens.map')}</div>
-              <div className={styles.screenMockMap} aria-hidden="true" />
-            </div>
-            <div className={styles.screen}>
-              <div className={styles.screenTitle}>{t('sections.showcase.screens.spot')}</div>
-              <div className={styles.screenMockSpot} aria-hidden="true" />
-            </div>
-            <div className={styles.screen}>
-              <div className={styles.screenTitle}>{t('sections.showcase.screens.plan')}</div>
-              <div className={styles.screenMockPlan} aria-hidden="true" />
-            </div>
-            <div className={styles.screen}>
-              <div className={styles.screenTitle}>{t('sections.showcase.screens.profile')}</div>
-              <div className={styles.screenMockProfile} aria-hidden="true" />
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className={styles.section} id="pricing">
         <div className={styles.sectionInner}>
           <h2 className={styles.h2}>{t('sections.pricing.title')}</h2>
@@ -219,6 +213,7 @@ export function HomePage() {
           <div className={styles.aboutCard}>
             <p className={styles.aboutP}>{t('sections.about.p1')}</p>
             <p className={styles.aboutP}>{t('sections.about.p2')}</p>
+            <p className={styles.aboutP}>{t('sections.about.p3')}</p>
           </div>
         </div>
       </section>

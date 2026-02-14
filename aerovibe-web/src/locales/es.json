@@ -21,7 +21,9 @@
     "contact": "Contacto: {{email}}",
     "download_app": "Descargar la app",
     "app_store": "App Store",
-    "google_play": "Google Play"
+    "google_play": "Google Play",
+    "badge_app_store_alt": "Descargar en la App Store",
+    "badge_google_play_alt": "Disponible en Google Play"
   },
   "hero": {
     "kicker": "Mapa. Comunidad. Precisión.",
@@ -114,8 +116,9 @@
     },
     "about": {
       "title": "Sobre nosotros",
-      "p1": "Somos un equipo pequeño obsesionado con vuelos limpios, data útil y una comunidad sin humo. AeroVibe nació de horas de campo, baterías agotadas y esa eterna pregunta: “¿dónde vuelo hoy?”.",
-      "p2": "Construimos el producto como si lo fuéramos a usar todos los días: rápido, simple y listo para escalar."
+      "p1": "AeroVibe nació en el lugar donde siempre empieza todo: mochila al hombro, baterías al 12%, viento que cambia en cinco minutos y la misma conversación en grupo: “¿dónde volamos hoy sin perder tiempo?”.",
+      "p2": "Somos un equipo chico (y bien obsesivo) que quiere que la comunidad tenga más señal y menos humo: spots reales, media que carga rápido, perfiles estables y herramientas que te ayuden a tomar decisiones antes de despegar.",
+      "p3": "Si alguna vez te frustró llegar a un lugar y descubrir que no era lo que parecía, o si querés compartir un spot que vale la pena sin que se pierda en el feed, estás en tu casa. Estamos construyendo AeroVibe con feedback real de pilotos — y lo estamos haciendo para usarlo todos los días."
     }
   },
   "footer": {
@@ -232,4 +235,3 @@
     "body": "El enlace que abriste no existe o fue movido."
   }
 }
-

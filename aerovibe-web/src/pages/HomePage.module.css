@@ -87,10 +87,110 @@
 }
 
 .heroInner {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 82px 18px 56px;
   position: relative;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.heroLeft {
+  min-width: 0;
+}
+
+.heroRight {
+  display: none;
+}
+
+.heroPanel {
+  position: relative;
+  height: 320px;
+  border-radius: 26px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 78%, transparent);
+  overflow: hidden;
+}
+
+.heroPanelGrid {
+  position: absolute;
+  inset: -30px;
+  background-image: linear-gradient(
+      to right,
+      color-mix(in oklab, var(--grid) 28%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--grid) 28%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 46px 46px;
+  opacity: 0.85;
+  mask-image: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
+}
+
+.heroPanelSweep {
+  position: absolute;
+  right: -180px;
+  top: -160px;
+  width: 460px;
+  height: 460px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 16%, transparent);
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 62%);
+  opacity: 0.8;
+}
+
+.heroPanelSweep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: conic-gradient(
+    from 20deg,
+    transparent 0deg,
+    transparent 250deg,
+    color-mix(in oklab, var(--accent) 10%, transparent) 280deg,
+    color-mix(in oklab, var(--accent) 28%, transparent) 320deg,
+    transparent 360deg
+  );
+  animation: sweep 7.2s linear infinite;
+}
+
+.heroPin {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 6px color-mix(in oklab, var(--accent) 16%, transparent),
+    0 0 24px color-mix(in oklab, var(--accent) 26%, transparent);
+}
+
+.heroPath {
+  position: absolute;
+  left: 16%;
+  top: 50%;
+  width: 68%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--accent) 45%, transparent) 22%,
+    color-mix(in oklab, var(--cyan) 45%, transparent) 52%,
+    color-mix(in oklab, var(--accent) 35%, transparent) 78%,
+    transparent 100%
+  );
+  transform: rotate(-12deg);
+  opacity: 0.8;
 }
 
 .kicker {
@@ -161,44 +261,49 @@
   border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
 }
 
-.note {
+.heroBottom {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.noteCentered {
   color: var(--muted);
   font-size: 13px;
+  text-align: center;
 }
 
-.storeRow {
+.storeBadges {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
-  margin: 16px 0 0;
 }
 
-.storeBtn {
+.badgeLink {
   display: inline-flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  padding: 10px 14px;
+  padding: 8px 10px;
   border-radius: 14px;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 72%, transparent);
-  min-width: 180px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
 }
 
-.storeBtn:hover {
-  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+.badgeLink:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
 }
 
-.storeTop {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 650;
-}
-
-.storeBottom {
-  color: var(--fg);
-  font-size: 14px;
-  font-weight: 780;
+.badgeImg {
+  display: block;
+  height: 48px;
+  width: auto;
 }
 
 .statsRow {
@@ -206,7 +311,6 @@
   grid-template-columns: 1fr;
   gap: 10px;
   margin-top: 26px;
-  max-width: 520px;
 }
 
 .stat {
@@ -232,7 +336,7 @@
 }
 
 .sectionInner {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 18px;
 }
@@ -275,78 +379,6 @@
   line-height: 1.55;
 }
 
-.chipRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 66%, transparent);
-  color: var(--fg);
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.screenRow {
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.screen {
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  background: color-mix(in oklab, var(--card) 74%, transparent);
-  padding: 14px;
-  overflow: hidden;
-}
-
-.screenTitle {
-  font-weight: 820;
-  color: var(--fg);
-  margin-bottom: 10px;
-}
-
-.screenMockMap,
-.screenMockSpot,
-.screenMockPlan,
-.screenMockProfile {
-  height: 180px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-  background-size: 120% 120%;
-  animation: sheen 10s ease-in-out infinite;
-}
-
-.screenMockMap {
-  background-image: radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--cyan) 45%, transparent), transparent 60%),
-    radial-gradient(circle at 60% 60%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 62%),
-    linear-gradient(120deg, color-mix(in oklab, var(--bg) 70%, #000 30%), color-mix(in oklab, var(--card) 90%, #000 10%));
-}
-
-.screenMockSpot {
-  background-image: linear-gradient(120deg, color-mix(in oklab, var(--accent) 26%, transparent), transparent 60%),
-    linear-gradient(0deg, color-mix(in oklab, var(--card) 85%, #000 15%), color-mix(in oklab, var(--bg) 85%, #000 15%));
-}
-
-.screenMockPlan {
-  background-image: radial-gradient(circle at 20% 30%, color-mix(in oklab, var(--accent) 24%, transparent), transparent 55%),
-    linear-gradient(120deg, color-mix(in oklab, var(--card) 88%, #000 12%), color-mix(in oklab, var(--bg) 88%, #000 12%));
-}
-
-.screenMockProfile {
-  background-image: radial-gradient(circle at 70% 20%, color-mix(in oklab, var(--cyan) 30%, transparent), transparent 60%),
-    linear-gradient(120deg, color-mix(in oklab, var(--card) 88%, #000 12%), color-mix(in oklab, var(--bg) 88%, #000 12%));
-}
-
 .priceGrid {
   margin-top: 22px;
   display: grid;
@@ -366,6 +398,53 @@
 .priceCardFeatured {
   border-color: color-mix(in oklab, var(--accent) 55%, var(--border) 45%);
   box-shadow: 0 18px 48px color-mix(in oklab, var(--accent) 15%, transparent);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.priceCardFeatured::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 22%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 58%),
+    radial-gradient(circle at 72% 26%, transparent 0 34%, color-mix(in oklab, var(--accent) 16%, transparent) 34% 35%, transparent 35% 100%),
+    radial-gradient(circle at 72% 26%, transparent 0 50%, color-mix(in oklab, var(--accent) 12%, transparent) 50% 51%, transparent 51% 100%),
+    radial-gradient(circle at 72% 26%, transparent 0 66%, color-mix(in oklab, var(--accent) 10%, transparent) 66% 67%, transparent 67% 100%),
+    radial-gradient(circle at 72% 26%, transparent 0 82%, color-mix(in oklab, var(--accent) 8%, transparent) 82% 83%, transparent 83% 100%);
+  opacity: 0.85;
+  z-index: 0;
+}
+
+.priceCardFeatured::after {
+  content: '';
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  right: -240px;
+  top: -200px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 16%, transparent);
+  background: conic-gradient(
+    from 20deg,
+    transparent 0deg,
+    transparent 250deg,
+    color-mix(in oklab, var(--accent) 10%, transparent) 280deg,
+    color-mix(in oklab, var(--accent) 30%, transparent) 320deg,
+    transparent 360deg
+  );
+  mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 62%);
+  animation: sweep 7.2s linear infinite;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.priceCardFeatured > * {
+  position: relative;
+  z-index: 1;
 }
 
 .priceBadge {
@@ -480,24 +559,12 @@
   }
 }
 
-@keyframes sheen {
-  0%,
-  100% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .orb1,
   .orb2,
   .radar::before,
-  .screenMockMap,
-  .screenMockSpot,
-  .screenMockPlan,
-  .screenMockProfile {
+  .heroPanelSweep::before,
+  .priceCardFeatured::after {
     animation: none !important;
   }
 }
@@ -509,14 +576,9 @@
 
   .statsRow {
     grid-template-columns: repeat(3, 1fr);
-    max-width: 820px;
   }
 
   .featureGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .screenRow {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -526,9 +588,28 @@
   }
 }
 
-@media (min-width: 1000px) {
-  .screenRow {
-    grid-template-columns: repeat(4, 1fr);
+@media (min-width: 960px) {
+  .heroGrid {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 26px;
+  }
+
+  .heroRight {
+    display: block;
+  }
+
+  .heroPanel {
+    height: 360px;
+  }
+
+  .title {
+    max-width: 20ch;
   }
 }
 
+@media (min-width: 1100px) {
+  .featureGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

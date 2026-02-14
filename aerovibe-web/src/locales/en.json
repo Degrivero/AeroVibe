@@ -21,7 +21,9 @@
     "contact": "Contact: {{email}}",
     "download_app": "Download the app",
     "app_store": "App Store",
-    "google_play": "Google Play"
+    "google_play": "Google Play",
+    "badge_app_store_alt": "Download on the App Store",
+    "badge_google_play_alt": "Get it on Google Play"
   },
   "hero": {
     "kicker": "Map. Community. Precision.",
@@ -114,8 +116,9 @@
     },
     "about": {
       "title": "About us",
-      "p1": "We’re a small team obsessed with clean flights, useful data, and a no-BS community. AeroVibe was born from field hours, dead batteries, and that eternal question: “where do I fly today?”.",
-      "p2": "We build the product as if we’ll use it every day: fast, simple, and ready to scale."
+      "p1": "AeroVibe started where it always starts: backpack on, batteries at 12%, wind changing every five minutes, and the same group chat thread: “where do we fly today without wasting time?”.",
+      "p2": "We’re a small (and slightly obsessive) team building a community with more signal and less noise: real spots, media that loads fast, stable profiles, and tools that help you decide before takeoff.",
+      "p3": "If you’ve ever driven out just to find the spot wasn’t what it looked like, or you want to share a great location without it getting buried, you’re in the right place. We’re building AeroVibe with real pilot feedback — for everyday use."
     }
   },
   "footer": {
@@ -232,4 +235,3 @@
     "body": "The link you opened doesn’t exist or was moved."
   }
 }
-

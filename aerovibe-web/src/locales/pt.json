@@ -21,7 +21,9 @@
     "contact": "Contato: {{email}}",
     "download_app": "Baixar o app",
     "app_store": "App Store",
-    "google_play": "Google Play"
+    "google_play": "Google Play",
+    "badge_app_store_alt": "Baixar na App Store",
+    "badge_google_play_alt": "Dispon\u00edvel no Google Play"
   },
   "hero": {
     "kicker": "Mapa. Comunidade. Precis\u00e3o.",
@@ -114,8 +116,9 @@
     },
     "about": {
       "title": "Sobre n\u00f3s",
-      "p1": "Somos um time pequeno obcecado por voos limpos, dados \u00fateis e uma comunidade sem enrola\u00e7\u00e3o. O AeroVibe nasceu de horas no campo, baterias no fim e aquela pergunta eterna: \u201conde eu voo hoje?\u201d.",
-      "p2": "Constru\u00edmos o produto como se f\u00f4ssemos us\u00e1-lo todos os dias: r\u00e1pido, simples e pronto para escalar."
+      "p1": "O AeroVibe nasceu onde tudo come\u00e7a: mochila nas costas, baterias em 12%, vento mudando o tempo todo e a mesma conversa no grupo: \u201conde a gente voa hoje sem perder tempo?\u201d.",
+      "p2": "Somos um time pequeno (e um pouco obcecado) construindo uma comunidade com mais sinal e menos ru\u00eddo: spots reais, m\u00eddia que carrega r\u00e1pido, perfis est\u00e1veis e ferramentas que ajudam voc\u00ea a decidir antes de decolar.",
+      "p3": "Se voc\u00ea j\u00e1 se frustrou ao chegar num lugar e ver que n\u00e3o era o que parecia, ou quer compartilhar um spot bom sem ele sumir no feed, voc\u00ea est\u00e1 no lugar certo. Estamos construindo o AeroVibe com feedback real de pilotos \u2014 para usar todos os dias."
     }
   },
   "footer": {
@@ -232,4 +235,3 @@
     "body": "O link que voc\u00ea abriu n\u00e3o existe ou foi movido."
   }
 }
-
