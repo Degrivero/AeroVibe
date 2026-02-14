@@ -1,0 +1,52 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+.routeError {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 72px 20px;
+}
+
+.routeErrorBody {
+  margin: 12px 0 24px;
+  color: var(--muted);
+}
+
+.routeErrorCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.routeErrorCta:hover {
+  border-color: color-mix(in oklab, var(--border) 60%, var(--accent) 40%);
+}
+
+.routeErrorPre {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 80%, #000 20%);
+  color: var(--muted);
+  overflow: auto;
+  font-size: 12px;
+}
+

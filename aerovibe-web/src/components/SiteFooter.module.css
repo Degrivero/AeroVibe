@@ -1,0 +1,78 @@
+.footer {
+  margin-top: 64px;
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background: color-mix(in oklab, var(--bg) 86%, transparent);
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.brandRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brandText {
+  font-family: var(--font-display);
+  font-weight: 760;
+  color: var(--fg);
+}
+
+.madeFor {
+  color: var(--muted);
+  font-weight: 560;
+}
+
+.linksCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.colTitle {
+  color: var(--fg);
+  font-weight: 720;
+  margin-bottom: 4px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.link:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  text-underline-offset: 4px;
+}
+
+.bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 18px 24px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (min-width: 780px) {
+  .inner {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+}
+

@@ -47,6 +47,7 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 run "NATS/Redis workers" npm --prefix "$ROOT_DIR/aerovibe-nats-redis" run workers
+run "Web" npm --prefix "$ROOT_DIR/aerovibe-web" run dev
 run "API Gateway" npm --prefix "$ROOT_DIR/aerovibe-api-gateway" run dev
 run "API Service" npm --prefix "$ROOT_DIR/aerovibe-api-service" run dev
 run "IAM Service" npm --prefix "$ROOT_DIR/aerovibe-iam-service" run dev

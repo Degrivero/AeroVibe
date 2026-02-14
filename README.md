@@ -30,6 +30,7 @@ Cada servicio usa su propio archivo `.env`:
 - `aerovibe-spots-service/.env`
 - `aerovibe-users/.env`
 - `aerovibe-nats-redis/.env`
+- `aerovibe-web/.env` (opcional: links App Store / Google Play)
 
 Completá los valores en base a los `.env.example` de cada servicio.
 Los `.env` no se versionan (ver `.gitignore`).
@@ -57,6 +58,7 @@ npm run test   # tests (no-op en Node, corre flutter test)
 - API: `3002`
 - Users: `3003`
 - Spots: `3004`
+- Web (landing): `5173`
 - NATS: `4222`
 - Redis: `6379`
 
@@ -67,6 +69,7 @@ npm run test   # tests (no-op en Node, corre flutter test)
 - `aerovibe-users`: perfiles, relaciones, avatars.
 - `aerovibe-spots-service`: dominio de spots (feed, detail, media, comments, favorites, copilots).
 - `aerovibe-api-service`: reservado para endpoints agregados/BFF (sin spots para evitar duplicidad).
+- `aerovibe-web`: landing page + legal (tema claro/oscuro + ES/EN/PT).
 
 ## Auth y seguridad
 

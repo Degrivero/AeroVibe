@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "title": "AeroVibe — Spots, planos de voo e comunidade para pilotos de drones",
+    "description": "Descubra spots reais, planeje voos e construa comunidade. O AeroVibe une mapa, m\u00eddia otimizada, hangar e ranking em uma experi\u00eancia r\u00e1pida."
+  },
+  "nav": {
+    "features": "Recursos",
+    "pricing": "Planos",
+    "about": "Sobre",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "cookies": "Cookies",
+    "theme": "Tema",
+    "language": "Idioma",
+    "open_menu": "Abrir menu",
+    "close_menu": "Fechar menu"
+  },
+  "common": {
+    "back_home": "Voltar ao in\u00edcio",
+    "last_updated": "\u00daltima atualiza\u00e7\u00e3o: {{date}}",
+    "contact": "Contato: {{email}}",
+    "download_app": "Baixar o app",
+    "app_store": "App Store",
+    "google_play": "Google Play"
+  },
+  "hero": {
+    "kicker": "Mapa. Comunidade. Precis\u00e3o.",
+    "title": "Caia em spots reais. Voe com confian\u00e7a.",
+    "subtitle": "O AeroVibe \u00e9 o hub para descobrir, criar e planejar spots de drone com localiza\u00e7\u00e3o real, m\u00eddia otimizada e ferramentas Pro.",
+    "cta_primary": "Ver planos",
+    "cta_secondary": "Explorar recursos",
+    "note": "iOS e Android. Beta privada em andamento.",
+    "stats": {
+      "map": { "value": "Mapa vivo", "label": "Spots colaborativos" },
+      "media": { "value": "M\u00eddia Pro", "label": "Fotos + v\u00eddeo" },
+      "plans": { "value": "Agenda", "label": "Planos de voo" }
+    }
+  },
+  "sections": {
+    "features": {
+      "title": "Tudo o que voc\u00ea precisa, sem ru\u00eddo",
+      "subtitle": "Feito para pilotos: r\u00e1pido, claro e focado no que importa.",
+      "cards": {
+        "map_title": "Mapa em primeiro lugar",
+        "map_body": "Spots pr\u00f3ximos, pins e detalhes. Ao criar, escolha um ponto no mapa (ou use o GPS).",
+        "media_title": "M\u00eddia otimizada",
+        "media_body": "Miniaturas, compress\u00e3o e reprodu\u00e7\u00e3o suave para foto e v\u00eddeo.",
+        "flight_title": "Planos de voo",
+        "flight_body": "Agende voos, convide copilotos e receba lembretes.",
+        "ranking_title": "Ranking + ins\u00edgnias",
+        "ranking_body": "Pontos por atividade real. Ins\u00edgnias que evoluem com o seu progresso.",
+        "hangar_title": "Hangar",
+        "hangar_body": "Seus drones, stats e slots conforme o seu plano.",
+        "moderation_title": "Modera\u00e7\u00e3o",
+        "moderation_body": "Ferramentas para manter a comunidade segura e o sinal limpo."
+      }
+    },
+    "showcase": {
+      "title": "Look & feel AeroVibe",
+      "subtitle": "Escuro futurista, lime e cyan. Tamb\u00e9m dispon\u00edvel no claro.",
+      "chips": {
+        "dark": "Modo escuro",
+        "light": "Modo claro",
+        "i18n": "ES / EN / PT"
+      },
+      "screens": {
+        "map": "Mapa de spots",
+        "spot": "Detalhe do spot",
+        "plan": "Plano de voo",
+        "profile": "Perfil + hangar"
+      }
+    },
+    "pricing": {
+      "title": "Planos",
+      "subtitle": "Comece gr\u00e1tis e fa\u00e7a upgrade quando precisar.",
+      "best_value": "Melhor custo-benef\u00edcio",
+      "save_year": "Economize {{pct}}%",
+      "free": {
+        "name": "FREE",
+        "price": "$0",
+        "period": "para sempre",
+        "cta": "Come\u00e7ar",
+        "bullets": [
+          "Feed p\u00fablico e mapa",
+          "1 drone no hangar",
+          "Previs\u00e3o b\u00e1sica (24h)",
+          "Marketplace: 1 an\u00fancio"
+        ]
+      },
+      "pro_month": {
+        "name": "PRO Mensal",
+        "price": "$4.99",
+        "period": "por m\u00eas",
+        "cta": "Virar Pro",
+        "bullets": [
+          "Hangar ampliado (at\u00e9 5 drones)",
+          "Previs\u00e3o estendida (at\u00e9 7 dias)",
+          "Limites maiores + recursos premium",
+          "Menos atrito, mais voo"
+        ]
+      },
+      "pro_year": {
+        "name": "PRO Anual",
+        "price": "$49.99",
+        "period": "por ano",
+        "cta": "Virar Pro",
+        "bullets": [
+          "Tudo do Pro Mensal",
+          "Melhor pre\u00e7o equivalente por m\u00eas",
+          "Renova\u00e7\u00e3o anual simples",
+          "Prioridade para novos recursos"
+        ]
+      }
+    },
+    "about": {
+      "title": "Sobre n\u00f3s",
+      "p1": "Somos um time pequeno obcecado por voos limpos, dados \u00fateis e uma comunidade sem enrola\u00e7\u00e3o. O AeroVibe nasceu de horas no campo, baterias no fim e aquela pergunta eterna: \u201conde eu voo hoje?\u201d.",
+      "p2": "Constru\u00edmos o produto como se f\u00f4ssemos us\u00e1-lo todos os dias: r\u00e1pido, simples e pronto para escalar."
+    }
+  },
+  "footer": {
+    "rights": "\u00a9 {{year}} AeroVibe. Todos os direitos reservados.",
+    "made_for": "Feito para pilotos de drones.",
+    "legal": "Legal",
+    "links": {
+      "privacy": "Privacidade",
+      "terms": "Termos",
+      "cookies": "Cookies"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Pol\u00edtica de Privacidade",
+      "intro": "O AeroVibe processa informa\u00e7\u00f5es para operar o app (spots, perfis, m\u00eddia e planos de voo). Esta pol\u00edtica resume o que coletamos, como usamos e suas op\u00e7\u00f5es.",
+      "sections": {
+        "data": {
+          "title": "Dados que coletamos",
+          "bullets": [
+            "Conta: email, identificadores de autentica\u00e7\u00e3o e configura\u00e7\u00f5es.",
+            "Conte\u00fado: spots, descri\u00e7\u00f5es, coment\u00e1rios e m\u00eddia que voc\u00ea enviar.",
+            "Localiza\u00e7\u00e3o: se habilitada, coordenadas para criar spots e melhorar o mapa.",
+            "Uso: m\u00e9tricas de performance e diagn\u00f3sticos para melhorar estabilidade."
+          ]
+        },
+        "use": {
+          "title": "Como usamos os dados",
+          "bullets": [
+            "Fornecer recursos (mapa, ranking, hangar, notifica\u00e7\u00f5es).",
+            "Prevenir abuso/fraude e aplicar modera\u00e7\u00e3o.",
+            "Melhorar performance e corrigir problemas.",
+            "Comunicar mudan\u00e7as relevantes do produto."
+          ]
+        },
+        "sharing": {
+          "title": "Terceiros e provedores",
+          "bullets": [
+            "Infra e banco de dados (ex.: Supabase/Postgres) para armazenar dados.",
+            "Mapas (ex.: Mapbox) para renderizar o mapa.",
+            "Armazenamento de m\u00eddia (buckets) para fotos e v\u00eddeos."
+          ]
+        },
+        "retention": {
+          "title": "Reten\u00e7\u00e3o e seguran\u00e7a",
+          "body": "Aplicamos medidas razo\u00e1veis para proteger os dados. Mantemos informa\u00e7\u00f5es enquanto sua conta estiver ativa ou conforme necess\u00e1rio para operar o servi\u00e7o, salvo obriga\u00e7\u00f5es legais."
+        },
+        "rights": {
+          "title": "Seus direitos",
+          "body": "Voc\u00ea pode solicitar acesso, corre\u00e7\u00e3o ou exclus\u00e3o de dados. Se voc\u00ea excluir sua conta, tentaremos remover ou anonimizar informa\u00e7\u00f5es associadas, exceto quando exigido por lei ou para prevenir abuso."
+        },
+        "contact": {
+          "title": "Contato",
+          "body": "Para d\u00favidas de privacidade, escreva para {{email}}."
+        }
+      }
+    },
+    "terms": {
+      "title": "Termos de Uso",
+      "intro": "Ao usar o AeroVibe voc\u00ea concorda com estes termos. Queremos uma comunidade \u00fatil e segura: conte\u00fado real, respeito e zero spam.",
+      "sections": {
+        "accounts": {
+          "title": "Conta e acesso",
+          "bullets": [
+            "Voc\u00ea \u00e9 respons\u00e1vel pela sua conta e credenciais.",
+            "N\u00e3o tente acessar dados ou recursos sem autoriza\u00e7\u00e3o.",
+            "Podemos suspender contas por abuso ou viola\u00e7\u00f5es."
+          ]
+        },
+        "content": {
+          "title": "Conte\u00fado e comunidade",
+          "bullets": [
+            "N\u00e3o publique conte\u00fado ilegal, perigoso ou que viole direitos de terceiros.",
+            "Evite publicar coordenadas sens\u00edveis se isso puder gerar risco.",
+            "Podemos moderar ou remover conte\u00fado que viole pol\u00edticas."
+          ]
+        },
+        "pro": {
+          "title": "Planos Pro",
+          "body": "Recursos Pro podem exigir assinatura. Se voc\u00ea cancelar, os benef\u00edcios podem permanecer at\u00e9 o fim do per\u00edodo pago (dependendo da plataforma de pagamento)."
+        },
+        "disclaimer": {
+          "title": "Aviso",
+          "body": "O AeroVibe n\u00e3o substitui normas locais nem assessoria legal. Sempre verifique regras de voo, clima e permiss\u00f5es antes de operar um drone."
+        }
+      }
+    },
+    "cookies": {
+      "title": "Pol\u00edtica de Cookies",
+      "intro": "Usamos armazenamento local (e, em alguns casos, cookies) para lembrar prefer\u00eancias e melhorar a experi\u00eancia.",
+      "sections": {
+        "essential": {
+          "title": "Essenciais",
+          "bullets": [
+            "Prefer\u00eancias de idioma e tema (claro/escuro).",
+            "Seguran\u00e7a b\u00e1sica e preven\u00e7\u00e3o de abuso."
+          ]
+        },
+        "optional": {
+          "title": "Opcionais",
+          "bullets": [
+            "M\u00e9tricas an\u00f4nimas para melhorar performance (se habilitadas)."
+          ]
+        },
+        "control": {
+          "title": "Como controlar",
+          "body": "Voc\u00ea pode limpar cookies e dados do site nas configura\u00e7\u00f5es do navegador. Algumas fun\u00e7\u00f5es podem deixar de lembrar suas prefer\u00eancias."
+        }
+      }
+    }
+  },
+  "not_found": {
+    "title": "P\u00e1gina n\u00e3o encontrada",
+    "body": "O link que voc\u00ea abriu n\u00e3o existe ou foi movido."
+  }
+}
+

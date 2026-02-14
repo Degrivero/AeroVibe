@@ -1,0 +1,66 @@
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 56px 18px 12px;
+}
+
+.header {
+  padding: 18px 18px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 76%, transparent);
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: -0.5px;
+}
+
+.updated {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.intro {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.body {
+  margin-top: 16px;
+  padding: 6px 0 0;
+}
+
+.section {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: color-mix(in oklab, var(--card) 74%, transparent);
+  padding: 16px 18px;
+  margin-top: 12px;
+}
+
+.h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 820;
+  letter-spacing: 0.1px;
+}
+
+.p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+

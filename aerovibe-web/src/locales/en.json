@@ -1,0 +1,235 @@
+{
+  "meta": {
+    "title": "AeroVibe — Drone spots, flight plans, and community",
+    "description": "Discover real spots, plan flights, and build community. AeroVibe combines map-first discovery, optimized media, hangar, and ranking into a fast experience."
+  },
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies",
+    "theme": "Theme",
+    "language": "Language",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu"
+  },
+  "common": {
+    "back_home": "Back to home",
+    "last_updated": "Last updated: {{date}}",
+    "contact": "Contact: {{email}}",
+    "download_app": "Download the app",
+    "app_store": "App Store",
+    "google_play": "Google Play"
+  },
+  "hero": {
+    "kicker": "Map. Community. Precision.",
+    "title": "Land on real spots. Fly with confidence.",
+    "subtitle": "AeroVibe is the hub to discover, create, and plan drone spots with real location, optimized media, and Pro tools.",
+    "cta_primary": "See plans",
+    "cta_secondary": "Explore features",
+    "note": "iOS and Android. Private beta in progress.",
+    "stats": {
+      "map": { "value": "Living map", "label": "Collaborative spots" },
+      "media": { "value": "Pro media", "label": "Photos + video" },
+      "plans": { "value": "Schedule", "label": "Flight plans" }
+    }
+  },
+  "sections": {
+    "features": {
+      "title": "Everything you need, no noise",
+      "subtitle": "Built for pilots: fast, clear, and focused on what matters.",
+      "cards": {
+        "map_title": "Map-first",
+        "map_body": "Nearby spots, pins, and detail. When creating, pick a point on the map (or use GPS).",
+        "media_title": "Optimized media",
+        "media_body": "Thumbnails, compression, and smooth playback for photo and video.",
+        "flight_title": "Flight plans",
+        "flight_body": "Schedule flights, invite copilots, and get reminders.",
+        "ranking_title": "Ranking + badges",
+        "ranking_body": "Points for real activity. Badges that evolve with your progress.",
+        "hangar_title": "Hangar",
+        "hangar_body": "Your drones, stats, and slots based on your plan.",
+        "moderation_title": "Moderation",
+        "moderation_body": "Tools to keep the community safe and the signal clean."
+      }
+    },
+    "showcase": {
+      "title": "AeroVibe look & feel",
+      "subtitle": "Futuristic dark, lime and cyan. Also available in light.",
+      "chips": {
+        "dark": "Dark mode",
+        "light": "Light mode",
+        "i18n": "ES / EN / PT"
+      },
+      "screens": {
+        "map": "Spots map",
+        "spot": "Spot detail",
+        "plan": "Flight plan",
+        "profile": "Profile + hangar"
+      }
+    },
+    "pricing": {
+      "title": "Pricing",
+      "subtitle": "Start free, upgrade when you need it.",
+      "best_value": "Best value",
+      "save_year": "Save {{pct}}%",
+      "free": {
+        "name": "FREE",
+        "price": "$0",
+        "period": "forever",
+        "cta": "Start",
+        "bullets": [
+          "Public feed and map",
+          "1 drone in hangar",
+          "Basic forecast (24h)",
+          "Marketplace: 1 listing"
+        ]
+      },
+      "pro_month": {
+        "name": "PRO Monthly",
+        "price": "$4.99",
+        "period": "per month",
+        "cta": "Go Pro",
+        "bullets": [
+          "Expanded hangar (up to 5 drones)",
+          "Extended forecast (up to 7 days)",
+          "Higher limits + premium features",
+          "Less friction, more flight"
+        ]
+      },
+      "pro_year": {
+        "name": "PRO Yearly",
+        "price": "$49.99",
+        "period": "per year",
+        "cta": "Go Pro",
+        "bullets": [
+          "Everything in Pro Monthly",
+          "Best monthly equivalent price",
+          "Simple yearly renewal",
+          "Priority for new features"
+        ]
+      }
+    },
+    "about": {
+      "title": "About us",
+      "p1": "We’re a small team obsessed with clean flights, useful data, and a no-BS community. AeroVibe was born from field hours, dead batteries, and that eternal question: “where do I fly today?”.",
+      "p2": "We build the product as if we’ll use it every day: fast, simple, and ready to scale."
+    }
+  },
+  "footer": {
+    "rights": "© {{year}} AeroVibe. All rights reserved.",
+    "made_for": "Made for drone pilots.",
+    "legal": "Legal",
+    "links": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies"
+    }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "AeroVibe processes information to operate the app (spots, profiles, media, and flight plans). This policy summarizes what we collect, how we use it, and your options.",
+      "sections": {
+        "data": {
+          "title": "Data we collect",
+          "bullets": [
+            "Account: email, authentication identifiers, and settings.",
+            "Content: spots, descriptions, comments, and media you upload.",
+            "Location: if enabled, coordinates to create spots and improve the map.",
+            "Usage: performance metrics and diagnostics to improve stability."
+          ]
+        },
+        "use": {
+          "title": "How we use data",
+          "bullets": [
+            "Provide features (map, ranking, hangar, notifications).",
+            "Prevent abuse/fraud and enforce moderation.",
+            "Improve performance and fix issues.",
+            "Communicate relevant product changes."
+          ]
+        },
+        "sharing": {
+          "title": "Third parties and providers",
+          "bullets": [
+            "Infrastructure and database (e.g., Supabase/Postgres) to store data.",
+            "Maps (e.g., Mapbox) to render the map.",
+            "Media storage (buckets) for photos and videos."
+          ]
+        },
+        "retention": {
+          "title": "Retention and security",
+          "body": "We apply reasonable measures to protect data. We keep information while your account is active or as needed to operate the service, unless legal obligations require otherwise."
+        },
+        "rights": {
+          "title": "Your rights",
+          "body": "You can request access, correction, or deletion of data. If you delete your account, we’ll attempt to delete or anonymize associated information, except where required by law or to prevent abuse."
+        },
+        "contact": {
+          "title": "Contact",
+          "body": "For privacy questions, email us at {{email}}."
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "intro": "By using AeroVibe you agree to these terms. We aim for a useful and safe community: real content, respect, and zero spam.",
+      "sections": {
+        "accounts": {
+          "title": "Account and access",
+          "bullets": [
+            "You’re responsible for your account and credentials.",
+            "Do not attempt to access data or features without authorization.",
+            "We may suspend accounts for abuse or violations."
+          ]
+        },
+        "content": {
+          "title": "Content and community",
+          "bullets": [
+            "Do not post illegal or dangerous content, or content that violates third-party rights.",
+            "Avoid posting sensitive coordinates if they can create risk.",
+            "We may moderate or remove content that violates policies."
+          ]
+        },
+        "pro": {
+          "title": "Pro plans",
+          "body": "Pro features may require a subscription. If you cancel, benefits may remain until the end of the paid period (depending on the payment platform)."
+        },
+        "disclaimer": {
+          "title": "Disclaimer",
+          "body": "AeroVibe does not replace local regulations or legal advice. Always verify flight rules, weather, and permissions before operating a drone."
+        }
+      }
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "intro": "We use local storage (and, in some cases, cookies) to remember preferences and improve the experience.",
+      "sections": {
+        "essential": {
+          "title": "Essential",
+          "bullets": [
+            "Language and theme preferences (light/dark).",
+            "Basic security and abuse prevention."
+          ]
+        },
+        "optional": {
+          "title": "Optional",
+          "bullets": [
+            "Anonymous metrics to improve performance (if enabled)."
+          ]
+        },
+        "control": {
+          "title": "How to control them",
+          "body": "You can clear cookies and site data from your browser settings. Some features may stop remembering your preferences."
+        }
+      }
+    }
+  },
+  "not_found": {
+    "title": "Page not found",
+    "body": "The link you opened doesn’t exist or was moved."
+  }
+}
+
