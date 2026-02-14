@@ -3,7 +3,6 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import styles from './SiteHeader.module.css'
-import { BrandMark } from './BrandMark'
 import { setLang, type SupportedLang } from '../app/i18n'
 import { useTheme } from '../app/theme'
 
@@ -59,10 +58,40 @@ function IconClose() {
   )
 }
 
+function IconGlobe() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M2 12h20"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M12 2c2.6 2.6 4 6 4 10s-1.4 7.4-4 10c-2.6-2.6-4-6-4-10s1.4-7.4 4-10Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  )
+}
+
 function ThemeButton() {
+  const { t } = useTranslation()
   const { theme, toggle } = useTheme()
   return (
-    <button className={styles.iconBtn} type="button" onClick={toggle} aria-label="Toggle theme">
+    <button
+      className={styles.iconBtn}
+      type="button"
+      onClick={toggle}
+      aria-label={t('nav.theme')}
+      title={t('nav.theme')}
+    >
       {theme === 'dark' ? <IconSun /> : <IconMoon />}
     </button>
   )
@@ -73,19 +102,24 @@ function LangSelect() {
   const value = (i18n.resolvedLanguage || i18n.language || 'en').slice(0, 2) as SupportedLang
 
   return (
-    <label className={styles.langWrap}>
-      <span className={styles.srOnly}>{t('nav.language')}</span>
-      <select
-        className={styles.lang}
-        value={value}
-        onChange={(e) => setLang(e.target.value as SupportedLang)}
-        aria-label={t('nav.language')}
-      >
-        <option value="es">ES</option>
-        <option value="en">EN</option>
-        <option value="pt">PT</option>
-      </select>
-    </label>
+    <div className={styles.langWrap}>
+      <span className={styles.langIcon} title={t('nav.language')} aria-hidden="true">
+        <IconGlobe />
+      </span>
+      <label className={styles.langLabel}>
+        <span className={styles.srOnly}>{t('nav.language')}</span>
+        <select
+          className={styles.lang}
+          value={value}
+          onChange={(e) => setLang(e.target.value as SupportedLang)}
+          aria-label={t('nav.language')}
+        >
+          <option value="es">🇪🇸 ES</option>
+          <option value="en">🇺🇸 EN</option>
+          <option value="pt">🇧🇷 PT</option>
+        </select>
+      </label>
+    </div>
   )
 }
 
@@ -107,7 +141,7 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
       <NavLink to={homeTo('#pricing')} className={styles.navLink} onClick={onNavigate}>
         {t('nav.pricing')}
       </NavLink>
-      <NavLink to={homeTo('#about')} className={styles.navLink} onClick={onNavigate}>
+      <NavLink to="/about" className={styles.navLink} onClick={onNavigate}>
         {t('nav.about')}
       </NavLink>
     </nav>
@@ -122,7 +156,7 @@ export function SiteHeader() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link className={styles.brand} to="/" onClick={() => setOpen(false)}>
-          <BrandMark size={26} />
+          <img className={styles.brandLogo} src="/assets/brand/logo.png" alt="AeroVibe" width={26} height={26} />
           <span className={styles.brandText}>AeroVibe</span>
         </Link>
 
@@ -157,6 +191,9 @@ export function SiteHeader() {
             </Link>
             <Link className={styles.legalLink} to="/cookies" onClick={() => setOpen(false)}>
               {t('nav.cookies')}
+            </Link>
+            <Link className={styles.legalLink} to="/faq" onClick={() => setOpen(false)}>
+              {t('footer.links.faq')}
             </Link>
           </div>
         </div>

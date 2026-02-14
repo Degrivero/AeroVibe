@@ -124,11 +124,11 @@
   "footer": {
     "rights": "© {{year}} AeroVibe. All rights reserved.",
     "made_for": "Made for drone pilots.",
-    "legal": "Legal",
     "links": {
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "cookies": "Cookies"
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookies",
+      "faq": "FAQs"
     }
   },
   "legal": {
@@ -319,6 +319,36 @@
         }
       }
     }
+  },
+  "faq": {
+    "title": "FAQs",
+    "subtitle": "Quick answers to get started without friction.",
+    "items": [
+      {
+        "q": "What is AeroVibe?",
+        "a": "AeroVibe is a platform to discover, create, and plan drone spots with real location, optimized media, and tools to fly with more context."
+      },
+      {
+        "q": "Do I need an account to use AeroVibe?",
+        "a": "You can browse public content without an account. To interact (create spots, comment, favorites, flight plans) you need to sign in."
+      },
+      {
+        "q": "Who can see my spots?",
+        "a": "The product is designed to be collaborative: spots are meant to be public and useful to the community. Additional controls may arrive later."
+      },
+      {
+        "q": "What’s included in Pro?",
+        "a": "More hangar slots, extended forecast, higher limits, and early access to premium features. Details may evolve as the product grows."
+      },
+      {
+        "q": "Does AeroVibe track my location in the background?",
+        "a": "No. We only use location when you allow it and when you need it (for example, to create spots or show nearby content)."
+      },
+      {
+        "q": "How do I report content or get help?",
+        "a": "We’re adding moderation and reporting tools. For support, email support@aerovibe.app."
+      }
+    ]
   },
   "not_found": {
     "title": "Page not found",

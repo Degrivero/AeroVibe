@@ -7,7 +7,7 @@
   --cyan: #00b2ff;
 
   /* Layout */
-  --page-max: 1560px;
+  --page-max: 1720px;
   --page-pad: clamp(18px, 4vw, 56px);
 }
 
@@ -57,15 +57,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--fg);
-  background: radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 22%, transparent), transparent 55%),
-    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 50%),
-    var(--bg);
-}
-
-html[data-theme='light'] body {
-  background: radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 30%, transparent), transparent 58%),
-    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 52%),
-    var(--bg);
+  background: var(--bg);
 }
 
 a {

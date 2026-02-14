@@ -5,6 +5,40 @@
   backdrop-filter: blur(14px);
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 14% 10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 55%),
+    radial-gradient(circle at 86% 0%, color-mix(in oklab, var(--cyan) 18%, transparent), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 72%);
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--accent) 65%, transparent) 35%,
+    color-mix(in oklab, var(--cyan) 65%, transparent) 65%,
+    transparent 100%
+  );
+  opacity: 0.7;
+  z-index: 0;
 }
 
 .inner {
@@ -15,6 +49,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+  position: relative;
+  z-index: 1;
 }
 
 .brand {
@@ -23,6 +59,14 @@
   gap: 10px;
   text-decoration: none;
   color: var(--header-fg);
+}
+
+.brandLogo {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
 }
 
 .brandText {
@@ -86,6 +130,24 @@
 
 .langWrap {
   display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.langLabel {
+  display: inline-flex;
+}
+
+.langIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--header-surface);
+  border: 1px solid var(--header-surface-border);
+  color: var(--header-fg);
 }
 
 .lang {
@@ -122,6 +184,8 @@
 .mobilePanel {
   border-top: 1px solid var(--header-border);
   padding: 14px var(--page-pad) 18px;
+  position: relative;
+  z-index: 1;
 }
 
 .mobileLegal {

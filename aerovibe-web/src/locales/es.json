@@ -128,11 +128,11 @@
   "footer": {
     "rights": "© {{year}} AeroVibe. Todos los derechos reservados.",
     "made_for": "Hecho para pilotos de drones.",
-    "legal": "Legal",
     "links": {
-      "privacy": "Privacidad",
-      "terms": "Términos",
-      "cookies": "Cookies"
+      "privacy": "Política de Privacidad",
+      "terms": "Términos y Condiciones",
+      "cookies": "Cookies",
+      "faq": "FAQs"
     }
   },
   "legal": {
@@ -272,7 +272,8 @@
         { "type": "p", "text": "Podés ejercer estos derechos escribiendo a support@aerovibe.app." },
 
         { "type": "h2", "text": "10. Edad mínima" },
-        { "type": "p", "text": "AeroVibe no está dirigido a menores de 13 años (o 16 donde la ley lo exija)." },
+        { "type": "p", "text": "AeroVibe no está dirigido a menores de 18 años (o la mayoría de edad que exija la ley local)." },
+        { "type": "p", "text": "Para menores, invitamos a que sus padres o tutores utilicen la plataforma en conjunto con ellos." },
         { "type": "p", "text": "Si detectamos cuentas que no cumplen este requisito, podremos eliminarlas." },
 
         { "type": "h2", "text": "11. Cambios en esta política" },
@@ -463,6 +464,36 @@
         }
       }
     }
+  },
+  "faq": {
+    "title": "FAQs",
+    "subtitle": "Respuestas rápidas para arrancar sin fricción.",
+    "items": [
+      {
+        "q": "¿Qué es AeroVibe?",
+        "a": "AeroVibe es una plataforma para descubrir, crear y planificar spots de drones con ubicación real, media optimizada y herramientas para volar con más contexto."
+      },
+      {
+        "q": "¿Necesito cuenta para usar AeroVibe?",
+        "a": "Podés explorar contenido público sin cuenta. Para interactuar (crear spots, comentar, favoritos, planes de vuelo) necesitás iniciar sesión."
+      },
+      {
+        "q": "¿Quién puede ver mis spots?",
+        "a": "La idea del proyecto es colaborativa: los spots están pensados para ser públicos y útiles para la comunidad. Algunas funciones pueden ofrecer control adicional más adelante."
+      },
+      {
+        "q": "¿Qué incluye el Plan Pro?",
+        "a": "Más slots de hangar, pronóstico extendido, límites ampliados y acceso prioritario a features premium. Los detalles pueden variar según la evolución del producto."
+      },
+      {
+        "q": "¿AeroVibe rastrea mi ubicación en segundo plano?",
+        "a": "No. Solo usamos ubicación cuando vos la autorizás y cuando la necesitás (por ejemplo, para crear spots o mostrar contenido cercano)."
+      },
+      {
+        "q": "¿Cómo reporto contenido o pido ayuda?",
+        "a": "Estamos incorporando herramientas de moderación y reportes. Si necesitás soporte, escribinos a support@aerovibe.app."
+      }
+    ]
   },
   "not_found": {
     "title": "Página no encontrada",

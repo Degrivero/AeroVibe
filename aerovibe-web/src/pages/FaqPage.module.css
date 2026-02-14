@@ -1,0 +1,67 @@
+.wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 64px var(--page-pad) 12px;
+}
+
+.header {
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  padding: 22px 22px 18px;
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: -0.6px;
+}
+
+.sub {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.list {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.item {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  padding: 12px 14px;
+}
+
+.summary {
+  cursor: pointer;
+  font-weight: 820;
+  letter-spacing: 0.1px;
+  list-style: none;
+  outline: none;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary::after {
+  content: '+';
+  float: right;
+  color: var(--muted);
+}
+
+.item[open] .summary::after {
+  content: '–';
+}
+
+.answer {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+

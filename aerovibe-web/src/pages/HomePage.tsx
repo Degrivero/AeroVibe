@@ -81,7 +81,6 @@ export function HomePage() {
     <div className={styles.page}>
       <section className={styles.hero}>
         <div className={styles.heroBg} aria-hidden="true">
-          <div className={styles.grid} />
           <div className={styles.orb1} />
           <div className={styles.orb2} />
           <div className={styles.radar} />
@@ -106,7 +105,6 @@ export function HomePage() {
 
             <div className={styles.heroRight} aria-hidden="true">
               <div className={styles.heroPanel}>
-                <div className={styles.heroPanelGrid} />
                 <div className={styles.heroPanelSweep} />
                 <div className={styles.heroPin} style={{ left: '18%', top: '38%' }} />
                 <div className={styles.heroPin} style={{ left: '62%', top: '30%' }} />
@@ -117,94 +115,85 @@ export function HomePage() {
           </div>
 
           <div className={styles.heroBottom}>
-            <div className={styles.noteCentered}>{t('hero.note')}</div>
             <StoreBadges />
           </div>
         </div>
       </section>
 
-      <section className={styles.section} id="features">
-        <div className={styles.sectionInner}>
-          <h2 className={styles.h2}>{t('sections.features.title')}</h2>
-          <p className={styles.sectionSub}>{t('sections.features.subtitle')}</p>
+      <section className={styles.blockTwo}>
+        <div className={styles.blockTwoBg} aria-hidden="true">
+          <div className={styles.blockOrb1} />
+          <div className={styles.blockOrb2} />
+        </div>
 
-          <div className={styles.featureGrid}>
-            <div className={styles.featureCard}>
-              <div className={styles.featureTitle}>{t('sections.features.cards.map_title')}</div>
-              <div className={styles.featureBody}>{t('sections.features.cards.map_body')}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureTitle}>{t('sections.features.cards.media_title')}</div>
-              <div className={styles.featureBody}>{t('sections.features.cards.media_body')}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureTitle}>{t('sections.features.cards.flight_title')}</div>
-              <div className={styles.featureBody}>{t('sections.features.cards.flight_body')}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureTitle}>{t('sections.features.cards.ranking_title')}</div>
-              <div className={styles.featureBody}>{t('sections.features.cards.ranking_body')}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureTitle}>{t('sections.features.cards.hangar_title')}</div>
-              <div className={styles.featureBody}>{t('sections.features.cards.hangar_body')}</div>
-            </div>
-            <div className={styles.featureCard}>
-              <div className={styles.featureTitle}>{t('sections.features.cards.moderation_title')}</div>
-              <div className={styles.featureBody}>{t('sections.features.cards.moderation_body')}</div>
+        <section className={styles.section} id="features">
+          <div className={styles.sectionInner}>
+            <h2 className={styles.h2}>{t('sections.features.title')}</h2>
+            <p className={styles.sectionSub}>{t('sections.features.subtitle')}</p>
+
+            <div className={styles.featureGrid}>
+              <div className={styles.featureCard}>
+                <div className={styles.featureTitle}>{t('sections.features.cards.map_title')}</div>
+                <div className={styles.featureBody}>{t('sections.features.cards.map_body')}</div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureTitle}>{t('sections.features.cards.media_title')}</div>
+                <div className={styles.featureBody}>{t('sections.features.cards.media_body')}</div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureTitle}>{t('sections.features.cards.flight_title')}</div>
+                <div className={styles.featureBody}>{t('sections.features.cards.flight_body')}</div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureTitle}>{t('sections.features.cards.ranking_title')}</div>
+                <div className={styles.featureBody}>{t('sections.features.cards.ranking_body')}</div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureTitle}>{t('sections.features.cards.hangar_title')}</div>
+                <div className={styles.featureBody}>{t('sections.features.cards.hangar_body')}</div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureTitle}>{t('sections.features.cards.moderation_title')}</div>
+                <div className={styles.featureBody}>{t('sections.features.cards.moderation_body')}</div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className={styles.section} id="pricing">
-        <div className={styles.sectionInner}>
-          <h2 className={styles.h2}>{t('sections.pricing.title')}</h2>
-          <p className={styles.sectionSub}>{t('sections.pricing.subtitle')}</p>
+        <section className={styles.section} id="pricing">
+          <div className={styles.sectionInner}>
+            <h2 className={styles.h2}>{t('sections.pricing.title')}</h2>
+            <p className={styles.sectionSub}>{t('sections.pricing.subtitle')}</p>
 
-          <div className={styles.priceGrid}>
-            <PricingCard
-              title={t('sections.pricing.free.name')}
-              price={t('sections.pricing.free.price')}
-              period={t('sections.pricing.free.period')}
-              bullets={freeBullets}
-              cta={t('sections.pricing.free.cta')}
-            />
-            <PricingCard
-              title={t('sections.pricing.pro_month.name')}
-              price={t('sections.pricing.pro_month.price')}
-              period={t('sections.pricing.pro_month.period')}
-              bullets={proMonthBullets}
-              cta={t('sections.pricing.pro_month.cta')}
-            />
-            <PricingCard
-              title={t('sections.pricing.pro_year.name')}
-              price={t('sections.pricing.pro_year.price')}
-              period={t('sections.pricing.pro_year.period')}
-              bullets={proYearBullets}
-              cta={t('sections.pricing.pro_year.cta')}
-              featured
-              badge={t('sections.pricing.best_value')}
-            />
+            <div className={styles.priceGrid}>
+              <PricingCard
+                title={t('sections.pricing.free.name')}
+                price={t('sections.pricing.free.price')}
+                period={t('sections.pricing.free.period')}
+                bullets={freeBullets}
+                cta={t('sections.pricing.free.cta')}
+              />
+              <PricingCard
+                title={t('sections.pricing.pro_month.name')}
+                price={t('sections.pricing.pro_month.price')}
+                period={t('sections.pricing.pro_month.period')}
+                bullets={proMonthBullets}
+                cta={t('sections.pricing.pro_month.cta')}
+              />
+              <PricingCard
+                title={t('sections.pricing.pro_year.name')}
+                price={t('sections.pricing.pro_year.price')}
+                period={t('sections.pricing.pro_year.period')}
+                bullets={proYearBullets}
+                cta={t('sections.pricing.pro_year.cta')}
+                featured
+                badge={t('sections.pricing.best_value')}
+              />
+            </div>
           </div>
+        </section>
 
-          <div className={styles.priceNote}>{t('hero.note')}</div>
-        </div>
-      </section>
-
-      <section className={styles.section} id="about">
-        <div className={styles.sectionInner}>
-          <h2 className={styles.h2}>{t('sections.about.title')}</h2>
-          <div className={styles.aboutCard}>
-            <p className={styles.aboutP}>{t('sections.about.p1')}</p>
-            <p className={styles.aboutP}>{t('sections.about.p2')}</p>
-            <p className={styles.aboutP}>{t('sections.about.p3')}</p>
-            <p className={styles.aboutP}>{t('sections.about.p4')}</p>
-            <p className={styles.aboutP}>{t('sections.about.p5')}</p>
-            <p className={styles.aboutP}>{t('sections.about.p6')}</p>
-            <p className={styles.aboutP}>{t('sections.about.p7')}</p>
-          </div>
-        </div>
+        <div className={styles.betaCentered}>{t('hero.note')}</div>
       </section>
     </div>
   )

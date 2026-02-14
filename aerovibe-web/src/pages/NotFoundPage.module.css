@@ -1,7 +1,7 @@
 .wrap {
-  max-width: 960px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 72px 18px;
+  padding: 72px var(--page-pad);
 }
 
 .h1 {
@@ -33,4 +33,3 @@
 .cta:hover {
   filter: brightness(1.03);
 }
-

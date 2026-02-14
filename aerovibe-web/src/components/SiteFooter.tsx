@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import styles from './SiteFooter.module.css'
-import { BrandMark } from './BrandMark'
 
 export function SiteFooter() {
   const { t } = useTranslation()
@@ -13,14 +12,13 @@ export function SiteFooter() {
       <div className={styles.inner}>
         <div className={styles.brandCol}>
           <div className={styles.brandRow}>
-            <BrandMark size={22} />
+            <img className={styles.brandLogo} src="/assets/brand/logo.png" alt="AeroVibe" width={22} height={22} />
             <span className={styles.brandText}>AeroVibe</span>
           </div>
           <div className={styles.madeFor}>{t('footer.made_for')}</div>
         </div>
 
-        <div className={styles.linksCol}>
-          <div className={styles.colTitle}>{t('footer.legal')}</div>
+        <div className={styles.linksRow} aria-label="Footer links">
           <Link className={styles.link} to="/privacy">
             {t('footer.links.privacy')}
           </Link>
@@ -29,6 +27,9 @@ export function SiteFooter() {
           </Link>
           <Link className={styles.link} to="/cookies">
             {t('footer.links.cookies')}
+          </Link>
+          <Link className={styles.link} to="/faq">
+            {t('footer.links.faq')}
           </Link>
         </div>
       </div>

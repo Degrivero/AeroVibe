@@ -6,30 +6,23 @@
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 22%, transparent), transparent 58%),
+    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 52%),
+    var(--bg);
+}
+
+:global(html[data-theme='light']) .hero {
+  background:
+    radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 30%, transparent), transparent 60%),
+    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 54%),
+    var(--bg);
 }
 
 .heroBg {
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-
-.grid {
-  position: absolute;
-  inset: -40px;
-  background-image: linear-gradient(
-      to right,
-      color-mix(in oklab, var(--grid) 36%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--grid) 36%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 44px 44px;
-  mask-image: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 68%);
-  opacity: 0.75;
 }
 
 .orb1,
@@ -86,10 +79,6 @@
   transform-origin: 50% 50%;
 }
 
-:global(html[data-theme='light']) .grid {
-  opacity: 0.95;
-}
-
 :global(html[data-theme='light']) .radar {
   opacity: 0.9;
   border-color: color-mix(in oklab, var(--accent) 62%, transparent);
@@ -141,28 +130,6 @@
 :global(html[data-theme='light']) .heroPanel {
   background: color-mix(in oklab, var(--card) 92%, transparent);
   box-shadow: 0 18px 44px rgba(10, 14, 18, 0.12);
-}
-
-.heroPanelGrid {
-  position: absolute;
-  inset: -30px;
-  background-image: linear-gradient(
-      to right,
-      color-mix(in oklab, var(--grid) 28%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--grid) 28%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 46px 46px;
-  opacity: 0.85;
-  mask-image: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
-}
-
-:global(html[data-theme='light']) .heroPanelGrid {
-  opacity: 0.95;
 }
 
 .heroPanelSweep {
@@ -316,12 +283,6 @@
   gap: 12px;
 }
 
-.noteCentered {
-  color: var(--muted);
-  font-size: 13px;
-  text-align: center;
-}
-
 .storeBadges {
   display: flex;
   flex-wrap: wrap;
@@ -352,6 +313,62 @@
   height: 48px;
   width: auto;
   filter: drop-shadow(0 0 0.9px rgba(255, 255, 255, 0.25)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
+}
+
+.blockTwo {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 20%, color-mix(in oklab, var(--cyan) 18%, transparent), transparent 60%),
+    radial-gradient(circle at 84% 30%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 58%),
+    var(--bg);
+}
+
+:global(html[data-theme='light']) .blockTwo {
+  background:
+    radial-gradient(circle at 10% 20%, color-mix(in oklab, var(--cyan) 22%, transparent), transparent 62%),
+    radial-gradient(circle at 84% 30%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
+    var(--bg);
+}
+
+.blockTwoBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blockOrb1,
+.blockOrb2 {
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  border-radius: 999px;
+  filter: blur(46px);
+  opacity: 0.65;
+  animation: floaty 14s ease-in-out infinite;
+}
+
+.blockOrb1 {
+  left: -240px;
+  top: 80px;
+  background: radial-gradient(circle at 30% 30%, var(--cyan), transparent 62%);
+}
+
+.blockOrb2 {
+  right: -260px;
+  bottom: -240px;
+  background: radial-gradient(circle at 20% 20%, var(--accent), transparent 62%);
+  animation-delay: -5s;
+}
+
+.betaCentered {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad) 72px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
 }
 
 
@@ -548,30 +565,6 @@
 
 .priceCtaFeatured:hover {
   filter: brightness(1.03);
-}
-
-.priceNote {
-  margin-top: 16px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.aboutCard {
-  margin-top: 16px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  background: color-mix(in oklab, var(--card) 74%, transparent);
-  padding: 18px;
-}
-
-.aboutP {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.aboutP + .aboutP {
-  margin-top: 12px;
 }
 
 @keyframes floaty {

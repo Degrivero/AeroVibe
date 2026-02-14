@@ -1,0 +1,39 @@
+.wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 64px var(--page-pad) 12px;
+}
+
+.header {
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  padding: 22px 22px 18px;
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 34px;
+  letter-spacing: -0.6px;
+}
+
+.body {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  padding: 18px 22px;
+}
+
+.p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.p + .p {
+  margin-top: 14px;
+}
+

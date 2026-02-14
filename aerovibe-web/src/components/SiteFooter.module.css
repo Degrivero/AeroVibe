@@ -25,6 +25,14 @@
   gap: 10px;
 }
 
+.brandLogo {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  display: block;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.25));
+}
+
 .brandText {
   font-family: var(--font-display);
   font-weight: 760;
@@ -36,16 +44,11 @@
   font-weight: 560;
 }
 
-.linksCol {
+.linksRow {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.colTitle {
-  color: var(--fg);
-  font-weight: 720;
-  margin-bottom: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
 }
 
 .link {
@@ -67,11 +70,16 @@
   padding: 14px var(--page-pad) 24px;
   color: var(--muted);
   font-size: 12px;
+  text-align: center;
 }
 
 @media (min-width: 780px) {
   .inner {
     grid-template-columns: 1.4fr 1fr;
     align-items: start;
+  }
+
+  .linksRow {
+    justify-content: flex-end;
   }
 }

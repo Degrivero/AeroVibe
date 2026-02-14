@@ -10,9 +10,9 @@
 }
 
 .routeError {
-  max-width: 960px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 72px 20px;
+  padding: 72px var(--page-pad);
 }
 
 .routeErrorBody {
@@ -49,4 +49,3 @@
   overflow: auto;
   font-size: 12px;
 }
-

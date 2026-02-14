@@ -1,5 +1,5 @@
 .wrap {
-  max-width: 900px;
+  max-width: var(--page-max);
   margin: 0 auto;
   padding: 56px var(--page-pad) 12px;
 }
