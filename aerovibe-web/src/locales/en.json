@@ -135,6 +135,49 @@
     "privacy": {
       "title": "Privacy Policy",
       "intro": "AeroVibe processes information to operate the app (spots, profiles, media, and flight plans). This policy summarizes what we collect, how we use it, and your options.",
+      "blocks": [
+        { "type": "h2", "text": "Data we collect" },
+        {
+          "type": "ul",
+          "items": [
+            "Account: email, authentication identifiers, and settings.",
+            "Content: spots, descriptions, comments, and media you upload.",
+            "Location: if enabled, coordinates to create spots and improve the map.",
+            "Usage: performance metrics and diagnostics to improve stability."
+          ]
+        },
+        { "type": "h2", "text": "How we use data" },
+        {
+          "type": "ul",
+          "items": [
+            "Provide features (map, ranking, hangar, notifications).",
+            "Prevent abuse/fraud and enforce moderation.",
+            "Improve performance and fix issues.",
+            "Communicate relevant product changes."
+          ]
+        },
+        { "type": "h2", "text": "Third parties and providers" },
+        {
+          "type": "ul",
+          "items": [
+            "Infrastructure and database (e.g., Supabase/Postgres) to store data.",
+            "Maps (e.g., Mapbox) to render the map.",
+            "Media storage (buckets) for photos and videos."
+          ]
+        },
+        { "type": "h2", "text": "Retention and security" },
+        {
+          "type": "p",
+          "text": "We apply reasonable measures to protect data. We keep information while your account is active or as needed to operate the service, unless legal obligations require otherwise."
+        },
+        { "type": "h2", "text": "Your rights" },
+        {
+          "type": "p",
+          "text": "You can request access, correction, or deletion of data. If you delete your account, we’ll attempt to delete or anonymize associated information, except where required by law or to prevent abuse."
+        },
+        { "type": "h2", "text": "Contact" },
+        { "type": "p", "text": "For privacy questions, email us at support@aerovibe.app." }
+      ],
       "sections": {
         "data": {
           "title": "Data we collect",
@@ -179,6 +222,36 @@
     "terms": {
       "title": "Terms of Service",
       "intro": "By using AeroVibe you agree to these terms. We aim for a useful and safe community: real content, respect, and zero spam.",
+      "blocks": [
+        { "type": "h2", "text": "Account and access" },
+        {
+          "type": "ul",
+          "items": [
+            "You’re responsible for your account and credentials.",
+            "Do not attempt to access data or features without authorization.",
+            "We may suspend accounts for abuse or violations."
+          ]
+        },
+        { "type": "h2", "text": "Content and community" },
+        {
+          "type": "ul",
+          "items": [
+            "Do not post illegal or dangerous content, or content that violates third-party rights.",
+            "Avoid posting sensitive coordinates if they can create risk.",
+            "We may moderate or remove content that violates policies."
+          ]
+        },
+        { "type": "h2", "text": "Pro plans" },
+        {
+          "type": "p",
+          "text": "Pro features may require a subscription. If you cancel, benefits may remain until the end of the paid period (depending on the payment platform)."
+        },
+        { "type": "h2", "text": "Disclaimer" },
+        {
+          "type": "p",
+          "text": "AeroVibe does not replace local regulations or legal advice. Always verify flight rules, weather, and permissions before operating a drone."
+        }
+      ],
       "sections": {
         "accounts": {
           "title": "Account and access",
@@ -209,6 +282,23 @@
     "cookies": {
       "title": "Cookie Policy",
       "intro": "We use local storage (and, in some cases, cookies) to remember preferences and improve the experience.",
+      "blocks": [
+        { "type": "h2", "text": "Essential" },
+        {
+          "type": "ul",
+          "items": [
+            "Language and theme preferences (light/dark).",
+            "Basic security and abuse prevention."
+          ]
+        },
+        { "type": "h2", "text": "Optional" },
+        { "type": "ul", "items": ["Anonymous metrics to improve performance (if enabled)."] },
+        { "type": "h2", "text": "How to control them" },
+        {
+          "type": "p",
+          "text": "You can clear cookies and site data from your browser settings. Some features may stop remembering your preferences."
+        }
+      ],
       "sections": {
         "essential": {
           "title": "Essential",

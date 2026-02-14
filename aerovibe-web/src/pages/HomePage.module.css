@@ -86,10 +86,31 @@
   transform-origin: 50% 50%;
 }
 
+:global(html[data-theme='light']) .grid {
+  opacity: 0.95;
+}
+
+:global(html[data-theme='light']) .radar {
+  opacity: 0.9;
+  border-color: color-mix(in oklab, var(--accent) 62%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 32%, transparent);
+}
+
+:global(html[data-theme='light']) .radar::before {
+  background: conic-gradient(
+    from 20deg,
+    transparent 0deg,
+    transparent 248deg,
+    color-mix(in oklab, var(--accent) 18%, transparent) 282deg,
+    color-mix(in oklab, var(--accent) 48%, transparent) 322deg,
+    transparent 360deg
+  );
+}
+
 .heroInner {
-  max-width: 1280px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 82px 18px 56px;
+  padding: 82px var(--page-pad) 56px;
   position: relative;
 }
 
@@ -117,6 +138,11 @@
   overflow: hidden;
 }
 
+:global(html[data-theme='light']) .heroPanel {
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  box-shadow: 0 18px 44px rgba(10, 14, 18, 0.12);
+}
+
 .heroPanelGrid {
   position: absolute;
   inset: -30px;
@@ -135,6 +161,10 @@
   mask-image: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 70%);
 }
 
+:global(html[data-theme='light']) .heroPanelGrid {
+  opacity: 0.95;
+}
+
 .heroPanelSweep {
   position: absolute;
   right: -180px;
@@ -146,6 +176,12 @@
   box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 16%, transparent);
   mask-image: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 62%);
   opacity: 0.8;
+}
+
+:global(html[data-theme='light']) .heroPanelSweep {
+  border-color: color-mix(in oklab, var(--accent) 58%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 24%, transparent);
+  opacity: 0.9;
 }
 
 .heroPanelSweep::before {
@@ -162,6 +198,17 @@
     transparent 360deg
   );
   animation: sweep 7.2s linear infinite;
+}
+
+:global(html[data-theme='light']) .heroPanelSweep::before {
+  background: conic-gradient(
+    from 20deg,
+    transparent 0deg,
+    transparent 248deg,
+    color-mix(in oklab, var(--accent) 14%, transparent) 282deg,
+    color-mix(in oklab, var(--accent) 42%, transparent) 322deg,
+    transparent 360deg
+  );
 }
 
 .heroPin {
@@ -287,58 +334,35 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
-  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  transition: transform 160ms ease-out, opacity 160ms ease-out;
 }
 
 .badgeLink:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  opacity: 0.95;
 }
 
 .badgeImg {
   display: block;
   height: 48px;
   width: auto;
+  filter: drop-shadow(0 0 0.9px rgba(255, 255, 255, 0.25)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
 }
 
-.statsRow {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  margin-top: 26px;
-}
-
-.stat {
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in oklab, var(--border) 78%, transparent);
-  background: color-mix(in oklab, var(--card) 68%, transparent);
-}
-
-.statValue {
-  font-weight: 820;
-  color: var(--fg);
-}
-
-.statLabel {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 2px;
-}
 
 .section {
   padding: 64px 0;
 }
 
 .sectionInner {
-  max-width: 1280px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 0 18px;
+  padding: 0 var(--page-pad);
 }
 
 .h2 {
@@ -417,6 +441,10 @@
   z-index: 0;
 }
 
+:global(html[data-theme='light']) .priceCardFeatured::before {
+  opacity: 1;
+}
+
 .priceCardFeatured::after {
   content: '';
   position: absolute;
@@ -440,6 +468,12 @@
   opacity: 0.8;
   pointer-events: none;
   z-index: 0;
+}
+
+:global(html[data-theme='light']) .priceCardFeatured::after {
+  opacity: 0.95;
+  border-color: color-mix(in oklab, var(--accent) 58%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 22%, transparent);
 }
 
 .priceCardFeatured > * {
@@ -572,10 +606,6 @@
 @media (min-width: 720px) {
   .title {
     font-size: 54px;
-  }
-
-  .statsRow {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .featureGrid {

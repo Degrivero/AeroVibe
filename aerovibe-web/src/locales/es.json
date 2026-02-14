@@ -116,9 +116,13 @@
     },
     "about": {
       "title": "Sobre nosotros",
-      "p1": "AeroVibe nació en el lugar donde siempre empieza todo: mochila al hombro, baterías al 12%, viento que cambia en cinco minutos y la misma conversación en grupo: “¿dónde volamos hoy sin perder tiempo?”.",
-      "p2": "Somos un equipo chico (y bien obsesivo) que quiere que la comunidad tenga más señal y menos humo: spots reales, media que carga rápido, perfiles estables y herramientas que te ayuden a tomar decisiones antes de despegar.",
-      "p3": "Si alguna vez te frustró llegar a un lugar y descubrir que no era lo que parecía, o si querés compartir un spot que vale la pena sin que se pierda en el feed, estás en tu casa. Estamos construyendo AeroVibe con feedback real de pilotos — y lo estamos haciendo para usarlo todos los días."
+      "p1": "AeroVibe no nació en una sala de reuniones. Nació en la cancha. En ese momento incómodo en el que ya cargaste todo, manejaste media ciudad, y cuando por fin llegás… el spot no era lo que prometía. Viento cruzado, cables invisibles en el mapa, restricciones que nadie avisó. Tiempo perdido. Energía perdida. Inspiración al piso.",
+      "p2": "Ahí entendimos algo simple: volar ya tiene suficientes variables como para además improvisar información.",
+      "p3": "Somos un equipo chico — y sí, bastante obsesivo — construyendo la plataforma que nos hubiera gustado tener desde el primer vuelo. Queremos más señal y menos humo. Spots reales, con contexto real. Media que carga rápido porque nadie quiere esperar en el campo. Perfiles estables, métricas claras y herramientas que te ayuden a decidir antes de despegar, no después.",
+      "p4": "Creemos en la comunidad por encima del algoritmo. En que un buen spot no debería perderse en un feed infinito. En que compartir información útil no es “regalar ventaja”, es elevar el nivel de todos. Y en que la tecnología tiene que estar al servicio del piloto, no al revés.",
+      "p5": "Si alguna vez te frustró llegar a un lugar y descubrir que no era lo que parecía, este proyecto también es tuyo. Si encontraste un spot increíble y pensaste “esto no se puede perder”, estamos del mismo lado. AeroVibe se está construyendo con feedback real de pilotos, vuelo tras vuelo, iteración tras iteración.",
+      "p6": "No queremos ser una red social más. Queremos ser la base antes del despegue. El lugar donde planificás mejor, descubrís más y compartís con propósito.",
+      "p7": "Esto recién empieza. Y lo estamos construyendo para usarlo todos los días."
     }
   },
   "footer": {
@@ -134,7 +138,147 @@
   "legal": {
     "privacy": {
       "title": "Política de Privacidad",
-      "intro": "AeroVibe procesa información para operar la app (spots, perfiles, media y planes de vuelo). Esta política resume qué datos recopilamos, cómo los usamos y tus opciones.",
+      "intro": "",
+      "blocks": [
+        { "type": "h2", "text": "1. Introducción" },
+        {
+          "type": "p",
+          "text": "AeroVibe (“AeroVibe”, “nosotros”, “la plataforma”) respeta tu privacidad y se compromete a proteger tus datos personales. Esta Política describe qué información recopilamos, cómo la utilizamos, bajo qué bases legales la tratamos y cuáles son tus derechos."
+        },
+        { "type": "p", "text": "Esta política aplica al uso de la aplicación móvil, sitio web y servicios asociados." },
+
+        { "type": "h2", "text": "2. Datos que recopilamos" },
+        { "type": "h3", "text": "2.1 Datos de cuenta" },
+        { "type": "ul", "items": ["Email", "Identificadores de autenticación", "Configuración de perfil", "Preferencias de la cuenta"] },
+
+        { "type": "h3", "text": "2.2 Contenido generado por el usuario" },
+        {
+          "type": "ul",
+          "items": [
+            "Spots publicados",
+            "Coordenadas asociadas",
+            "Fotografías y videos",
+            "Comentarios y descripciones",
+            "Interacciones (likes, rankings, hangar, etc.)"
+          ]
+        },
+
+        { "type": "h3", "text": "2.3 Datos de ubicación" },
+        { "type": "p", "text": "Si otorgás permiso, podemos recopilar coordenadas geográficas para:" },
+        { "type": "ul", "items": ["Crear spots", "Mejorar el mapa", "Mostrar contenido cercano"] },
+        { "type": "p", "text": "No rastreamos ubicación en segundo plano sin consentimiento explícito." },
+
+        { "type": "h3", "text": "2.4 Datos técnicos y de uso" },
+        {
+          "type": "ul",
+          "items": ["Dirección IP", "Tipo de dispositivo y sistema operativo", "Logs de errores", "Métricas de rendimiento", "Información de sesión"]
+        },
+        { "type": "p", "text": "Estos datos se utilizan para seguridad, prevención de abuso y mejora del servicio." },
+
+        { "type": "h2", "text": "3. Base legal del tratamiento (GDPR y normativa internacional)" },
+        { "type": "p", "text": "Procesamos tus datos en base a:" },
+        {
+          "type": "ul",
+          "items": [
+            "Ejecución del contrato: para proveer la funcionalidad de la app.",
+            "Consentimiento: para ubicación y métricas opcionales.",
+            "Interés legítimo: seguridad, prevención de fraude y mejora del servicio.",
+            "Obligaciones legales: cuando sea requerido por ley."
+          ]
+        },
+
+        { "type": "h2", "text": "4. Finalidades del tratamiento" },
+        { "type": "p", "text": "Utilizamos los datos para:" },
+        {
+          "type": "ul",
+          "items": [
+            "Operar funcionalidades (mapa, ranking, hangar, perfiles).",
+            "Permitir publicación y visualización de contenido.",
+            "Detectar abuso o fraude.",
+            "Moderar contenido.",
+            "Mejorar rendimiento y estabilidad.",
+            "Comunicar cambios relevantes del producto.",
+            "Gestionar suscripciones Pro."
+          ]
+        },
+
+        { "type": "h2", "text": "5. Compartición de datos y proveedores" },
+        { "type": "p", "text": "No vendemos datos personales." },
+        {
+          "type": "p",
+          "text": "Podemos compartir información con proveedores que operan bajo acuerdos de confidencialidad, tales como:"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Infraestructura y base de datos (ej. Supabase/Postgres).",
+            "Servicios de mapas (ej. Mapbox).",
+            "Almacenamiento de media.",
+            "Plataformas de pago para suscripciones."
+          ]
+        },
+        { "type": "p", "text": "Estos proveedores pueden almacenar datos fuera de tu país de residencia." },
+
+        { "type": "h2", "text": "6. Transferencias internacionales" },
+        { "type": "p", "text": "Tus datos pueden procesarse en servidores ubicados en diferentes jurisdicciones." },
+        {
+          "type": "p",
+          "text": "En caso de transferencia internacional, implementamos salvaguardas adecuadas conforme al GDPR y normativa aplicable."
+        },
+
+        { "type": "h2", "text": "7. Retención de datos" },
+        { "type": "p", "text": "Conservamos los datos mientras:" },
+        {
+          "type": "ul",
+          "items": [
+            "Tu cuenta esté activa.",
+            "Sea necesario para operar el servicio.",
+            "Existan obligaciones legales.",
+            "Sea necesario para prevención de abuso."
+          ]
+        },
+        { "type": "p", "text": "Al eliminar tu cuenta:" },
+        {
+          "type": "ul",
+          "items": [
+            "Se desactiva el acceso inmediatamente.",
+            "Se eliminarán o anonimizarán los datos personales identificables.",
+            "Contenido público podrá conservarse de forma anonimizada.",
+            "Logs de seguridad podrán retenerse por un período razonable."
+          ]
+        },
+
+        { "type": "h2", "text": "8. Seguridad" },
+        {
+          "type": "p",
+          "text": "Aplicamos medidas técnicas y organizativas razonables para proteger la información contra acceso no autorizado, alteración o destrucción."
+        },
+        { "type": "p", "text": "Sin embargo, ningún sistema es completamente seguro." },
+
+        { "type": "h2", "text": "9. Tus derechos" },
+        { "type": "p", "text": "Dependiendo de tu jurisdicción (incluyendo GDPR), podés:" },
+        {
+          "type": "ul",
+          "items": [
+            "Solicitar acceso a tus datos.",
+            "Solicitar rectificación.",
+            "Solicitar eliminación.",
+            "Solicitar limitación del tratamiento.",
+            "Solicitar portabilidad.",
+            "Oponerte al tratamiento basado en interés legítimo.",
+            "Retirar consentimiento en cualquier momento."
+          ]
+        },
+        { "type": "p", "text": "Podés ejercer estos derechos escribiendo a support@aerovibe.app." },
+
+        { "type": "h2", "text": "10. Edad mínima" },
+        { "type": "p", "text": "AeroVibe no está dirigido a menores de 13 años (o 16 donde la ley lo exija)." },
+        { "type": "p", "text": "Si detectamos cuentas que no cumplen este requisito, podremos eliminarlas." },
+
+        { "type": "h2", "text": "11. Cambios en esta política" },
+        { "type": "p", "text": "Podemos actualizar esta política periódicamente." },
+        { "type": "p", "text": "Notificaremos cambios relevantes dentro de la plataforma." }
+      ],
       "sections": {
         "data": {
           "title": "Datos que recopilamos",
@@ -178,7 +322,78 @@
     },
     "terms": {
       "title": "Términos y Condiciones",
-      "intro": "Al usar AeroVibe aceptás estos términos. Buscamos una comunidad útil y segura: contenido real, respeto y cero spam.",
+      "intro": "",
+      "blocks": [
+        { "type": "h2", "text": "1. Aceptación" },
+        {
+          "type": "p",
+          "text": "Al utilizar AeroVibe aceptás estos términos. Si no estás de acuerdo, no debés utilizar el servicio."
+        },
+
+        { "type": "h2", "text": "2. Cuenta y acceso" },
+        {
+          "type": "ul",
+          "items": [
+            "Sos responsable de mantener la confidencialidad de tus credenciales.",
+            "No podés acceder a datos o funciones sin autorización.",
+            "Podemos suspender o cancelar cuentas ante incumplimientos o abuso."
+          ]
+        },
+
+        { "type": "h2", "text": "3. Contenido generado por usuarios" },
+        { "type": "p", "text": "Sos responsable del contenido que publicás." },
+        { "type": "p", "text": "No está permitido:" },
+        {
+          "type": "ul",
+          "items": [
+            "Contenido ilegal.",
+            "Contenido que infrinja derechos de terceros.",
+            "Información falsa deliberada.",
+            "Coordenadas sensibles que generen riesgos evidentes.",
+            "Spam o manipulación de rankings."
+          ]
+        },
+        { "type": "p", "text": "Nos reservamos el derecho de moderar, remover o restringir contenido." },
+
+        { "type": "h2", "text": "4. Licencia de contenido" },
+        {
+          "type": "p",
+          "text": "Al publicar contenido en AeroVibe, otorgás una licencia no exclusiva, mundial y gratuita para alojar, reproducir, mostrar y distribuir dicho contenido dentro de la plataforma con el fin de operar el servicio."
+        },
+        { "type": "p", "text": "Conservás la titularidad de tus derechos." },
+
+        { "type": "h2", "text": "5. Planes Pro y pagos" },
+        { "type": "p", "text": "Las funciones Pro pueden requerir suscripción." },
+        { "type": "p", "text": "Los pagos se gestionan a través de la plataforma correspondiente (App Store, Google Play u otros)." },
+        { "type": "p", "text": "Las cancelaciones se rigen por las políticas del proveedor de pago." },
+        { "type": "p", "text": "Los beneficios pueden mantenerse hasta finalizar el período ya pagado." },
+
+        { "type": "h2", "text": "6. Disponibilidad del servicio" },
+        { "type": "p", "text": "No garantizamos disponibilidad continua ni libre de errores." },
+        { "type": "p", "text": "Podemos modificar o discontinuar funciones en cualquier momento." },
+
+        { "type": "h2", "text": "7. Limitación de responsabilidad" },
+        { "type": "p", "text": "AeroVibe es una plataforma informativa basada en contenido generado por usuarios." },
+        { "type": "p", "text": "No garantizamos:" },
+        {
+          "type": "ul",
+          "items": [
+            "Exactitud absoluta de coordenadas.",
+            "Condiciones meteorológicas.",
+            "Cumplimiento normativo local.",
+            "Seguridad operacional de un spot."
+          ]
+        },
+        { "type": "p", "text": "AeroVibe no reemplaza normativa aeronáutica ni asesoría legal." },
+        { "type": "p", "text": "Cada piloto es responsable de verificar regulaciones, permisos y condiciones antes de volar." },
+
+        { "type": "h2", "text": "8. Terminación" },
+        { "type": "p", "text": "Podemos suspender o cancelar el acceso ante incumplimiento de estos términos." },
+        { "type": "p", "text": "El usuario puede eliminar su cuenta en cualquier momento." },
+
+        { "type": "h2", "text": "9. Ley aplicable" },
+        { "type": "p", "text": "Estos términos se interpretarán conforme a la legislación aplicable según la jurisdicción competente." }
+      ],
       "sections": {
         "accounts": {
           "title": "Cuenta y acceso",
@@ -208,7 +423,26 @@
     },
     "cookies": {
       "title": "Política de Cookies",
-      "intro": "Usamos almacenamiento local (y, en algunos casos, cookies) para recordar preferencias y mejorar la experiencia.",
+      "intro": "",
+      "blocks": [
+        { "type": "p", "text": "Utilizamos almacenamiento local y cookies para mejorar la experiencia." },
+        { "type": "h2", "text": "Tipos de cookies" },
+
+        { "type": "h3", "text": "Necesarias" },
+        { "type": "ul", "items": ["Autenticación.", "Seguridad.", "Prevención de abuso."] },
+
+        { "type": "h3", "text": "Funcionales" },
+        { "type": "ul", "items": ["Preferencias de idioma.", "Tema (claro/oscuro)."] },
+
+        { "type": "h3", "text": "Analíticas (si se habilitan)" },
+        { "type": "ul", "items": ["Métricas anónimas de rendimiento.", "Diagnóstico técnico."] },
+
+        { "type": "p", "text": "No utilizamos cookies para publicidad personalizada." },
+
+        { "type": "h2", "text": "Control" },
+        { "type": "p", "text": "Podés gestionar o eliminar cookies desde la configuración de tu navegador." },
+        { "type": "p", "text": "Algunas funciones pueden dejar de recordar tus preferencias." }
+      ],
       "sections": {
         "essential": {
           "title": "Necesarias",

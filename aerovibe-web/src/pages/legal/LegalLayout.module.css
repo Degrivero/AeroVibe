@@ -1,7 +1,7 @@
 .wrap {
   max-width: 900px;
   margin: 0 auto;
-  padding: 56px 18px 12px;
+  padding: 56px var(--page-pad) 12px;
 }
 
 .header {
@@ -51,6 +51,14 @@
   letter-spacing: 0.1px;
 }
 
+.h3 {
+  margin: 14px 0 0;
+  font-size: 13px;
+  font-weight: 820;
+  letter-spacing: 0.1px;
+  color: var(--fg);
+}
+
 .p {
   margin: 10px 0 0;
   color: var(--muted);
@@ -63,4 +71,3 @@
   color: var(--muted);
   line-height: 1.7;
 }
-

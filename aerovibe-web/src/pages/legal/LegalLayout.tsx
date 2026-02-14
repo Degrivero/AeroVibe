@@ -20,7 +20,7 @@ export function LegalLayout({
       <header className={styles.header}>
         <h1 className={styles.h1}>{title}</h1>
         <p className={styles.updated}>{t('common.last_updated', { date: updatedOn })}</p>
-        <p className={styles.intro}>{intro}</p>
+        {intro ? <p className={styles.intro}>{intro}</p> : null}
       </header>
       <div className={styles.body}>{children}</div>
     </article>

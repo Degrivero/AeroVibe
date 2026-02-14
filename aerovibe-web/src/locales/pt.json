@@ -135,6 +135,49 @@
     "privacy": {
       "title": "Pol\u00edtica de Privacidade",
       "intro": "O AeroVibe processa informa\u00e7\u00f5es para operar o app (spots, perfis, m\u00eddia e planos de voo). Esta pol\u00edtica resume o que coletamos, como usamos e suas op\u00e7\u00f5es.",
+      "blocks": [
+        { "type": "h2", "text": "Dados que coletamos" },
+        {
+          "type": "ul",
+          "items": [
+            "Conta: email, identificadores de autentica\u00e7\u00e3o e configura\u00e7\u00f5es.",
+            "Conte\u00fado: spots, descri\u00e7\u00f5es, coment\u00e1rios e m\u00eddia que voc\u00ea enviar.",
+            "Localiza\u00e7\u00e3o: se habilitada, coordenadas para criar spots e melhorar o mapa.",
+            "Uso: m\u00e9tricas de performance e diagn\u00f3sticos para melhorar estabilidade."
+          ]
+        },
+        { "type": "h2", "text": "Como usamos os dados" },
+        {
+          "type": "ul",
+          "items": [
+            "Fornecer recursos (mapa, ranking, hangar, notifica\u00e7\u00f5es).",
+            "Prevenir abuso/fraude e aplicar modera\u00e7\u00e3o.",
+            "Melhorar performance e corrigir problemas.",
+            "Comunicar mudan\u00e7as relevantes do produto."
+          ]
+        },
+        { "type": "h2", "text": "Terceiros e provedores" },
+        {
+          "type": "ul",
+          "items": [
+            "Infra e banco de dados (ex.: Supabase/Postgres) para armazenar dados.",
+            "Mapas (ex.: Mapbox) para renderizar o mapa.",
+            "Armazenamento de m\u00eddia (buckets) para fotos e v\u00eddeos."
+          ]
+        },
+        { "type": "h2", "text": "Reten\u00e7\u00e3o e seguran\u00e7a" },
+        {
+          "type": "p",
+          "text": "Aplicamos medidas razo\u00e1veis para proteger os dados. Mantemos informa\u00e7\u00f5es enquanto sua conta estiver ativa ou conforme necess\u00e1rio para operar o servi\u00e7o, salvo obriga\u00e7\u00f5es legais."
+        },
+        { "type": "h2", "text": "Seus direitos" },
+        {
+          "type": "p",
+          "text": "Voc\u00ea pode solicitar acesso, corre\u00e7\u00e3o ou exclus\u00e3o de dados. Se voc\u00ea excluir sua conta, tentaremos remover ou anonimizar informa\u00e7\u00f5es associadas, exceto quando exigido por lei ou para prevenir abuso."
+        },
+        { "type": "h2", "text": "Contato" },
+        { "type": "p", "text": "Para d\u00favidas de privacidade, escreva para support@aerovibe.app." }
+      ],
       "sections": {
         "data": {
           "title": "Dados que coletamos",
@@ -179,6 +222,36 @@
     "terms": {
       "title": "Termos de Uso",
       "intro": "Ao usar o AeroVibe voc\u00ea concorda com estes termos. Queremos uma comunidade \u00fatil e segura: conte\u00fado real, respeito e zero spam.",
+      "blocks": [
+        { "type": "h2", "text": "Conta e acesso" },
+        {
+          "type": "ul",
+          "items": [
+            "Voc\u00ea \u00e9 respons\u00e1vel pela sua conta e credenciais.",
+            "N\u00e3o tente acessar dados ou recursos sem autoriza\u00e7\u00e3o.",
+            "Podemos suspender contas por abuso ou viola\u00e7\u00f5es."
+          ]
+        },
+        { "type": "h2", "text": "Conte\u00fado e comunidade" },
+        {
+          "type": "ul",
+          "items": [
+            "N\u00e3o publique conte\u00fado ilegal, perigoso ou que viole direitos de terceiros.",
+            "Evite publicar coordenadas sens\u00edveis se isso puder gerar risco.",
+            "Podemos moderar ou remover conte\u00fado que viole pol\u00edticas."
+          ]
+        },
+        { "type": "h2", "text": "Planos Pro" },
+        {
+          "type": "p",
+          "text": "Recursos Pro podem exigir assinatura. Se voc\u00ea cancelar, os benef\u00edcios podem permanecer at\u00e9 o fim do per\u00edodo pago (dependendo da plataforma de pagamento)."
+        },
+        { "type": "h2", "text": "Aviso" },
+        {
+          "type": "p",
+          "text": "O AeroVibe n\u00e3o substitui normas locais nem assessoria legal. Sempre verifique regras de voo, clima e permiss\u00f5es antes de operar um drone."
+        }
+      ],
       "sections": {
         "accounts": {
           "title": "Conta e acesso",
@@ -209,6 +282,23 @@
     "cookies": {
       "title": "Pol\u00edtica de Cookies",
       "intro": "Usamos armazenamento local (e, em alguns casos, cookies) para lembrar prefer\u00eancias e melhorar a experi\u00eancia.",
+      "blocks": [
+        { "type": "h2", "text": "Essenciais" },
+        {
+          "type": "ul",
+          "items": [
+            "Prefer\u00eancias de idioma e tema (claro/escuro).",
+            "Seguran\u00e7a b\u00e1sica e preven\u00e7\u00e3o de abuso."
+          ]
+        },
+        { "type": "h2", "text": "Opcionais" },
+        { "type": "ul", "items": ["M\u00e9tricas an\u00f4nimas para melhorar performance (se habilitadas)."] },
+        { "type": "h2", "text": "Como controlar" },
+        {
+          "type": "p",
+          "text": "Voc\u00ea pode limpar cookies e dados do site nas configura\u00e7\u00f5es do navegador. Algumas fun\u00e7\u00f5es podem deixar de lembrar suas prefer\u00eancias."
+        }
+      ],
       "sections": {
         "essential": {
           "title": "Essenciais",

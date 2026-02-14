@@ -120,21 +120,6 @@ export function HomePage() {
             <div className={styles.noteCentered}>{t('hero.note')}</div>
             <StoreBadges />
           </div>
-
-          <div className={styles.statsRow}>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>{t('hero.stats.map.value')}</div>
-              <div className={styles.statLabel}>{t('hero.stats.map.label')}</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>{t('hero.stats.media.value')}</div>
-              <div className={styles.statLabel}>{t('hero.stats.media.label')}</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statValue}>{t('hero.stats.plans.value')}</div>
-              <div className={styles.statLabel}>{t('hero.stats.plans.label')}</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -214,6 +199,10 @@ export function HomePage() {
             <p className={styles.aboutP}>{t('sections.about.p1')}</p>
             <p className={styles.aboutP}>{t('sections.about.p2')}</p>
             <p className={styles.aboutP}>{t('sections.about.p3')}</p>
+            <p className={styles.aboutP}>{t('sections.about.p4')}</p>
+            <p className={styles.aboutP}>{t('sections.about.p5')}</p>
+            <p className={styles.aboutP}>{t('sections.about.p6')}</p>
+            <p className={styles.aboutP}>{t('sections.about.p7')}</p>
           </div>
         </div>
       </section>

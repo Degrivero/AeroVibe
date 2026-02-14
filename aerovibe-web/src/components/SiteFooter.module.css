@@ -5,9 +5,9 @@
 }
 
 .inner {
-  max-width: 1280px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 28px 18px;
+  padding: 28px var(--page-pad);
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
@@ -62,9 +62,9 @@
 }
 
 .bottom {
-  max-width: 1280px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 14px 18px 24px;
+  padding: 14px var(--page-pad) 24px;
   color: var(--muted);
   font-size: 12px;
 }

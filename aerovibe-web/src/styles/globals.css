@@ -5,6 +5,10 @@
   /* Brand */
   --accent: #b9ff3e;
   --cyan: #00b2ff;
+
+  /* Layout */
+  --page-max: 1560px;
+  --page-pad: clamp(18px, 4vw, 56px);
 }
 
 html[data-theme='dark'] {
@@ -14,15 +18,30 @@ html[data-theme='dark'] {
   --card: #10161b;
   --border: rgba(255, 255, 255, 0.12);
   --grid: rgba(185, 255, 62, 0.18);
+
+  --header-bg: color-mix(in oklab, var(--bg) 88%, transparent);
+  --header-fg: var(--fg);
+  --header-muted: var(--muted);
+  --header-border: color-mix(in oklab, var(--border) 70%, transparent);
+  --header-surface: color-mix(in oklab, var(--card) 74%, transparent);
+  --header-surface-border: var(--border);
 }
 
 html[data-theme='light'] {
-  --bg: #f6fafc;
+  --bg: #eef4f7;
   --fg: #0a0e12;
-  --muted: rgba(10, 14, 18, 0.68);
+  --muted: rgba(10, 14, 18, 0.78);
   --card: #ffffff;
-  --border: rgba(10, 14, 18, 0.14);
-  --grid: rgba(0, 178, 255, 0.18);
+  --border: rgba(10, 14, 18, 0.22);
+  --grid: rgba(0, 178, 255, 0.28);
+
+  /* Darker header for better contrast on light theme */
+  --header-bg: rgba(8, 12, 16, 0.82);
+  --header-fg: #f2f5f7;
+  --header-muted: rgba(242, 245, 247, 0.76);
+  --header-border: rgba(255, 255, 255, 0.14);
+  --header-surface: rgba(255, 255, 255, 0.06);
+  --header-surface-border: rgba(255, 255, 255, 0.14);
 }
 
 * {
@@ -43,6 +62,12 @@ body {
     var(--bg);
 }
 
+html[data-theme='light'] body {
+  background: radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 30%, transparent), transparent 58%),
+    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 52%),
+    var(--bg);
+}
+
 a {
   color: inherit;
 }
@@ -57,4 +82,3 @@ textarea {
 ::selection {
   background: color-mix(in oklab, var(--accent) 35%, transparent);
 }
-

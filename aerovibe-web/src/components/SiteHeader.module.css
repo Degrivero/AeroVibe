@@ -3,14 +3,14 @@
   top: 0;
   z-index: 40;
   backdrop-filter: blur(14px);
-  background: color-mix(in oklab, var(--bg) 78%, transparent);
-  border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--header-border);
 }
 
 .inner {
-  max-width: 1280px;
+  max-width: var(--page-max);
   margin: 0 auto;
-  padding: 14px 18px;
+  padding: 14px var(--page-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +22,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--fg);
+  color: var(--header-fg);
 }
 
 .brandText {
@@ -41,17 +41,17 @@
   padding: 8px 10px;
   border-radius: 999px;
   text-decoration: none;
-  color: var(--muted);
+  color: var(--header-muted);
   font-weight: 650;
 }
 
 .navLink:hover {
-  color: var(--fg);
-  background: color-mix(in oklab, var(--card) 60%, transparent);
+  color: var(--header-fg);
+  background: var(--header-surface);
 }
 
 .navLink[aria-current='page'] {
-  color: var(--fg);
+  color: var(--header-fg);
 }
 
 .actions {
@@ -68,15 +68,15 @@
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: color-mix(in oklab, var(--card) 74%, transparent);
-  border: 1px solid var(--border);
-  color: var(--fg);
+  background: var(--header-surface);
+  border: 1px solid var(--header-surface-border);
+  color: var(--header-fg);
   cursor: pointer;
 }
 
 .iconBtn:hover,
 .menuBtn:hover {
-  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  border-color: color-mix(in oklab, var(--header-surface-border) 55%, var(--accent) 45%);
 }
 
 .icon {
@@ -92,16 +92,16 @@
   height: 38px;
   padding: 0 10px;
   border-radius: 12px;
-  background: color-mix(in oklab, var(--card) 74%, transparent);
-  border: 1px solid var(--border);
-  color: var(--fg);
+  background: var(--header-surface);
+  border: 1px solid var(--header-surface-border);
+  color: var(--header-fg);
   font-weight: 750;
   letter-spacing: 0.5px;
   cursor: pointer;
 }
 
 .lang:hover {
-  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  border-color: color-mix(in oklab, var(--header-surface-border) 55%, var(--accent) 45%);
 }
 
 .srOnly {
@@ -120,8 +120,8 @@
 }
 
 .mobilePanel {
-  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-  padding: 14px 18px 18px;
+  border-top: 1px solid var(--header-border);
+  padding: 14px var(--page-pad) 18px;
 }
 
 .mobileLegal {
@@ -133,17 +133,17 @@
 
 .legalLink {
   text-decoration: none;
-  color: var(--muted);
+  color: var(--header-muted);
   padding: 8px 10px;
   border-radius: 12px;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 68%, transparent);
+  border: 1px solid var(--header-surface-border);
+  background: var(--header-surface);
   font-weight: 650;
 }
 
 .legalLink:hover {
-  color: var(--fg);
-  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  color: var(--header-fg);
+  border-color: color-mix(in oklab, var(--header-surface-border) 55%, var(--accent) 45%);
 }
 
 @media (min-width: 860px) {
