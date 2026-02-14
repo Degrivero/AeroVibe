@@ -1,7 +1,7 @@
 .footer {
   margin-top: 64px;
-  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-  background: color-mix(in oklab, var(--bg) 86%, transparent);
+  border-top: 1px solid var(--footer-border);
+  background: var(--footer-bg);
 }
 
 .inner {
@@ -36,11 +36,11 @@
 .brandText {
   font-family: var(--font-display);
   font-weight: 760;
-  color: var(--fg);
+  color: var(--footer-fg);
 }
 
 .madeFor {
-  color: var(--muted);
+  color: var(--footer-muted);
   font-weight: 560;
 }
 
@@ -53,12 +53,12 @@
 
 .link {
   text-decoration: none;
-  color: var(--muted);
+  color: var(--footer-muted);
   font-weight: 650;
 }
 
 .link:hover {
-  color: var(--fg);
+  color: var(--footer-fg);
   text-decoration: underline;
   text-decoration-color: color-mix(in oklab, var(--accent) 55%, transparent);
   text-underline-offset: 4px;
@@ -68,7 +68,7 @@
   max-width: var(--page-max);
   margin: 0 auto;
   padding: 14px var(--page-pad) 24px;
-  color: var(--muted);
+  color: var(--footer-muted);
   font-size: 12px;
   text-align: center;
 }

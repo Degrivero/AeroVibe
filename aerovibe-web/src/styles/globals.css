@@ -3,45 +3,54 @@
   --font-body: "Manrope", ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
 
   /* Brand */
-  --accent: #b9ff3e;
+  --accent: #76b900;
   --cyan: #00b2ff;
 
   /* Layout */
-  --page-max: 1720px;
+  --page-max: 1920px;
   --page-pad: clamp(18px, 4vw, 56px);
 }
 
 html[data-theme='dark'] {
   --bg: #0b0f12;
-  --fg: #f2f5f7;
-  --muted: rgba(242, 245, 247, 0.72);
-  --card: #10161b;
-  --border: rgba(255, 255, 255, 0.12);
-  --grid: rgba(185, 255, 62, 0.18);
+  --fg: #e6e9ed;
+  --muted: rgba(230, 233, 237, 0.74);
+  --card: #0f1418;
+  --border: rgba(255, 255, 255, 0.14);
+  --grid: rgba(118, 185, 0, 0.2);
 
-  --header-bg: color-mix(in oklab, var(--bg) 88%, transparent);
+  --header-bg: rgba(0, 0, 0, 0.86);
   --header-fg: var(--fg);
   --header-muted: var(--muted);
-  --header-border: color-mix(in oklab, var(--border) 70%, transparent);
-  --header-surface: color-mix(in oklab, var(--card) 74%, transparent);
-  --header-surface-border: var(--border);
-}
-
-html[data-theme='light'] {
-  --bg: #eef4f7;
-  --fg: #0a0e12;
-  --muted: rgba(10, 14, 18, 0.78);
-  --card: #ffffff;
-  --border: rgba(10, 14, 18, 0.22);
-  --grid: rgba(0, 178, 255, 0.28);
-
-  /* Darker header for better contrast on light theme */
-  --header-bg: rgba(8, 12, 16, 0.82);
-  --header-fg: #f2f5f7;
-  --header-muted: rgba(242, 245, 247, 0.76);
   --header-border: rgba(255, 255, 255, 0.14);
   --header-surface: rgba(255, 255, 255, 0.06);
   --header-surface-border: rgba(255, 255, 255, 0.14);
+
+  --footer-bg: rgba(0, 0, 0, 0.92);
+  --footer-fg: var(--fg);
+  --footer-muted: var(--muted);
+  --footer-border: rgba(255, 255, 255, 0.12);
+}
+
+html[data-theme='light'] {
+  --bg: #ffffff;
+  --fg: #0a0e12;
+  --muted: rgba(10, 14, 18, 0.74);
+  --card: #f4f6f7;
+  --border: rgba(10, 14, 18, 0.16);
+  --grid: rgba(118, 185, 0, 0.18);
+
+  --header-bg: rgba(0, 0, 0, 0.92);
+  --header-fg: #f2f5f7;
+  --header-muted: rgba(242, 245, 247, 0.78);
+  --header-border: rgba(255, 255, 255, 0.14);
+  --header-surface: rgba(255, 255, 255, 0.06);
+  --header-surface-border: rgba(255, 255, 255, 0.14);
+
+  --footer-bg: #0b0f12;
+  --footer-fg: #f2f5f7;
+  --footer-muted: rgba(242, 245, 247, 0.76);
+  --footer-border: rgba(255, 255, 255, 0.14);
 }
 
 * {

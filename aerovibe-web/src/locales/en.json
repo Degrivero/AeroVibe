@@ -25,6 +25,13 @@
     "badge_app_store_alt": "Download on the App Store",
     "badge_google_play_alt": "Get it on Google Play"
   },
+  "cookie": {
+    "title": "Cookies",
+    "message": "We use cookies and local storage to remember your preferences and improve the experience.",
+    "learn_more": "View policy",
+    "accept": "Accept",
+    "reject": "Reject"
+  },
   "hero": {
     "kicker": "Map. Community. Precision.",
     "title": "Land on real spots. Fly with confidence.",

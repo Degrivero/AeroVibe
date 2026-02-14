@@ -25,6 +25,13 @@
     "badge_app_store_alt": "Descargar en la App Store",
     "badge_google_play_alt": "Disponible en Google Play"
   },
+  "cookie": {
+    "title": "Cookies",
+    "message": "Usamos cookies y almacenamiento local para recordar tus preferencias y mejorar la experiencia.",
+    "learn_more": "Ver política",
+    "accept": "Aceptar",
+    "reject": "Rechazar"
+  },
   "hero": {
     "kicker": "Mapa. Comunidad. Precisión.",
     "title": "Aterrizá en spots reales. Volá con confianza.",

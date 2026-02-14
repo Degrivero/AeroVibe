@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -81,44 +81,85 @@ function IconGlobe() {
   )
 }
 
-function ThemeButton() {
-  const { t } = useTranslation()
+function ThemeButton({ label }: { label: string }) {
   const { theme, toggle } = useTheme()
   return (
     <button
       className={styles.iconBtn}
       type="button"
       onClick={toggle}
-      aria-label={t('nav.theme')}
-      title={t('nav.theme')}
+      aria-label={label}
     >
       {theme === 'dark' ? <IconSun /> : <IconMoon />}
     </button>
   )
 }
 
-function LangSelect() {
+function LangMenu() {
   const { i18n, t } = useTranslation()
   const value = (i18n.resolvedLanguage || i18n.language || 'en').slice(0, 2) as SupportedLang
+  const [open, setOpen] = useState(false)
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+
+    const onPointerDown = (e: PointerEvent) => {
+      const el = wrapRef.current
+      if (!el) return
+      if (e.target instanceof Node && !el.contains(e.target)) setOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('pointerdown', onPointerDown)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('pointerdown', onPointerDown)
+    }
+  }, [open])
+
+  const options: Array<{ lang: SupportedLang; label: string }> = [
+    { lang: 'es', label: '🇪🇸 ES' },
+    { lang: 'en', label: '🇺🇸 EN' },
+    { lang: 'pt', label: '🇧🇷 PT' },
+  ]
 
   return (
-    <div className={styles.langWrap}>
-      <span className={styles.langIcon} title={t('nav.language')} aria-hidden="true">
+    <div className={styles.langWrap} ref={wrapRef}>
+      <button
+        className={styles.langBtn}
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={t('nav.language')}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
         <IconGlobe />
-      </span>
-      <label className={styles.langLabel}>
-        <span className={styles.srOnly}>{t('nav.language')}</span>
-        <select
-          className={styles.lang}
-          value={value}
-          onChange={(e) => setLang(e.target.value as SupportedLang)}
-          aria-label={t('nav.language')}
-        >
-          <option value="es">🇪🇸 ES</option>
-          <option value="en">🇺🇸 EN</option>
-          <option value="pt">🇧🇷 PT</option>
-        </select>
-      </label>
+      </button>
+
+      {open ? (
+        <div className={styles.langMenu} role="listbox" aria-label={t('nav.language')}>
+          {options.map((opt) => (
+            <button
+              key={opt.lang}
+              className={value === opt.lang ? styles.langOptionActive : styles.langOption}
+              type="button"
+              role="option"
+              aria-selected={value === opt.lang}
+              onClick={() => {
+                setLang(opt.lang)
+                setOpen(false)
+              }}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -165,8 +206,10 @@ export function SiteHeader() {
         </div>
 
         <div className={styles.actions}>
-          <LangSelect />
-          <ThemeButton />
+          <LangMenu />
+          <div className={styles.tipWrap} data-tip={t('nav.theme')}>
+            <ThemeButton label={t('nav.theme')} />
+          </div>
           <button
             className={styles.menuBtn}
             type="button"

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styles from './RootLayout.module.css'
 import { SiteHeader } from './SiteHeader'
 import { SiteFooter } from './SiteFooter'
+import { CookieConsent } from './CookieConsent'
 
 function RouteErrorView({ error }: { error: unknown }) {
   const { t } = useTranslation()
@@ -48,6 +49,7 @@ export function RootLayout({ isError }: { isError?: boolean }) {
         {isError ? <RouteErrorView error={error} /> : <Outlet />}
       </main>
       <SiteFooter />
+      <CookieConsent />
     </div>
   )
 }

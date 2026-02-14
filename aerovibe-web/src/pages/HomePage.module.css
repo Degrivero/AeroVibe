@@ -7,15 +7,15 @@
   overflow: hidden;
   border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   background:
-    radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 22%, transparent), transparent 58%),
-    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 52%),
+    radial-gradient(circle at 18% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 62%),
+    radial-gradient(circle at 86% 22%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 58%),
     var(--bg);
 }
 
 :global(html[data-theme='light']) .hero {
   background:
-    radial-gradient(circle at 20% 0%, color-mix(in oklab, var(--cyan) 30%, transparent), transparent 60%),
-    radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 54%),
+    radial-gradient(circle at 18% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 64%),
+    radial-gradient(circle at 86% 22%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%),
     var(--bg);
 }
 
@@ -45,7 +45,7 @@
 .orb2 {
   right: -200px;
   bottom: -240px;
-  background: radial-gradient(circle at 20% 20%, var(--cyan), transparent 62%);
+  background: radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--accent) 80%, #000 20%), transparent 62%);
   animation-delay: -4s;
 }
 
@@ -319,15 +319,15 @@
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 10% 20%, color-mix(in oklab, var(--cyan) 18%, transparent), transparent 60%),
-    radial-gradient(circle at 84% 30%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 58%),
+    radial-gradient(circle at 12% 30%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(circle at 86% 20%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%),
     var(--bg);
 }
 
 :global(html[data-theme='light']) .blockTwo {
   background:
-    radial-gradient(circle at 10% 20%, color-mix(in oklab, var(--cyan) 22%, transparent), transparent 62%),
-    radial-gradient(circle at 84% 30%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 60%),
+    radial-gradient(circle at 12% 30%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 64%),
+    radial-gradient(circle at 86% 20%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 62%),
     var(--bg);
 }
 
@@ -351,7 +351,7 @@
 .blockOrb1 {
   left: -240px;
   top: 80px;
-  background: radial-gradient(circle at 30% 30%, var(--cyan), transparent 62%);
+  background: radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--accent) 78%, #000 22%), transparent 62%);
 }
 
 .blockOrb2 {
