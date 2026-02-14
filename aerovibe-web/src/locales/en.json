@@ -116,9 +116,13 @@
     },
     "about": {
       "title": "About us",
-      "p1": "AeroVibe started where it always starts: backpack on, batteries at 12%, wind changing every five minutes, and the same group chat thread: “where do we fly today without wasting time?”.",
-      "p2": "We’re a small (and slightly obsessive) team building a community with more signal and less noise: real spots, media that loads fast, stable profiles, and tools that help you decide before takeoff.",
-      "p3": "If you’ve ever driven out just to find the spot wasn’t what it looked like, or you want to share a great location without it getting buried, you’re in the right place. We’re building AeroVibe with real pilot feedback — for everyday use."
+      "p1": "AeroVibe wasn’t born in a meeting room. It was born out in the field. In that awkward moment when you’ve already packed everything, driven across town, and when you finally arrive… the spot wasn’t what it promised. Crosswind, power lines you never saw on the map, restrictions no one mentioned. Time wasted. Energy wasted. Inspiration gone.",
+      "p2": "That’s when we realized something simple: flying already has enough variables — you shouldn’t have to improvise the information too.",
+      "p3": "We’re a small team — and yes, a bit obsessive — building the platform we wished we had from the first flight. We want more signal and less noise. Real spots with real context. Media that loads fast because no one wants to wait out in the field. Stable profiles, clear metrics, and tools that help you decide before takeoff, not after.",
+      "p4": "We believe in community over algorithms. A great spot shouldn’t get lost in an endless feed. Sharing useful information isn’t “giving away an advantage” — it raises the bar for everyone. And technology should serve the pilot, not the other way around.",
+      "p5": "If you’ve ever been frustrated by showing up and finding out it wasn’t what it looked like, this project is yours too. If you found an incredible spot and thought “this can’t be lost”, we’re on the same side. AeroVibe is being built with real pilot feedback — flight after flight, iteration after iteration.",
+      "p6": "We don’t want to be just another social network. We want to be the base before takeoff. The place where you plan better, discover more, and share with purpose.",
+      "p7": "This is just the beginning. And we’re building it to use every day."
     }
   },
   "footer": {

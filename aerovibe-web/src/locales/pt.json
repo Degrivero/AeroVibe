@@ -116,9 +116,13 @@
     },
     "about": {
       "title": "Sobre n\u00f3s",
-      "p1": "O AeroVibe nasceu onde tudo come\u00e7a: mochila nas costas, baterias em 12%, vento mudando o tempo todo e a mesma conversa no grupo: \u201conde a gente voa hoje sem perder tempo?\u201d.",
-      "p2": "Somos um time pequeno (e um pouco obcecado) construindo uma comunidade com mais sinal e menos ru\u00eddo: spots reais, m\u00eddia que carrega r\u00e1pido, perfis est\u00e1veis e ferramentas que ajudam voc\u00ea a decidir antes de decolar.",
-      "p3": "Se voc\u00ea j\u00e1 se frustrou ao chegar num lugar e ver que n\u00e3o era o que parecia, ou quer compartilhar um spot bom sem ele sumir no feed, voc\u00ea est\u00e1 no lugar certo. Estamos construindo o AeroVibe com feedback real de pilotos \u2014 para usar todos os dias."
+      "p1": "O AeroVibe n\u00e3o nasceu numa sala de reuni\u00f5es. Nasceu na pr\u00e1tica. Naquele momento inc\u00f4modo em que voc\u00ea j\u00e1 carregou tudo, atravessou meia cidade e, quando finalmente chega\u2026 o spot n\u00e3o era o que prometia. Vento cruzado, cabos invis\u00edveis no mapa, restri\u00e7\u00f5es que ningu\u00e9m avisou. Tempo perdido. Energia perdida. Inspira\u00e7\u00e3o no ch\u00e3o.",
+      "p2": "Foi a\u00ed que entendemos algo simples: voar j\u00e1 tem vari\u00e1veis demais para ainda precisar improvisar informa\u00e7\u00e3o.",
+      "p3": "Somos um time pequeno \u2014 e sim, um pouco obcecado \u2014 construindo a plataforma que a gente gostaria de ter desde o primeiro voo. Queremos mais sinal e menos ru\u00eddo. Spots reais, com contexto real. M\u00eddia que carrega r\u00e1pido porque ningu\u00e9m quer esperar no campo. Perfis est\u00e1veis, m\u00e9tricas claras e ferramentas que ajudam voc\u00ea a decidir antes de decolar, n\u00e3o depois.",
+      "p4": "Acreditamos na comunidade acima do algoritmo. Um bom spot n\u00e3o deveria se perder num feed infinito. Compartilhar informa\u00e7\u00e3o \u00fatil n\u00e3o \u00e9 \u201cabrir m\u00e3o de vantagem\u201d \u2014 \u00e9 elevar o n\u00edvel de todo mundo. E a tecnologia tem que estar a servi\u00e7o do piloto, n\u00e3o o contr\u00e1rio.",
+      "p5": "Se voc\u00ea j\u00e1 ficou frustrado por chegar a um lugar e descobrir que n\u00e3o era o que parecia, esse projeto tamb\u00e9m \u00e9 seu. Se voc\u00ea encontrou um spot incr\u00edvel e pensou \u201cisso n\u00e3o pode se perder\u201d, estamos do mesmo lado. O AeroVibe est\u00e1 sendo constru\u00eddo com feedback real de pilotos \u2014 voo ap\u00f3s voo, itera\u00e7\u00e3o ap\u00f3s itera\u00e7\u00e3o.",
+      "p6": "N\u00e3o queremos ser mais uma rede social. Queremos ser a base antes da decolagem. O lugar onde voc\u00ea planeja melhor, descobre mais e compartilha com prop\u00f3sito.",
+      "p7": "Isso est\u00e1 s\u00f3 come\u00e7ando. E estamos construindo para usar todos os dias."
     }
   },
   "footer": {
