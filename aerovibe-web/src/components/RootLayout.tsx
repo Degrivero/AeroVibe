@@ -30,6 +30,26 @@ export function RootLayout({ isError }: { isError?: boolean }) {
   const error = useRouteError()
 
   useEffect(() => {
+    const header = document.querySelector('header')
+    if (!(header instanceof HTMLElement)) return
+
+    const setVar = () => {
+      const h = header.getBoundingClientRect().height
+      document.documentElement.style.setProperty('--header-h', `${Math.round(h)}px`)
+    }
+
+    setVar()
+
+    const ro = new ResizeObserver(() => setVar())
+    ro.observe(header)
+    window.addEventListener('resize', setVar)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', setVar)
+    }
+  }, [])
+
+  useEffect(() => {
     const hash = location.hash?.replace('#', '')
     if (!hash) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -38,11 +58,8 @@ export function RootLayout({ isError }: { isError?: boolean }) {
 
     const el = document.getElementById(hash)
     if (el) {
-      const header = document.querySelector('header')
-      const headerH = header instanceof HTMLElement ? header.getBoundingClientRect().height : 0
-      const extra = 14
-      const top = el.getBoundingClientRect().top + window.scrollY - headerH - extra
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+      // Use scrollIntoView + scroll-margin-top (CSS) for sticky-header-safe anchors.
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [location.pathname, location.hash])
 

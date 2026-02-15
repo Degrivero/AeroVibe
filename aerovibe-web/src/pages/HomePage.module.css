@@ -460,7 +460,7 @@
 .section {
   padding: 64px 0;
   /* Sticky header offset for #pricing/#features anchor navigation */
-  scroll-margin-top: 86px;
+  scroll-margin-top: calc(var(--header-h, 72px) + 18px);
 }
 
 .sectionInner {
