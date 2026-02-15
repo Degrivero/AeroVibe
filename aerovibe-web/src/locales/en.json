@@ -7,8 +7,11 @@
     "features": "Features",
     "pricing": "Pricing",
     "about": "About",
+    "contact": "Contact",
     "shop": "Shop",
-    "sign_in": "Sign in",
+    "account": "Account",
+    "create_account": "Create account",
+    "recover_password": "Reset password",
     "coming_soon": "Coming soon",
     "quick_links": "Quick links",
     "privacy": "Privacy",
@@ -396,5 +399,46 @@
   "not_found": {
     "title": "Page not found",
     "body": "The link you opened doesn’t exist or was moved."
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "Tell us what happened and we’ll reply by email.",
+    "success": "Thanks. We received your message and we’ll get back to you soon.",
+    "fields": {
+      "name": "Name",
+      "username": "Username (if you already use the app)",
+      "username_placeholder": "Ex: @your_username",
+      "email": "Email",
+      "reason": "Reason",
+      "message": "Message"
+    },
+    "reasons": {
+      "support": "Support",
+      "bug": "Report a bug",
+      "account": "Account & access",
+      "moderation": "Moderation",
+      "marketplace": "Marketplace",
+      "other": "Other"
+    },
+    "actions": {
+      "submit": "Send",
+      "sending": "Sending…",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "name_required": "Please enter your name so we can reply.",
+      "email_invalid": "Enter a valid email.",
+      "message_required": "Write a message so we can help.",
+      "submit_failed": "We couldn’t send your message. Try again in a few minutes."
+    }
+  },
+  "account_modal": {
+    "subtitle": "Create your account or reset your password.",
+    "create_ok": "Account created. You can now sign in from the app.",
+    "recover_ok": "Done. If the email exists, you'll receive a password reset link shortly.",
+    "errors": {
+      "missing_api_base": "VITE_API_BASE_URL is not configured.",
+      "generic": "We couldn't complete this request. Please try again."
+    }
   }
 }

@@ -7,8 +7,11 @@
     "features": "Recursos",
     "pricing": "Planos",
     "about": "Sobre n\u00f3s",
+    "contact": "Contato",
     "shop": "Shop",
-    "sign_in": "Entrar",
+    "account": "Account",
+    "create_account": "Criar conta",
+    "recover_password": "Redefinir senha",
     "coming_soon": "Em breve",
     "quick_links": "Links r\u00e1pidos",
     "privacy": "Privacidade",
@@ -396,5 +399,46 @@
   "not_found": {
     "title": "P\u00e1gina n\u00e3o encontrada",
     "body": "O link que voc\u00ea abriu n\u00e3o existe ou foi movido."
+  },
+  "contact": {
+    "title": "Fale conosco",
+    "subtitle": "Conte o que aconteceu e responderemos por email.",
+    "success": "Obrigado. Recebemos sua mensagem e vamos responder em breve.",
+    "fields": {
+      "name": "Nome",
+      "username": "Usu\u00e1rio (se voc\u00ea j\u00e1 usa o app)",
+      "username_placeholder": "Ex: @seu_usuario",
+      "email": "Email",
+      "reason": "Motivo",
+      "message": "Mensagem"
+    },
+    "reasons": {
+      "support": "Suporte",
+      "bug": "Reportar bug",
+      "account": "Conta e acesso",
+      "moderation": "Modera\u00e7\u00e3o",
+      "marketplace": "Marketplace",
+      "other": "Outro"
+    },
+    "actions": {
+      "submit": "Enviar",
+      "sending": "Enviando\u2026",
+      "cancel": "Cancelar"
+    },
+    "errors": {
+      "name_required": "Digite seu nome para que possamos responder.",
+      "email_invalid": "Digite um email v\u00e1lido.",
+      "message_required": "Escreva uma mensagem para podermos ajudar.",
+      "submit_failed": "N\u00e3o foi poss\u00edvel enviar sua mensagem. Tente novamente em alguns minutos."
+    }
+  },
+  "account_modal": {
+    "subtitle": "Crie sua conta ou redefina sua senha.",
+    "create_ok": "Conta criada. Agora voc\u00ea pode entrar pelo app.",
+    "recover_ok": "Pronto. Se o email existir, voc\u00ea receber\u00e1 um link de redefini\u00e7\u00e3o em instantes.",
+    "errors": {
+      "missing_api_base": "VITE_API_BASE_URL n\u00e3o est\u00e1 configurado.",
+      "generic": "N\u00e3o foi poss\u00edvel concluir a solicita\u00e7\u00e3o. Tente novamente."
+    }
   }
 }

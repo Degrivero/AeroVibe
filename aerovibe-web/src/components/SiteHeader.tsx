@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import styles from './SiteHeader.module.css'
 import { setLang, type SupportedLang } from '../app/i18n'
 import { useTheme } from '../app/theme'
-import { AuthModal } from './AuthModal'
+import { AccountModal } from './AccountModal'
 
 function IconSun() {
   return (
@@ -170,6 +170,8 @@ function LangMenu() {
 function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useTranslation()
   const location = useLocation()
+  const navRef = useRef<HTMLElement | null>(null)
+  const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
 
   const homeTo = useMemo(() => {
     // Preserve hash navigation when already on home.
@@ -177,17 +179,104 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
     return (hash: string) => (isHome ? hash : `/${hash}`)
   }, [location.pathname])
 
+  const activeKey = useMemo(() => {
+    if (location.pathname === '/about') return 'about'
+    if (location.pathname === '/contact') return 'contact'
+    if (location.pathname === '/' && location.hash === '#pricing') return 'pricing'
+    return null
+  }, [location.pathname, location.hash])
+
+  const positionPill = (el: HTMLElement | null) => {
+    const nav = navRef.current
+    if (!nav) return
+    if (!el) {
+      nav.style.setProperty('--pill-o', '0')
+      return
+    }
+
+    const navRect = nav.getBoundingClientRect()
+    const r = el.getBoundingClientRect()
+    const x = Math.max(0, r.left - navRect.left)
+    const w = Math.max(0, r.width)
+    nav.style.setProperty('--pill-x', `${x}px`)
+    nav.style.setProperty('--pill-w', `${w}px`)
+    nav.style.setProperty('--pill-o', '1')
+  }
+
+  const positionPillToActive = () => {
+    const el = activeKey ? itemRefs.current[activeKey] : null
+    positionPill(el)
+  }
+
+  useEffect(() => {
+    // Defer to next frame so layout is stable.
+    const id = window.requestAnimationFrame(() => positionPillToActive())
+    const onResize = () => positionPillToActive()
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.cancelAnimationFrame(id)
+      window.removeEventListener('resize', onResize)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeKey])
+
+  useEffect(() => {
+    if (!navRef.current) return
+    const nav = navRef.current
+    const onLeave = () => positionPillToActive()
+    nav.addEventListener('mouseleave', onLeave)
+    return () => nav.removeEventListener('mouseleave', onLeave)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeKey])
+
   return (
-    <nav className={styles.nav} aria-label="Primary">
-      <NavLink to={homeTo('#features')} className={styles.navLink} onClick={onNavigate}>
-        {t('nav.features')}
-      </NavLink>
-      <NavLink to={homeTo('#pricing')} className={styles.navLink} onClick={onNavigate}>
+    <nav className={styles.nav} aria-label="Primary" ref={navRef}>
+      <span className={styles.navPill} aria-hidden="true" />
+
+      <Link
+        ref={(el) => {
+          itemRefs.current.pricing = el
+        }}
+        to={homeTo('#pricing')}
+        className={styles.navLink}
+        aria-current={activeKey === 'pricing' ? 'page' : undefined}
+        onMouseEnter={(e) => positionPill(e.currentTarget)}
+        onFocus={(e) => positionPill(e.currentTarget)}
+        onBlur={positionPillToActive}
+        onClick={onNavigate}
+      >
         {t('nav.pricing')}
-      </NavLink>
-      <NavLink to="/about" className={styles.navLink} onClick={onNavigate}>
+      </Link>
+
+      <Link
+        ref={(el) => {
+          itemRefs.current.about = el
+        }}
+        to="/about"
+        className={styles.navLink}
+        aria-current={activeKey === 'about' ? 'page' : undefined}
+        onMouseEnter={(e) => positionPill(e.currentTarget)}
+        onFocus={(e) => positionPill(e.currentTarget)}
+        onBlur={positionPillToActive}
+        onClick={onNavigate}
+      >
         {t('nav.about')}
-      </NavLink>
+      </Link>
+
+      <Link
+        ref={(el) => {
+          itemRefs.current.contact = el
+        }}
+        to="/contact"
+        className={styles.navLink}
+        aria-current={activeKey === 'contact' ? 'page' : undefined}
+        onMouseEnter={(e) => positionPill(e.currentTarget)}
+        onFocus={(e) => positionPill(e.currentTarget)}
+        onBlur={positionPillToActive}
+        onClick={onNavigate}
+      >
+        {t('nav.contact')}
+      </Link>
     </nav>
   )
 }
@@ -195,7 +284,33 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
 export function SiteHeader() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [authOpen, setAuthOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
+  const quickRef = useRef<HTMLDivElement | null>(null)
+
+  const positionQuickPill = (el: HTMLElement | null) => {
+    const wrap = quickRef.current
+    if (!wrap) return
+    if (!el) {
+      wrap.style.setProperty('--pill-o', '0')
+      return
+    }
+
+    const wrapRect = wrap.getBoundingClientRect()
+    const r = el.getBoundingClientRect()
+    const x = Math.max(0, r.left - wrapRect.left)
+    const w = Math.max(0, r.width)
+    wrap.style.setProperty('--pill-x', `${x}px`)
+    wrap.style.setProperty('--pill-w', `${w}px`)
+    wrap.style.setProperty('--pill-o', '1')
+  }
+
+  useEffect(() => {
+    const wrap = quickRef.current
+    if (!wrap) return
+    const onLeave = () => positionQuickPill(null)
+    wrap.addEventListener('mouseleave', onLeave)
+    return () => wrap.removeEventListener('mouseleave', onLeave)
+  }, [])
 
   return (
     <>
@@ -211,14 +326,28 @@ export function SiteHeader() {
           </div>
 
           <div className={styles.actions}>
-            <div className={styles.actionLinks} aria-label={t('nav.quick_links')}>
+            <div className={styles.actionLinks} aria-label={t('nav.quick_links')} ref={quickRef}>
+              <span className={styles.actionPill} aria-hidden="true" />
               <div className={styles.tipWrap} data-tip={t('nav.coming_soon')}>
-                <button className={styles.actionLinkDisabled} type="button" disabled aria-disabled="true">
+                <button
+                  className={styles.actionLinkDisabled}
+                  type="button"
+                  aria-disabled="true"
+                  onMouseEnter={(e) => positionQuickPill(e.currentTarget)}
+                  onFocus={(e) => positionQuickPill(e.currentTarget)}
+                  onClick={(e) => e.preventDefault()}
+                >
                   {t('nav.shop')}
                 </button>
               </div>
-              <button className={styles.actionLink} type="button" onClick={() => setAuthOpen(true)}>
-                {t('nav.sign_in')}
+              <button
+                className={styles.actionLink}
+                type="button"
+                onMouseEnter={(e) => positionQuickPill(e.currentTarget)}
+                onFocus={(e) => positionQuickPill(e.currentTarget)}
+                onClick={() => setAccountOpen(true)}
+              >
+                {t('nav.account')}
               </button>
             </div>
             <LangMenu />
@@ -240,6 +369,11 @@ export function SiteHeader() {
         {open ? (
           <div className={styles.mobilePanel}>
             <HeaderNav onNavigate={() => setOpen(false)} />
+            <div className={styles.mobileActions}>
+              <button className={styles.actionLink} type="button" onClick={() => setAccountOpen(true)}>
+                {t('nav.account')}
+              </button>
+            </div>
             <div className={styles.mobileLegal}>
               <Link className={styles.legalLink} to="/privacy" onClick={() => setOpen(false)}>
                 {t('nav.privacy')}
@@ -258,7 +392,7 @@ export function SiteHeader() {
         ) : null}
       </header>
 
-      {authOpen ? <AuthModal onClose={() => setAuthOpen(false)} /> : null}
+      {accountOpen ? <AccountModal onClose={() => setAccountOpen(false)} /> : null}
     </>
   )
 }

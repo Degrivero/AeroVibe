@@ -9,7 +9,7 @@ function StoreBadges() {
   const googlePlayUrl = (import.meta.env.VITE_GOOGLE_PLAY_URL as string | undefined) || '#'
 
   return (
-    <div className={styles.storeBadges}>
+    <div className={styles.storeBadges} id="store-badges">
       <a className={styles.badgeLink} href={appStoreUrl} target="_blank" rel="noreferrer">
         <img
           className={styles.badgeImg}
@@ -113,6 +113,8 @@ export function HomePage() {
           <div className={styles.orb1} />
           <div className={styles.orb2} />
           <div className={styles.radar} />
+          <div className={styles.blockOrb1} />
+          <div className={styles.blockOrb2} />
         </div>
 
         <div className={styles.heroInner}>
@@ -122,13 +124,9 @@ export function HomePage() {
               <h1 className={styles.title}>{t('hero.title')}</h1>
               <p className={styles.subtitle}>{t('hero.subtitle')}</p>
 
-              <div className={styles.heroCtas}>
-                <a className={styles.primaryCta} href="#pricing">
-                  {t('hero.cta_primary')}
-                </a>
-                <a className={styles.secondaryCta} href="#features">
-                  {t('hero.cta_secondary')}
-                </a>
+              <div className={styles.heroBottom}>
+                <StoreBadges />
+                <div className={styles.heroNote}>{t('hero.note')}</div>
               </div>
             </div>
 
@@ -142,18 +140,6 @@ export function HomePage() {
               </div>
             </div>
           </div>
-
-          <div className={styles.heroBottom}>
-            <StoreBadges />
-            <div className={styles.heroNote}>{t('hero.note')}</div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.blockTwo}>
-        <div className={styles.blockTwoBg} aria-hidden="true">
-          <div className={styles.blockOrb1} />
-          <div className={styles.blockOrb2} />
         </div>
 
         <section className={styles.section} id="features">

@@ -8,6 +8,8 @@ import { CookiesPage } from '../pages/legal/CookiesPage'
 import { PrivacyPage } from '../pages/legal/PrivacyPage'
 import { TermsPage } from '../pages/legal/TermsPage'
 import { NotFoundPage } from '../pages/NotFoundPage'
+import { AdminPage } from '../pages/AdminPage'
+import { ContactPage } from '../pages/ContactPage'
 
 export const router = createBrowserRouter([
   {
@@ -17,10 +19,13 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'about', element: <AboutPage /> },
+      { path: 'contact', element: <ContactPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'terms', element: <TermsPage /> },
       { path: 'cookies', element: <CookiesPage /> },
       { path: 'faq', element: <FaqPage /> },
+      // Hidden entry (no nav link): admin dashboard
+      { path: '__admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

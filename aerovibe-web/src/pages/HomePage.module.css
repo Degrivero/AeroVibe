@@ -5,10 +5,11 @@
 .hero {
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
   background:
     radial-gradient(circle at 18% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 62%),
     radial-gradient(circle at 86% 22%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 58%),
+    radial-gradient(circle at 12% 30%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(circle at 86% 20%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%),
     var(--bg);
 }
 
@@ -16,6 +17,8 @@
   background:
     radial-gradient(circle at 18% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 64%),
     radial-gradient(circle at 86% 22%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%),
+    radial-gradient(circle at 12% 30%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 64%),
+    radial-gradient(circle at 86% 20%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 62%),
     var(--bg);
 }
 
@@ -334,17 +337,32 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.featureCopy .sectionSub {
   max-width: 54ch;
 }
 
 .featureList {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+  width: 100%;
+  gap: 14px 18px;
+  padding: 18px 20px;
+  border: 1px solid color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 10% 0%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 58%),
+    color-mix(in oklab, var(--card) 58%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
 }
 
 .featureRowTitle {
@@ -386,6 +404,7 @@
 
 .featureRow {
   padding: 0;
+  min-width: 0;
 }
 
 .featureRow:hover {
@@ -440,6 +459,8 @@
 
 .section {
   padding: 64px 0;
+  /* Sticky header offset for #pricing/#features anchor navigation */
+  scroll-margin-top: 86px;
 }
 
 .sectionInner {
@@ -468,6 +489,115 @@
 .sectionHeadCentered .sectionSub {
   margin-left: auto;
   margin-right: auto;
+}
+
+.contactShell {
+  max-width: 880px;
+  margin: 22px auto 0;
+}
+
+.contactForm {
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 58%),
+    color-mix(in oklab, var(--card) 62%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.contactError,
+.contactSuccess {
+  padding: 12px 12px;
+  border-radius: 14px;
+  font-weight: 760;
+}
+
+.contactError {
+  border: 1px solid color-mix(in oklab, #ff3355 45%, var(--border) 55%);
+  background: color-mix(in oklab, #ff3355 10%, transparent);
+}
+
+.contactSuccess {
+  border: 1px solid color-mix(in oklab, var(--accent) 55%, var(--border) 45%);
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+}
+
+.contactField {
+  display: grid;
+  gap: 6px;
+}
+
+.contactLabel {
+  font-weight: 820;
+  letter-spacing: 0.1px;
+}
+
+.contactInput,
+.contactSelect,
+.contactTextarea {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  color: var(--fg);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.contactTextarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contactInput:focus,
+.contactSelect:focus,
+.contactTextarea:focus {
+  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 14%, transparent);
+}
+
+.contactActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.contactCancel,
+.contactSubmit {
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 820;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+}
+
+.contactCancel {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  color: var(--fg);
+}
+
+.contactCancel:hover {
+  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+}
+
+.contactSubmit {
+  border: 1px solid color-mix(in oklab, var(--accent) 70%, #000 30%);
+  background: var(--accent);
+  color: #071007;
+}
+
+.contactSubmit:disabled,
+.contactCancel:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .priceGrid {
@@ -695,19 +825,21 @@
   }
 
   .featureSplit {
-    grid-template-columns: 1.12fr 0.88fr;
-    align-items: center;
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-areas: "featureList featureCopy";
+    align-items: stretch;
     gap: 22px;
   }
 
   .featureList {
-    grid-column: 1;
+    grid-area: featureList;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .featureCopy {
-    grid-column: 2;
+    grid-area: featureCopy;
     align-items: flex-start;
+    align-self: center;
   }
 }
 

@@ -1,0 +1,223 @@
+.page {
+  width: 100%;
+  padding: 34px 0 70px;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.kicker {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--border) 60%, var(--accent) 40%);
+  background: color-mix(in oklab, var(--card) 62%, transparent);
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.h1 {
+  margin: 10px 0 4px;
+  font-family: var(--font-display);
+  letter-spacing: -0.6px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.headActions {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.split {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 58%),
+    color-mix(in oklab, var(--card) 70%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.cardTitle {
+  font-weight: 860;
+  letter-spacing: 0.1px;
+  margin-bottom: 10px;
+}
+
+.big {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  margin-bottom: 4px;
+}
+
+.btn,
+.btnGhost {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 860;
+  cursor: pointer;
+}
+
+.btn {
+  border: 1px solid color-mix(in oklab, var(--accent) 70%, #000 30%);
+  background: var(--accent);
+  color: #071007;
+}
+
+.btnGhost {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+}
+
+.error {
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, #ff3355 45%, var(--border) 55%);
+  background: color-mix(in oklab, #ff3355 10%, transparent);
+  font-weight: 760;
+  margin-bottom: 10px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-weight: 820;
+}
+
+.input {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  color: var(--fg);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 14%, transparent);
+}
+
+.formActions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.healthList {
+  display: grid;
+  gap: 10px;
+}
+
+.healthRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+}
+
+.healthName {
+  font-weight: 820;
+}
+
+.pillOk,
+.pillBad {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.pillOk {
+  background: color-mix(in oklab, var(--accent) 18%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+.pillBad {
+  background: color-mix(in oklab, #ff3355 12%, transparent);
+  border: 1px solid color-mix(in oklab, #ff3355 45%, transparent);
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+}
+
+.kv:first-of-type {
+  border-top: 0;
+}
+
+.k {
+  font-weight: 820;
+  color: var(--muted);
+}
+
+.v {
+  color: var(--fg);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+

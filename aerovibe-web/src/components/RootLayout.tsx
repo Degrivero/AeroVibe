@@ -38,7 +38,11 @@ export function RootLayout({ isError }: { isError?: boolean }) {
 
     const el = document.getElementById(hash)
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const header = document.querySelector('header')
+      const headerH = header instanceof HTMLElement ? header.getBoundingClientRect().height : 0
+      const extra = 14
+      const top = el.getBoundingClientRect().top + window.scrollY - headerH - extra
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
     }
   }, [location.pathname, location.hash])
 

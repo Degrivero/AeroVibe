@@ -7,8 +7,11 @@
     "features": "Funciones",
     "pricing": "Planes",
     "about": "Sobre nosotros",
+    "contact": "Contactanos",
     "shop": "Shop",
-    "sign_in": "Sign in",
+    "account": "Account",
+    "create_account": "Crear cuenta",
+    "recover_password": "Recuperar contraseña",
     "coming_soon": "Próximamente",
     "quick_links": "Accesos rápidos",
     "privacy": "Privacidad",
@@ -537,5 +540,46 @@
   "not_found": {
     "title": "Página no encontrada",
     "body": "El enlace que abriste no existe o fue movido."
+  },
+  "contact": {
+    "title": "Contactanos",
+    "subtitle": "Contanos qué pasó y te respondemos por email.",
+    "success": "Gracias. Recibimos tu mensaje y te vamos a responder pronto.",
+    "fields": {
+      "name": "Nombre",
+      "username": "Usuario (si ya tenés cuenta)",
+      "username_placeholder": "Ej: @tu_usuario",
+      "email": "Correo",
+      "reason": "Motivo",
+      "message": "Mensaje"
+    },
+    "reasons": {
+      "support": "Soporte",
+      "bug": "Reportar un bug",
+      "account": "Cuenta y acceso",
+      "moderation": "Moderación",
+      "marketplace": "Marketplace",
+      "other": "Otro"
+    },
+    "actions": {
+      "submit": "Enviar",
+      "sending": "Enviando…",
+      "cancel": "Cancelar"
+    },
+    "errors": {
+      "name_required": "Decinos tu nombre para poder responderte.",
+      "email_invalid": "Ingresá un correo válido.",
+      "message_required": "Escribí un mensaje para poder ayudarte.",
+      "submit_failed": "No pudimos enviar tu mensaje. Intenta de nuevo en unos minutos."
+    }
+  },
+  "account_modal": {
+    "subtitle": "Creá tu cuenta o recuperá tu contraseña.",
+    "create_ok": "Cuenta creada. Ahora podés iniciar sesión en la app.",
+    "recover_ok": "Listo. Si el correo existe, te va a llegar un email con el enlace de recuperación.",
+    "errors": {
+      "missing_api_base": "Falta configurar VITE_API_BASE_URL.",
+      "generic": "No pudimos completar la operación. Intenta de nuevo."
+    }
   }
 }
