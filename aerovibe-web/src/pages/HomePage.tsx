@@ -15,6 +15,7 @@ function StoreBadges() {
           className={styles.badgeImg}
           src="/assets/badges/app-store.svg"
           alt={t('common.badge_app_store_alt')}
+          width={144}
           height={48}
           loading="lazy"
         />
@@ -24,6 +25,7 @@ function StoreBadges() {
           className={styles.badgeImg}
           src="/assets/badges/google-play.svg"
           alt={t('common.badge_google_play_alt')}
+          width={144}
           height={48}
           loading="lazy"
         />
@@ -77,6 +79,33 @@ export function HomePage() {
   const proMonthBullets = t('sections.pricing.pro_month.bullets', { returnObjects: true }) as string[]
   const proYearBullets = t('sections.pricing.pro_year.bullets', { returnObjects: true }) as string[]
 
+  const features = [
+    {
+      title: t('sections.features.cards.map_title'),
+      body: t('sections.features.cards.map_body'),
+    },
+    {
+      title: t('sections.features.cards.media_title'),
+      body: t('sections.features.cards.media_body'),
+    },
+    {
+      title: t('sections.features.cards.flight_title'),
+      body: t('sections.features.cards.flight_body'),
+    },
+    {
+      title: t('sections.features.cards.ranking_title'),
+      body: t('sections.features.cards.ranking_body'),
+    },
+    {
+      title: t('sections.features.cards.hangar_title'),
+      body: t('sections.features.cards.hangar_body'),
+    },
+    {
+      title: t('sections.features.cards.moderation_title'),
+      body: t('sections.features.cards.moderation_body'),
+    },
+  ]
+
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
@@ -129,33 +158,19 @@ export function HomePage() {
 
         <section className={styles.section} id="features">
           <div className={styles.sectionInner}>
-            <h2 className={styles.h2}>{t('sections.features.title')}</h2>
-            <p className={styles.sectionSub}>{t('sections.features.subtitle')}</p>
+            <div className={styles.featureSplit}>
+              <div className={styles.featureCopy}>
+                <h2 className={styles.h2}>{t('sections.features.title')}</h2>
+                <p className={styles.sectionSub}>{t('sections.features.subtitle')}</p>
+              </div>
 
-            <div className={styles.featureGrid}>
-              <div className={styles.featureCard}>
-                <div className={styles.featureTitle}>{t('sections.features.cards.map_title')}</div>
-                <div className={styles.featureBody}>{t('sections.features.cards.map_body')}</div>
-              </div>
-              <div className={styles.featureCard}>
-                <div className={styles.featureTitle}>{t('sections.features.cards.media_title')}</div>
-                <div className={styles.featureBody}>{t('sections.features.cards.media_body')}</div>
-              </div>
-              <div className={styles.featureCard}>
-                <div className={styles.featureTitle}>{t('sections.features.cards.flight_title')}</div>
-                <div className={styles.featureBody}>{t('sections.features.cards.flight_body')}</div>
-              </div>
-              <div className={styles.featureCard}>
-                <div className={styles.featureTitle}>{t('sections.features.cards.ranking_title')}</div>
-                <div className={styles.featureBody}>{t('sections.features.cards.ranking_body')}</div>
-              </div>
-              <div className={styles.featureCard}>
-                <div className={styles.featureTitle}>{t('sections.features.cards.hangar_title')}</div>
-                <div className={styles.featureBody}>{t('sections.features.cards.hangar_body')}</div>
-              </div>
-              <div className={styles.featureCard}>
-                <div className={styles.featureTitle}>{t('sections.features.cards.moderation_title')}</div>
-                <div className={styles.featureBody}>{t('sections.features.cards.moderation_body')}</div>
+              <div className={styles.featureList} role="list">
+                {features.map((f) => (
+                  <div key={f.title} className={styles.featureRow} role="listitem">
+                    <div className={styles.featureRowTitle}>{f.title}</div>
+                    <div className={styles.featureRowBody}>{f.body}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -163,8 +178,10 @@ export function HomePage() {
 
         <section className={styles.section} id="pricing">
           <div className={styles.sectionInner}>
-            <h2 className={styles.h2}>{t('sections.pricing.title')}</h2>
-            <p className={styles.sectionSub}>{t('sections.pricing.subtitle')}</p>
+            <div className={styles.sectionHeadCentered}>
+              <h2 className={styles.h2}>{t('sections.pricing.title')}</h2>
+              <p className={styles.sectionSub}>{t('sections.pricing.subtitle')}</p>
+            </div>
 
             <div className={styles.priceGrid}>
               <PricingCard

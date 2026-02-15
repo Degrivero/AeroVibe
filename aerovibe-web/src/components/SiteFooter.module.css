@@ -9,7 +9,7 @@
 .inner {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 12px var(--page-pad);
+  padding: 10px var(--page-pad);
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
@@ -20,7 +20,7 @@
 .brandCol {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .brandRow {
@@ -71,7 +71,7 @@
 .bottom {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 8px var(--page-pad) 12px;
+  padding: 6px var(--page-pad) 10px;
   color: var(--footer-muted);
   font-size: 12px;
   text-align: center;

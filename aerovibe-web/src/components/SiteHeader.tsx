@@ -208,6 +208,15 @@ export function SiteHeader() {
         </div>
 
         <div className={styles.actions}>
+          <div className={styles.actionLinks} aria-label={t('nav.quick_links')}>
+            <Link className={styles.actionLink} to="/shop">
+              {t('nav.shop')}
+              <span className={styles.actionSoon}>{t('nav.coming_soon')}</span>
+            </Link>
+            <Link className={styles.actionLink} to="/signin">
+              {t('nav.sign_in')}
+            </Link>
+          </div>
           <LangMenu />
           <div className={styles.tipWrap} data-tip={t('nav.theme')}>
             <ThemeButton label={t('nav.theme')} />

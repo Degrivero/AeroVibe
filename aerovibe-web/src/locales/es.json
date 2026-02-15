@@ -7,6 +7,10 @@
     "features": "Funciones",
     "pricing": "Planes",
     "about": "Sobre nosotros",
+    "shop": "Shop",
+    "sign_in": "Sign in",
+    "coming_soon": "Próximamente",
+    "quick_links": "Accesos rápidos",
     "privacy": "Privacidad",
     "terms": "Términos",
     "cookies": "Cookies",
@@ -31,6 +35,18 @@
     "learn_more": "Ver política",
     "accept": "Aceptar",
     "reject": "Rechazar"
+  },
+  "shop": {
+    "meta_title": "Shop — AeroVibe",
+    "meta_description": "Tienda (próximamente).",
+    "title": "Shop",
+    "body": "En desarrollo — coming soon."
+  },
+  "signin": {
+    "meta_title": "Sign in — AeroVibe",
+    "meta_description": "Iniciá sesión (próximamente).",
+    "title": "Sign in",
+    "body": "En desarrollo. Por ahora, el acceso está disponible desde la app móvil."
   },
   "hero": {
     "kicker": "Mapa. Comunidad. Precisión.",

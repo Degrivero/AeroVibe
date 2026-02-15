@@ -317,9 +317,56 @@
 
 .badgeImg {
   display: block;
+  width: 144px;
   height: 48px;
-  width: auto;
+  object-fit: contain;
   filter: drop-shadow(0 0 0.9px rgba(255, 255, 255, 0.25)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
+}
+
+.featureSplit {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.featureCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 54ch;
+}
+
+.featureList {
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: color-mix(in oklab, var(--card) 74%, transparent);
+  overflow: hidden;
+}
+
+.featureRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 16px 16px;
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+}
+
+.featureRow:first-child {
+  border-top: 0;
+}
+
+.featureRowTitle {
+  font-weight: 820;
+  letter-spacing: 0.1px;
+}
+
+.featureRowBody {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.featureRow:hover {
+  background: color-mix(in oklab, var(--card) 82%, transparent);
 }
 
 .blockTwo {
@@ -391,32 +438,13 @@
   max-width: 72ch;
 }
 
-.featureGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 22px;
-  max-width: 1320px;
+.sectionHeadCentered {
+  text-align: center;
+}
+
+.sectionHeadCentered .sectionSub {
   margin-left: auto;
   margin-right: auto;
-}
-
-.featureCard {
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  background: color-mix(in oklab, var(--card) 72%, transparent);
-  padding: 16px;
-}
-
-.featureTitle {
-  font-weight: 820;
-  letter-spacing: 0.2px;
-}
-
-.featureBody {
-  margin-top: 8px;
-  color: var(--muted);
-  line-height: 1.55;
 }
 
 .priceGrid {
@@ -603,8 +631,9 @@
     font-size: 54px;
   }
 
-  .featureGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .featureRow {
+    grid-template-columns: 170px 1fr;
+    gap: 14px;
   }
 
   .priceGrid {
@@ -632,11 +661,25 @@
   .title {
     max-width: 20ch;
   }
+
+  .featureSplit {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: stretch;
+    gap: 22px;
+  }
+
+  .featureList {
+    grid-column: 1;
+  }
+
+  .featureCopy {
+    grid-column: 2;
+    align-items: flex-start;
+  }
 }
 
 @media (min-width: 1100px) {
-  .featureGrid {
-    grid-template-columns: repeat(3, minmax(260px, 420px));
-    justify-content: center;
+  .featureRow {
+    grid-template-columns: 190px 1fr;
   }
 }

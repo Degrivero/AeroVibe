@@ -7,6 +7,10 @@
     "features": "Features",
     "pricing": "Pricing",
     "about": "About",
+    "shop": "Shop",
+    "sign_in": "Sign in",
+    "coming_soon": "Coming soon",
+    "quick_links": "Quick links",
     "privacy": "Privacy",
     "terms": "Terms",
     "cookies": "Cookies",
@@ -31,6 +35,18 @@
     "learn_more": "View policy",
     "accept": "Accept",
     "reject": "Reject"
+  },
+  "shop": {
+    "meta_title": "Shop — AeroVibe",
+    "meta_description": "Shop (coming soon).",
+    "title": "Shop",
+    "body": "In development — coming soon."
+  },
+  "signin": {
+    "meta_title": "Sign in — AeroVibe",
+    "meta_description": "Sign in (coming soon).",
+    "title": "Sign in",
+    "body": "In development. For now, access is available from the mobile app."
   },
   "hero": {
     "kicker": "Map. Community. Precision.",

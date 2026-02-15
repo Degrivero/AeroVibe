@@ -9,22 +9,7 @@
 }
 
 .header::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 2px;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in oklab, var(--accent) 70%, transparent) 40%,
-    color-mix(in oklab, var(--accent) 40%, transparent) 70%,
-    transparent 100%
-  );
-  opacity: 0.7;
-  z-index: 0;
+  content: none;
 }
 
 .inner {
@@ -88,6 +73,41 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+}
+
+.actionLinks {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: var(--header-surface);
+  border: 1px solid var(--header-surface-border);
+  color: var(--header-fg);
+  font-weight: 750;
+}
+
+.actionLink:hover {
+  border-color: color-mix(in oklab, var(--header-surface-border) 55%, var(--accent) 45%);
+}
+
+.actionSoon {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 20%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent) 48%, transparent);
+  color: var(--header-fg);
+  font-size: 11px;
+  font-weight: 820;
+  letter-spacing: 0.2px;
 }
 
 .iconBtn,
@@ -263,6 +283,10 @@
 @media (min-width: 860px) {
   .desktopOnly {
     display: block;
+  }
+
+  .actionLinks {
+    display: inline-flex;
   }
 
   .menuBtn {
