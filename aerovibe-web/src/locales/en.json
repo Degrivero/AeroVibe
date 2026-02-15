@@ -36,6 +36,22 @@
     "accept": "Accept",
     "reject": "Reject"
   },
+  "auth": {
+    "title": "Access",
+    "sign_in": "Sign in",
+    "sign_up": "Create account",
+    "reset": "Recover",
+    "email": "Email",
+    "password": "Password",
+    "password_confirm": "Confirm password",
+    "continue": "Continue",
+    "send_link": "Send link",
+    "close": "Close",
+    "coming_soon": "In development. For now, access is available from the mobile app.",
+    "error_email": "Enter a valid email.",
+    "error_password": "Enter your password.",
+    "error_password_match": "Passwords do not match."
+  },
   "shop": {
     "meta_title": "Shop — AeroVibe",
     "meta_description": "Shop (coming soon).",

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styles from './SiteHeader.module.css'
 import { setLang, type SupportedLang } from '../app/i18n'
 import { useTheme } from '../app/theme'
+import { AuthModal } from './AuthModal'
 
 function IconSun() {
   return (
@@ -194,64 +195,69 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
 export function SiteHeader() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const [authOpen, setAuthOpen] = useState(false)
 
   return (
-    <header className={styles.header}>
-      <div className={styles.inner}>
-        <Link className={styles.brand} to="/" onClick={() => setOpen(false)}>
-          <img className={styles.brandLogo} src="/assets/brand/logo.png" alt="AeroVibe" width={26} height={26} />
-          <span className={styles.brandText}>AeroVibe</span>
-        </Link>
+    <>
+      <header className={styles.header}>
+        <div className={styles.inner}>
+          <Link className={styles.brand} to="/" onClick={() => setOpen(false)}>
+            <img className={styles.brandLogo} src="/assets/brand/logo.png" alt="AeroVibe" width={26} height={26} />
+            <span className={styles.brandText}>AeroVibe</span>
+          </Link>
 
-        <div className={styles.desktopOnly}>
-          <HeaderNav />
-        </div>
-
-        <div className={styles.actions}>
-          <div className={styles.actionLinks} aria-label={t('nav.quick_links')}>
-            <Link className={styles.actionLink} to="/shop">
-              {t('nav.shop')}
-              <span className={styles.actionSoon}>{t('nav.coming_soon')}</span>
-            </Link>
-            <Link className={styles.actionLink} to="/signin">
-              {t('nav.sign_in')}
-            </Link>
+          <div className={styles.desktopOnly}>
+            <HeaderNav />
           </div>
-          <LangMenu />
-          <div className={styles.tipWrap} data-tip={t('nav.theme')}>
-            <ThemeButton label={t('nav.theme')} />
-          </div>
-          <button
-            className={styles.menuBtn}
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? t('nav.close_menu') : t('nav.open_menu')}
-            aria-expanded={open}
-          >
-            {open ? <IconClose /> : <IconMenu />}
-          </button>
-        </div>
-      </div>
 
-      {open ? (
-        <div className={styles.mobilePanel}>
-          <HeaderNav onNavigate={() => setOpen(false)} />
-          <div className={styles.mobileLegal}>
-            <Link className={styles.legalLink} to="/privacy" onClick={() => setOpen(false)}>
-              {t('nav.privacy')}
-            </Link>
-            <Link className={styles.legalLink} to="/terms" onClick={() => setOpen(false)}>
-              {t('nav.terms')}
-            </Link>
-            <Link className={styles.legalLink} to="/cookies" onClick={() => setOpen(false)}>
-              {t('nav.cookies')}
-            </Link>
-            <Link className={styles.legalLink} to="/faq" onClick={() => setOpen(false)}>
-              {t('footer.links.faq')}
-            </Link>
+          <div className={styles.actions}>
+            <div className={styles.actionLinks} aria-label={t('nav.quick_links')}>
+              <button className={styles.actionLinkDisabled} type="button" disabled aria-disabled="true">
+                {t('nav.shop')}
+                <span className={styles.actionSoon}>{t('nav.coming_soon')}</span>
+              </button>
+              <button className={styles.actionLink} type="button" onClick={() => setAuthOpen(true)}>
+                {t('nav.sign_in')}
+              </button>
+            </div>
+            <LangMenu />
+            <div className={styles.tipWrap} data-tip={t('nav.theme')}>
+              <ThemeButton label={t('nav.theme')} />
+            </div>
+            <button
+              className={styles.menuBtn}
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? t('nav.close_menu') : t('nav.open_menu')}
+              aria-expanded={open}
+            >
+              {open ? <IconClose /> : <IconMenu />}
+            </button>
           </div>
         </div>
-      ) : null}
-    </header>
+
+        {open ? (
+          <div className={styles.mobilePanel}>
+            <HeaderNav onNavigate={() => setOpen(false)} />
+            <div className={styles.mobileLegal}>
+              <Link className={styles.legalLink} to="/privacy" onClick={() => setOpen(false)}>
+                {t('nav.privacy')}
+              </Link>
+              <Link className={styles.legalLink} to="/terms" onClick={() => setOpen(false)}>
+                {t('nav.terms')}
+              </Link>
+              <Link className={styles.legalLink} to="/cookies" onClick={() => setOpen(false)}>
+                {t('nav.cookies')}
+              </Link>
+              <Link className={styles.legalLink} to="/faq" onClick={() => setOpen(false)}>
+                {t('footer.links.faq')}
+              </Link>
+            </div>
+          </div>
+        ) : null}
+      </header>
+
+      {authOpen ? <AuthModal onClose={() => setAuthOpen(false)} /> : null}
+    </>
   )
 }
