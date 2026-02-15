@@ -70,9 +70,7 @@
 }
 
 .navLink[aria-current='page'] {
-  background: var(--accent);
-  border-color: color-mix(in oklab, var(--accent) 70%, #000 30%);
-  color: #071007;
+  /* Keep the same style; we don't want a persistent "active" highlight. */
 }
 
 .actions {

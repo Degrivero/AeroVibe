@@ -327,6 +327,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
+  align-items: start;
 }
 
 .featureCopy {
@@ -340,20 +341,37 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  background: color-mix(in oklab, var(--card) 74%, transparent);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .featureRowTitle {
   font-weight: 820;
   letter-spacing: 0.1px;
   line-height: 1.2;
+  position: relative;
+  padding-left: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.featureRowTitle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 6px color-mix(in oklab, var(--accent) 10%, transparent),
+    0 0 18px color-mix(in oklab, var(--accent) 22%, transparent);
+  opacity: 0.9;
 }
 
 .featureRowBody {
@@ -367,15 +385,11 @@
 }
 
 .featureRow {
-  border-radius: 16px;
-  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
-  background: color-mix(in oklab, var(--bg) 38%, var(--card) 62%);
-  padding: 12px 12px;
+  padding: 0;
 }
 
 .featureRow:hover {
-  border-color: color-mix(in oklab, var(--accent) 45%, var(--border) 55%);
-  box-shadow: 0 16px 40px color-mix(in oklab, var(--accent) 10%, transparent);
+  color: var(--fg);
 }
 
 .blockTwo {
@@ -672,8 +686,8 @@
   }
 
   .featureSplit {
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: stretch;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
     gap: 22px;
   }
 
