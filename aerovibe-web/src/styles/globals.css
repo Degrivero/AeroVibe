@@ -7,7 +7,7 @@
   --cyan: #00b2ff;
 
   /* Layout */
-  --page-max: 1920px;
+  --page-max: 1560px;
   --page-pad: clamp(18px, 4vw, 56px);
 }
 
@@ -19,14 +19,14 @@ html[data-theme='dark'] {
   --border: rgba(255, 255, 255, 0.14);
   --grid: rgba(118, 185, 0, 0.2);
 
-  --header-bg: rgba(0, 0, 0, 0.86);
+  --header-bg: #000000;
   --header-fg: var(--fg);
   --header-muted: var(--muted);
   --header-border: rgba(255, 255, 255, 0.14);
   --header-surface: rgba(255, 255, 255, 0.06);
   --header-surface-border: rgba(255, 255, 255, 0.14);
 
-  --footer-bg: rgba(0, 0, 0, 0.92);
+  --footer-bg: #000000;
   --footer-fg: var(--fg);
   --footer-muted: var(--muted);
   --footer-border: rgba(255, 255, 255, 0.12);
@@ -40,14 +40,14 @@ html[data-theme='light'] {
   --border: rgba(10, 14, 18, 0.16);
   --grid: rgba(118, 185, 0, 0.18);
 
-  --header-bg: rgba(0, 0, 0, 0.92);
+  --header-bg: #000000;
   --header-fg: #f2f5f7;
   --header-muted: rgba(242, 245, 247, 0.78);
   --header-border: rgba(255, 255, 255, 0.14);
   --header-surface: rgba(255, 255, 255, 0.06);
   --header-surface-border: rgba(255, 255, 255, 0.14);
 
-  --footer-bg: #0b0f12;
+  --footer-bg: #000000;
   --footer-fg: #f2f5f7;
   --footer-muted: rgba(242, 245, 247, 0.76);
   --footer-border: rgba(255, 255, 255, 0.14);

@@ -396,6 +396,9 @@
   grid-template-columns: 1fr;
   gap: 12px;
   margin-top: 22px;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .featureCard {
@@ -421,6 +424,9 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .priceCard,
@@ -602,8 +608,9 @@
   }
 
   .priceGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(250px, 330px));
     align-items: stretch;
+    justify-content: center;
   }
 }
 
@@ -629,6 +636,7 @@
 
 @media (min-width: 1100px) {
   .featureGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(260px, 420px));
+    justify-content: center;
   }
 }
