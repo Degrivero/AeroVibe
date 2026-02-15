@@ -11,6 +11,10 @@
   padding: 22px 22px 18px;
 }
 
+:global(html[data-theme='dark']) .header {
+  background: #000;
+}
+
 .h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -26,6 +30,10 @@
   padding: 18px 22px;
 }
 
+:global(html[data-theme='dark']) .body {
+  background: #000;
+}
+
 .p {
   margin: 0;
   color: var(--muted);
@@ -36,4 +44,3 @@
 .p + .p {
   margin-top: 14px;
 }
-

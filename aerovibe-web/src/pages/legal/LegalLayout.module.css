@@ -11,6 +11,10 @@
   background: color-mix(in oklab, var(--card) 76%, transparent);
 }
 
+:global(html[data-theme='dark']) .header {
+  background: #000;
+}
+
 .h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -42,6 +46,10 @@
   background: color-mix(in oklab, var(--card) 74%, transparent);
   padding: 16px 18px;
   margin-top: 12px;
+}
+
+:global(html[data-theme='dark']) .section {
+  background: #000;
 }
 
 .h2 {

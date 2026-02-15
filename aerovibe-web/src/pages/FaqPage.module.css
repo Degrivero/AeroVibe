@@ -11,6 +11,10 @@
   padding: 22px 22px 18px;
 }
 
+:global(html[data-theme='dark']) .header {
+  background: #000;
+}
+
 .h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -35,6 +39,10 @@
   border-radius: 18px;
   background: color-mix(in oklab, var(--card) 80%, transparent);
   padding: 12px 14px;
+}
+
+:global(html[data-theme='dark']) .item {
+  background: #000;
 }
 
 .summary {
@@ -64,4 +72,3 @@
   color: var(--muted);
   line-height: 1.75;
 }
-
