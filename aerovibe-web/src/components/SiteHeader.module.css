@@ -222,6 +222,12 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Avoid showing the tooltip while the language menu is open (it would overlap). */
+  .tipWrap[data-open='true']::after {
+    opacity: 0 !important;
+    transform: translateY(6px) !important;
+  }
 }
 
 .srOnly {

@@ -129,37 +129,39 @@ function LangMenu() {
   ]
 
   return (
-    <div className={styles.langWrap} ref={wrapRef}>
-      <button
-        className={styles.langBtn}
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={t('nav.language')}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-      >
-        <IconGlobe />
-      </button>
+    <div className={styles.tipWrap} data-tip={t('nav.language')} data-open={open ? 'true' : 'false'}>
+      <div className={styles.langWrap} ref={wrapRef}>
+        <button
+          className={styles.langBtn}
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={t('nav.language')}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+        >
+          <IconGlobe />
+        </button>
 
-      {open ? (
-        <div className={styles.langMenu} role="listbox" aria-label={t('nav.language')}>
-          {options.map((opt) => (
-            <button
-              key={opt.lang}
-              className={value === opt.lang ? styles.langOptionActive : styles.langOption}
-              type="button"
-              role="option"
-              aria-selected={value === opt.lang}
-              onClick={() => {
-                setLang(opt.lang)
-                setOpen(false)
-              }}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      ) : null}
+        {open ? (
+          <div className={styles.langMenu} role="listbox" aria-label={t('nav.language')}>
+            {options.map((opt) => (
+              <button
+                key={opt.lang}
+                className={value === opt.lang ? styles.langOptionActive : styles.langOption}
+                type="button"
+                role="option"
+                aria-selected={value === opt.lang}
+                onClick={() => {
+                  setLang(opt.lang)
+                  setOpen(false)
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }

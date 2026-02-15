@@ -116,6 +116,7 @@ export function HomePage() {
 
           <div className={styles.heroBottom}>
             <StoreBadges />
+            <div className={styles.heroNote}>{t('hero.note')}</div>
           </div>
         </div>
       </section>
@@ -193,7 +194,6 @@ export function HomePage() {
           </div>
         </section>
 
-        <div className={styles.betaCentered}>{t('hero.note')}</div>
       </section>
     </div>
   )

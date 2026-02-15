@@ -283,6 +283,13 @@
   gap: 12px;
 }
 
+.heroNote {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
 .storeBadges {
   display: flex;
   flex-wrap: wrap;
@@ -360,17 +367,6 @@
   background: radial-gradient(circle at 20% 20%, var(--accent), transparent 62%);
   animation-delay: -5s;
 }
-
-.betaCentered {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 0 var(--page-pad) 72px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 650;
-}
-
 
 .section {
   padding: 64px 0;
