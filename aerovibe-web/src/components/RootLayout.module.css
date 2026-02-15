@@ -7,6 +7,17 @@
 .main {
   flex: 1;
   width: 100%;
+  background:
+    radial-gradient(circle at 12% 30%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(circle at 86% 20%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 60%),
+    var(--bg);
+}
+
+:global(html[data-theme='light']) .main {
+  background:
+    radial-gradient(circle at 12% 30%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 64%),
+    radial-gradient(circle at 86% 20%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 62%),
+    var(--bg);
 }
 
 .routeError {

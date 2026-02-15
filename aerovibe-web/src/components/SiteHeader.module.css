@@ -2,24 +2,10 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  backdrop-filter: blur(14px);
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
   isolation: isolate;
   overflow: visible;
-}
-
-.header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 14% 10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 55%),
-    radial-gradient(circle at 86% 0%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 72%);
-  opacity: 0.9;
-  z-index: 0;
 }
 
 .header::after {
