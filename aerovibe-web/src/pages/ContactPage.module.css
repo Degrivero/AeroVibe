@@ -45,7 +45,8 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
-  max-width: 880px;
+  max-width: 620px;
+  margin: 0 auto;
 }
 
 .alertError,
@@ -159,4 +160,3 @@
     grid-column: 1 / -1;
   }
 }
-

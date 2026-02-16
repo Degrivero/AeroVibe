@@ -23,6 +23,7 @@
     "close_menu": "Cerrar menú"
   },
   "common": {
+    "home": "Inicio",
     "back_home": "Volver al inicio",
     "last_updated": "Última actualización: {{date}}",
     "contact": "Contacto: {{email}}",
@@ -573,8 +574,24 @@
       "submit_failed": "No pudimos enviar tu mensaje. Intenta de nuevo en unos minutos."
     }
   },
+  "reset_password": {
+    "meta_title": "Recuperar contraseña",
+    "meta_description": "Actualizá tu contraseña de AeroVibe.",
+    "title": "Recuperar contraseña",
+    "subtitle": "Elegí una nueva contraseña para tu cuenta.",
+    "success": "Contraseña actualizada. Ya podés iniciar sesión en la app.",
+    "go_store": "Ir a la tienda",
+    "actions": { "submit": "Guardar contraseña", "saving": "Guardando…" },
+    "errors": {
+      "missing_token": "Link inválido o expirado. Pedí un nuevo enlace de recuperación.",
+      "generic": "No pudimos actualizar tu contraseña. Intenta de nuevo."
+    }
+  },
   "account_modal": {
     "subtitle": "Creá tu cuenta o recuperá tu contraseña.",
+    "created_title": "Cuenta creada",
+    "created_accept": "Aceptar",
+    "created_go_store": "Vamos a ello",
     "create_ok": "Cuenta creada. Ahora podés iniciar sesión en la app.",
     "recover_ok": "Listo. Si el correo existe, te va a llegar un email con el enlace de recuperación.",
     "errors": {

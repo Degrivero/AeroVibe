@@ -23,6 +23,7 @@
     "close_menu": "Close menu"
   },
   "common": {
+    "home": "Home",
     "back_home": "Back to home",
     "last_updated": "Last updated: {{date}}",
     "contact": "Contact: {{email}}",
@@ -432,8 +433,24 @@
       "submit_failed": "We couldn’t send your message. Try again in a few minutes."
     }
   },
+  "reset_password": {
+    "meta_title": "Reset password",
+    "meta_description": "Update your AeroVibe password.",
+    "title": "Reset password",
+    "subtitle": "Choose a new password for your account.",
+    "success": "Password updated. You can now sign in from the app.",
+    "go_store": "Go to the store",
+    "actions": { "submit": "Save password", "saving": "Saving…" },
+    "errors": {
+      "missing_token": "Invalid or expired link. Request a new recovery link.",
+      "generic": "We couldn't update your password. Please try again."
+    }
+  },
   "account_modal": {
     "subtitle": "Create your account or reset your password.",
+    "created_title": "Account created",
+    "created_accept": "OK",
+    "created_go_store": "Go to the store",
     "create_ok": "Account created. You can now sign in from the app.",
     "recover_ok": "Done. If the email exists, you'll receive a password reset link shortly.",
     "errors": {

@@ -82,6 +82,24 @@ function IconGlobe() {
   )
 }
 
+function IconUser() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M20 21a8 8 0 1 0-16 0"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  )
+}
+
 function ThemeButton({ label }: { label: string }) {
   const { theme, toggle } = useTheme()
   return (
@@ -321,11 +339,10 @@ export function SiteHeader() {
             <span className={styles.brandText}>AeroVibe</span>
           </Link>
 
-          <div className={styles.desktopOnly}>
-            <HeaderNav />
-          </div>
-
           <div className={styles.actions}>
+            <div className={styles.desktopOnly}>
+              <HeaderNav />
+            </div>
             <div className={styles.actionLinks} aria-label={t('nav.quick_links')} ref={quickRef}>
               <span className={styles.actionPill} aria-hidden="true" />
               <div className={styles.tipWrap} data-tip={t('nav.coming_soon')}>
@@ -350,6 +367,19 @@ export function SiteHeader() {
                 {t('nav.account')}
               </button>
             </div>
+            <div className={styles.tipWrap} data-tip={t('nav.account')}>
+              <button
+                className={`${styles.iconBtn} ${styles.mobileOnly}`}
+                type="button"
+                onClick={() => {
+                  setOpen(false)
+                  setAccountOpen(true)
+                }}
+                aria-label={t('nav.account')}
+              >
+                <IconUser />
+              </button>
+            </div>
             <LangMenu />
             <div className={styles.tipWrap} data-tip={t('nav.theme')}>
               <ThemeButton label={t('nav.theme')} />
@@ -369,11 +399,6 @@ export function SiteHeader() {
         {open ? (
           <div className={styles.mobilePanel}>
             <HeaderNav onNavigate={() => setOpen(false)} />
-            <div className={styles.mobileActions}>
-              <button className={styles.actionLink} type="button" onClick={() => setAccountOpen(true)}>
-                {t('nav.account')}
-              </button>
-            </div>
             <div className={styles.mobileLegal}>
               <Link className={styles.legalLink} to="/privacy" onClick={() => setOpen(false)}>
                 {t('nav.privacy')}

@@ -339,6 +339,10 @@
   display: none;
 }
 
+.mobileOnly {
+  display: inline-flex;
+}
+
 .mobilePanel {
   border-top: 1px solid var(--header-border);
   padding: 14px var(--page-pad) 18px;
@@ -378,6 +382,10 @@
 @media (min-width: 860px) {
   .desktopOnly {
     display: block;
+  }
+
+  .mobileOnly {
+    display: none;
   }
 
   .actionLinks {

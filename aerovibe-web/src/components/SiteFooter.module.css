@@ -71,7 +71,7 @@
 .bottom {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 6px var(--page-pad) 10px;
+  padding: 6px var(--page-pad) calc(10px + env(safe-area-inset-bottom));
   color: var(--footer-muted);
   font-size: 12px;
   text-align: center;

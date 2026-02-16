@@ -52,14 +52,17 @@ export function RootLayout({ isError }: { isError?: boolean }) {
   useEffect(() => {
     const hash = location.hash?.replace('#', '')
     if (!hash) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
       return
     }
 
     const el = document.getElementById(hash)
     if (el) {
-      // Use scrollIntoView + scroll-margin-top (CSS) for sticky-header-safe anchors.
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const header = document.querySelector('header')
+      const headerH = header instanceof HTMLElement ? header.getBoundingClientRect().height : 0
+      const offset = headerH + 18
+      const top = el.getBoundingClientRect().top + window.scrollY - offset
+      window.scrollTo({ top: Math.max(0, Math.round(top)), left: 0, behavior: 'auto' })
     }
   }, [location.pathname, location.hash])
 

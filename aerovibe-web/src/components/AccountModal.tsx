@@ -22,15 +22,38 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [createdOk, setCreatedOk] = useState(false)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const emailRef = useRef<HTMLInputElement | null>(null)
 
+  const appStoreUrl = (import.meta.env.VITE_APP_STORE_URL as string | undefined) || '#'
+  const googlePlayUrl = (import.meta.env.VITE_GOOGLE_PLAY_URL as string | undefined) || '#'
+
   const title = useMemo(() => {
     return mode === 'recover' ? t('nav.recover_password') : t('nav.create_account')
   }, [mode, t])
+
+  function preferredStoreUrl() {
+    if (typeof navigator === 'undefined') return null
+    const ua = navigator.userAgent || ''
+    const isIOS = /iPhone|iPad|iPod/i.test(ua)
+    const isAndroid = /Android/i.test(ua)
+    const app = appStoreUrl && appStoreUrl !== '#' ? appStoreUrl : null
+    const gp = googlePlayUrl && googlePlayUrl !== '#' ? googlePlayUrl : null
+
+    if (isIOS) return app || gp
+    if (isAndroid) return gp || app
+    return app || gp
+  }
+
+  function goToStore() {
+    const url = preferredStoreUrl()
+    if (!url) return
+    window.location.assign(url)
+  }
 
   useEffect(() => {
     const prev = document.body.style.overflow
@@ -106,7 +129,7 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
       } else {
         setPassword('')
         setPassword2('')
-        setMessage(t('account_modal.create_ok'))
+        setCreatedOk(true)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : t('account_modal.errors.generic'))
@@ -141,6 +164,7 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
               setMode('create')
               setError(null)
               setMessage(null)
+              setCreatedOk(false)
             }}
           >
             {t('nav.create_account')}
@@ -154,6 +178,7 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
               setMode('recover')
               setError(null)
               setMessage(null)
+              setCreatedOk(false)
             }}
           >
             {t('nav.recover_password')}
@@ -218,6 +243,38 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
                 : t('nav.create_account')}
           </button>
         </form>
+
+        {createdOk ? (
+          <div className={styles.successOverlay} role="alertdialog" aria-modal="true" aria-label={t('account_modal.created_title')}>
+            <div className={styles.successCard}>
+              <div className={styles.successTitle}>{t('account_modal.created_title')}</div>
+              <div className={styles.successBody}>{t('account_modal.create_ok')}</div>
+              <div className={styles.successActions}>
+                <button
+                  className={styles.secondary}
+                  type="button"
+                  onClick={() => {
+                    setCreatedOk(false)
+                    onClose()
+                  }}
+                >
+                  {t('account_modal.created_accept')}
+                </button>
+                <button
+                  className={styles.primary}
+                  type="button"
+                  onClick={() => {
+                    setCreatedOk(false)
+                    onClose()
+                    goToStore()
+                  }}
+                >
+                  {t('account_modal.created_go_store')}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   )

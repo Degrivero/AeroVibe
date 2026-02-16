@@ -68,6 +68,16 @@
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
 }
 
+.cardBtn {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.cardBtn:hover {
+  border-color: color-mix(in oklab, var(--accent) 60%, var(--border) 40%);
+}
+
 .cardTitle {
   font-weight: 860;
   letter-spacing: 0.1px;
@@ -167,6 +177,13 @@
   font-weight: 820;
 }
 
+.healthMeta {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
 .pillOk,
 .pillBad {
   padding: 4px 10px;
@@ -207,6 +224,190 @@
   color: var(--fg);
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.search {
+  flex: 1;
+  min-width: 220px;
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  color: var(--fg);
+  padding: 0 12px;
+  outline: none;
+}
+
+.select {
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  color: var(--fg);
+  padding: 0 10px;
+  outline: none;
+  font-weight: 760;
+}
+
+.tableWrap {
+  margin-top: 10px;
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background: color-mix(in oklab, var(--bg) 74%, transparent);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 920px;
+}
+
+.table th,
+.table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  vertical-align: top;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  color: var(--muted);
+  font-weight: 900;
+  position: sticky;
+  top: 0;
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  z-index: 1;
+}
+
+.table tr:hover td {
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.sparkWrap {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background: color-mix(in oklab, var(--bg) 72%, transparent);
+}
+
+.sparkHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sparkTitle {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: var(--muted);
+}
+
+.sparkSelect {
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  color: var(--fg);
+  padding: 0 10px;
+  outline: none;
+  font-weight: 760;
+}
+
+.sparkHelp {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.spark {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  align-items: end;
+  gap: 3px;
+  height: 64px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.bar {
+  height: 10%;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 75%, #000 25%);
+  opacity: 0.95;
+  cursor: crosshair;
+}
+
+.bar:hover {
+  opacity: 1;
+}
+
+.sparkTooltip {
+  position: absolute;
+  transform: translate(-50%, -120%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklab, var(--border) 40%, var(--accent) 60%);
+  background: color-mix(in oklab, var(--card) 92%, #000 8%);
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 820;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+.sparkState {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.errorInline {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ff7f96;
+}
+
+.legendLine {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.pager {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.pagerLabel {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 760;
+}
+
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -220,4 +421,3 @@
     grid-template-columns: 1fr 1fr;
   }
 }
-
