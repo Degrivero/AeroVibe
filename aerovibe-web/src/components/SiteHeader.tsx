@@ -201,6 +201,7 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
     if (location.pathname === '/about') return 'about'
     if (location.pathname === '/contact') return 'contact'
     if (location.pathname === '/' && location.hash === '#pricing') return 'pricing'
+    if (location.pathname === '/') return 'home'
     return null
   }, [location.pathname, location.hash])
 
@@ -250,6 +251,21 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav className={styles.nav} aria-label="Primary" ref={navRef}>
       <span className={styles.navPill} aria-hidden="true" />
+
+      <Link
+        ref={(el) => {
+          itemRefs.current.home = el
+        }}
+        to="/"
+        className={styles.navLink}
+        aria-current={activeKey === 'home' ? 'page' : undefined}
+        onMouseEnter={(e) => positionPill(e.currentTarget)}
+        onFocus={(e) => positionPill(e.currentTarget)}
+        onBlur={positionPillToActive}
+        onClick={onNavigate}
+      >
+        {t('common.home')}
+      </Link>
 
       <Link
         ref={(el) => {

@@ -15,25 +15,6 @@
   background: #000;
 }
 
-.homeLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--muted);
-  font-weight: 760;
-  font-size: 12px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 6px 10px;
-  background: color-mix(in oklab, var(--bg) 40%, var(--card) 60%);
-}
-
-.homeLink:hover {
-  color: var(--fg);
-  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
-}
-
 .h1 {
   margin: 0;
   font-family: var(--font-display);

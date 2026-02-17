@@ -137,9 +137,15 @@ type Metrics = {
 
 type Health = { ok?: boolean; service?: string; ts?: string; since?: string; checkedAt?: string; error?: string }
 
-type RangeDays = 30 | 90 | 180 | 365
+type RangeDays = 30 | 90 | 180
 
 type SectionKey = 'users' | 'spots' | 'pro' | 'support'
+
+type ReportModalState = {
+  section: SectionKey
+  from: string
+  to: string
+}
 
 type TrendChartProps = {
   title: string
@@ -148,6 +154,8 @@ type TrendChartProps = {
   points: TrendPoint[]
   rangeDays: RangeDays
   onRangeChange: (value: RangeDays) => void
+  onOpenReport: () => void
+  reportDisabled?: boolean
   loading: boolean
   error: string | null
 }
@@ -162,8 +170,14 @@ const RANGE_OPTIONS: Array<{ value: RangeDays; label: string }> = [
   { value: 30, label: '30 días' },
   { value: 90, label: '90 días' },
   { value: 180, label: '180 días' },
-  { value: 365, label: '1 año' },
 ]
+
+const REPORT_SECTION_LABELS: Record<SectionKey, string> = {
+  users: 'usuarios',
+  pro: 'usuarios-pro',
+  spots: 'spots',
+  support: 'soporte',
+}
 
 function apiBase() {
   const raw = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').trim()
@@ -206,8 +220,36 @@ function truncateText(value: string | null | undefined, max = 120) {
 }
 
 function normalizeDays(value: number): RangeDays {
-  if (value === 90 || value === 180 || value === 365) return value
+  if (value === 90 || value === 180) return value
   return 30
+}
+
+function toIsoDayUTC(date: Date) {
+  return `${date.getUTCFullYear()}-${pad2(date.getUTCMonth() + 1)}-${pad2(date.getUTCDate())}`
+}
+
+function shiftUtcDays(date: Date, days: number) {
+  const next = new Date(date)
+  next.setUTCDate(next.getUTCDate() + days)
+  return next
+}
+
+function escapeCsvCell(value: string | number) {
+  const text = String(value)
+  if (!/[",\n]/.test(text)) return text
+  return `"${text.replace(/"/g, '""')}"`
+}
+
+function triggerCsvDownload(csv: string, filename: string) {
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
 }
 
 function useDebouncedValue<T>(value: T, delayMs = 300) {
@@ -234,6 +276,8 @@ function TrendChart({
   points,
   rangeDays,
   onRangeChange,
+  onOpenReport,
+  reportDisabled,
   loading,
   error,
 }: TrendChartProps) {
@@ -260,18 +304,23 @@ function TrendChart({
     <div className={styles.sparkWrap}>
       <div className={styles.sparkHeader}>
         <div className={styles.sparkTitle}>{title}</div>
-        <select
-          className={styles.sparkSelect}
-          value={rangeDays}
-          onChange={(e) => onRangeChange(normalizeDays(Number(e.target.value)))}
-          aria-label="Rango de tiempo"
-        >
-          {RANGE_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <div className={styles.sparkControls}>
+          <select
+            className={styles.sparkSelect}
+            value={rangeDays}
+            onChange={(e) => onRangeChange(normalizeDays(Number(e.target.value)))}
+            aria-label="Rango de tiempo"
+          >
+            {RANGE_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          <button className={styles.sparkDownload} type="button" onClick={onOpenReport} disabled={reportDisabled}>
+            Descargar reporte
+          </button>
+        </div>
       </div>
 
       <div className={styles.sparkHelp}>{description}</div>
@@ -418,6 +467,10 @@ export function AdminPage() {
   const [supportTrend, setSupportTrend] = useState<TrendResponse | null>(null)
   const [supportTrendBusy, setSupportTrendBusy] = useState(false)
   const [supportTrendError, setSupportTrendError] = useState<string | null>(null)
+
+  const [reportModal, setReportModal] = useState<ReportModalState | null>(null)
+  const [reportBusy, setReportBusy] = useState(false)
+  const [reportError, setReportError] = useState<string | null>(null)
 
   const rolesSummary = useMemo(() => {
     const roles = metrics?.users?.roles || {}
@@ -796,6 +849,64 @@ export function AdminPage() {
     setRangeBySection((prev) => ({ ...prev, [key]: value }))
   }
 
+  function openReportModal(sectionKey: SectionKey, points: TrendPoint[]) {
+    const sorted = [...points].sort((a, b) => a.date.localeCompare(b.date))
+    const now = new Date()
+    const from = sorted[0]?.date || toIsoDayUTC(shiftUtcDays(now, -29))
+    const to = sorted[sorted.length - 1]?.date || toIsoDayUTC(now)
+    setReportError(null)
+    setReportModal({ section: sectionKey, from, to })
+  }
+
+  function buildTrendPathForReport(sectionKey: SectionKey, days: number) {
+    if (sectionKey === 'users') return `/api/admin/users/trend?kind=users&days=${days}`
+    if (sectionKey === 'pro') return `/api/admin/users/trend?kind=pro&days=${days}`
+    if (sectionKey === 'spots') {
+      const q = spotsQuery.trim()
+      return `/api/admin/spots/trend?days=${days}${q ? `&q=${encodeURIComponent(q)}` : ''}`
+    }
+
+    const params = new URLSearchParams()
+    params.set('days', String(days))
+    if (supportStatus !== 'all') params.set('status', supportStatus)
+    if (supportReason !== 'all') params.set('reason', supportReason)
+    return `/api/admin/support/trend?${params.toString()}`
+  }
+
+  async function downloadReportCsv() {
+    if (!reportModal) return
+    setReportBusy(true)
+    setReportError(null)
+    try {
+      const fromDay = reportModal.from
+      const toDay = reportModal.to
+      if (!fromDay || !toDay) throw new Error('Seleccioná fecha desde y hasta.')
+      if (fromDay > toDay) throw new Error('La fecha "desde" no puede ser mayor a "hasta".')
+
+      const fromMs = Date.parse(`${fromDay}T00:00:00Z`)
+      const toMs = Date.parse(`${toDay}T00:00:00Z`)
+      if (!Number.isFinite(fromMs) || !Number.isFinite(toMs)) throw new Error('Rango de fechas inválido.')
+
+      const rawDays = Math.floor((toMs - fromMs) / 86400000) + 1
+      const queryDays = Math.max(7, Math.min(365, rawDays))
+      const path = buildTrendPathForReport(reportModal.section, queryDays)
+      const data = (await authedGet(path)) as TrendResponse
+
+      const filtered = (data.series || []).filter((point) => point.date >= fromDay && point.date <= toDay)
+      const header = ['fecha', 'cantidad', 'seccion']
+      const rows = filtered.map((point) => [point.date, String(point.count), REPORT_SECTION_LABELS[reportModal.section]])
+      const csv = [header, ...rows].map((row) => row.map((cell) => escapeCsvCell(cell)).join(',')).join('\n')
+
+      const filename = `admin-${REPORT_SECTION_LABELS[reportModal.section]}-${fromDay}_a_${toDay}.csv`
+      triggerCsvDownload(csv, filename)
+      setReportModal(null)
+    } catch (e) {
+      setReportError(e instanceof Error ? e.message : 'No pudimos generar el reporte.')
+    } finally {
+      setReportBusy(false)
+    }
+  }
+
   function renderPager({
     page,
     pageCount,
@@ -965,6 +1076,8 @@ export function AdminPage() {
                   points={section === 'pro' ? proTrend?.series ?? [] : usersTrend?.series ?? []}
                   rangeDays={rangeBySection[section]}
                   onRangeChange={(value) => setSectionRange(section, value)}
+                  onOpenReport={() => openReportModal(section, section === 'pro' ? proTrend?.series ?? [] : usersTrend?.series ?? [])}
+                  reportDisabled={section === 'pro' ? proTrendBusy : usersTrendBusy}
                   loading={section === 'pro' ? proTrendBusy : usersTrendBusy}
                   error={section === 'pro' ? proTrendError : usersTrendError}
                 />
@@ -1069,6 +1182,8 @@ export function AdminPage() {
                   points={spotsTrend?.series ?? []}
                   rangeDays={rangeBySection.spots}
                   onRangeChange={(value) => setSectionRange('spots', value)}
+                  onOpenReport={() => openReportModal('spots', spotsTrend?.series ?? [])}
+                  reportDisabled={spotsTrendBusy}
                   loading={spotsTrendBusy}
                   error={spotsTrendError}
                 />
@@ -1163,6 +1278,8 @@ export function AdminPage() {
                   points={supportTrend?.series ?? []}
                   rangeDays={rangeBySection.support}
                   onRangeChange={(value) => setSectionRange('support', value)}
+                  onOpenReport={() => openReportModal('support', supportTrend?.series ?? [])}
+                  reportDisabled={supportTrendBusy}
                   loading={supportTrendBusy}
                   error={supportTrendError}
                 />
@@ -1283,6 +1400,57 @@ export function AdminPage() {
                   onNext: () => setSupportPage((p) => p + 1),
                   busy: supportBusy,
                 })}
+              </div>
+            ) : null}
+
+            {reportModal ? (
+              <div
+                className={styles.modalBackdrop}
+                role="presentation"
+                onClick={(e) => {
+                  if (e.target === e.currentTarget && !reportBusy) setReportModal(null)
+                }}
+              >
+                <div className={styles.modalCard} role="dialog" aria-modal="true" aria-label="Descargar reporte CSV">
+                  <div className={styles.modalTitle}>Descargar reporte CSV</div>
+                  <div className={styles.modalSub}>
+                    Sección: {REPORT_SECTION_LABELS[reportModal.section]} · elegí el rango de fechas (UTC).
+                  </div>
+
+                  {reportError ? <div className={styles.error}>{reportError}</div> : null}
+
+                  <div className={styles.modalGrid}>
+                    <label className={styles.field}>
+                      <div className={styles.label}>Desde</div>
+                      <input
+                        className={styles.input}
+                        type="date"
+                        value={reportModal.from}
+                        onChange={(e) => setReportModal((prev) => (prev ? { ...prev, from: e.target.value } : prev))}
+                        disabled={reportBusy}
+                      />
+                    </label>
+                    <label className={styles.field}>
+                      <div className={styles.label}>Hasta</div>
+                      <input
+                        className={styles.input}
+                        type="date"
+                        value={reportModal.to}
+                        onChange={(e) => setReportModal((prev) => (prev ? { ...prev, to: e.target.value } : prev))}
+                        disabled={reportBusy}
+                      />
+                    </label>
+                  </div>
+
+                  <div className={styles.modalActions}>
+                    <button className={styles.btnGhost} type="button" onClick={() => setReportModal(null)} disabled={reportBusy}>
+                      Cancelar
+                    </button>
+                    <button className={styles.btn} type="button" onClick={() => void downloadReportCsv()} disabled={reportBusy}>
+                      {reportBusy ? 'Descargando…' : 'Descargar'}
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : null}
           </>

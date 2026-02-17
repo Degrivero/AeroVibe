@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import styles from './LegalLayout.module.css'
 
@@ -19,9 +18,6 @@ export function LegalLayout({
   return (
     <article className={styles.wrap}>
       <header className={styles.header}>
-        <Link className={styles.homeLink} to="/">
-          ← {t('common.home')}
-        </Link>
         <h1 className={styles.h1}>{title}</h1>
         <p className={styles.updated}>{t('common.last_updated', { date: updatedOn })}</p>
         {intro ? <p className={styles.intro}>{intro}</p> : null}

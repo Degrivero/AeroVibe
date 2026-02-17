@@ -76,9 +76,18 @@
     "cta_secondary": "Explore features",
     "note": "iOS and Android. Private beta in progress.",
     "stats": {
-      "map": { "value": "Living map", "label": "Collaborative spots" },
-      "media": { "value": "Pro media", "label": "Photos + video" },
-      "plans": { "value": "Schedule", "label": "Flight plans" }
+      "map": {
+        "value": "Living map",
+        "label": "Collaborative spots"
+      },
+      "media": {
+        "value": "Pro media",
+        "label": "Photos + video"
+      },
+      "plans": {
+        "value": "Schedule",
+        "label": "Flight plans"
+      }
     }
   },
   "sections": {
@@ -183,86 +192,304 @@
       "title": "Privacy Policy",
       "intro": "AeroVibe processes information to operate the app (spots, profiles, media, and flight plans). This policy summarizes what we collect, how we use it, and your options.",
       "blocks": [
-        { "type": "h2", "text": "Data we collect" },
+        {
+          "type": "h2",
+          "text": "1. Data controller"
+        },
+        {
+          "type": "p",
+          "text": "Controller: Daniel Eduardo Guillen Rivero."
+        },
+        {
+          "type": "p",
+          "text": "Tax ID (C.U.I.T.): 20-96387956-4."
+        },
+        {
+          "type": "p",
+          "text": "Tax address: Mendoza, Argentine Republic."
+        },
+        {
+          "type": "p",
+          "text": "Contact email: support@aerovibe.app."
+        },
+        {
+          "type": "p",
+          "text": "AeroVibe is operated by the controller indicated above."
+        },
+        {
+          "type": "h2",
+          "text": "2. Scope"
+        },
+        {
+          "type": "p",
+          "text": "This Policy applies to the use of the mobile app, website, and related AeroVibe services."
+        },
+        {
+          "type": "h2",
+          "text": "3. Data we collect"
+        },
+        {
+          "type": "h3",
+          "text": "3.1 Account data"
+        },
         {
           "type": "ul",
           "items": [
-            "Account: email, authentication identifiers, and settings.",
-            "Content: spots, descriptions, comments, and media you upload.",
-            "Location: if enabled, coordinates to create spots and improve the map.",
-            "Usage: performance metrics and diagnostics to improve stability."
+            "Email.",
+            "Authentication identifiers.",
+            "Data related to social login (Apple, Google, Facebook, if enabled).",
+            "Profile settings.",
+            "Account preferences."
           ]
         },
-        { "type": "h2", "text": "How we use data" },
+        {
+          "type": "p",
+          "text": "For Apple, Google, or Facebook login, we only receive data authorized by the user according to the settings of those platforms."
+        },
+        {
+          "type": "h3",
+          "text": "3.2 User-generated content"
+        },
         {
           "type": "ul",
           "items": [
-            "Provide features (map, ranking, hangar, notifications).",
-            "Prevent abuse/fraud and enforce moderation.",
-            "Improve performance and fix issues.",
+            "Published spots.",
+            "Associated coordinates.",
+            "Photos and videos.",
+            "Comments and descriptions.",
+            "Interactions (likes, rankings, hangar, etc.)."
+          ]
+        },
+        {
+          "type": "h3",
+          "text": "3.3 Location data"
+        },
+        {
+          "type": "p",
+          "text": "If you grant permission, we may collect geographic coordinates to:"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Create spots.",
+            "Improve the map.",
+            "Show nearby content."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "We do not track background location without explicit consent."
+        },
+        {
+          "type": "h3",
+          "text": "3.4 Technical and usage data"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "IP address.",
+            "Device type and operating system.",
+            "Error logs.",
+            "Performance metrics.",
+            "Session information."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "4. Legal basis for processing"
+        },
+        {
+          "type": "p",
+          "text": "We process data based on:"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Contract performance: to provide the service.",
+            "Consent: location and analytics cookies.",
+            "Legitimate interest: security, fraud prevention, and service improvement.",
+            "Applicable legal obligations."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "5. Purposes"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Operate product features (map, ranking, hangar, profiles).",
+            "Allow publishing and viewing of content.",
+            "Detect abuse or fraud.",
+            "Moderate content.",
+            "Manage Pro subscriptions.",
+            "Improve performance and stability.",
             "Communicate relevant product changes."
           ]
         },
-        { "type": "h2", "text": "Third parties and providers" },
+        {
+          "type": "p",
+          "text": "AeroVibe does not use automated decisions with significant legal effects."
+        },
+        {
+          "type": "h2",
+          "text": "6. Data processors and third parties"
+        },
+        {
+          "type": "p",
+          "text": "We do not sell personal data."
+        },
+        {
+          "type": "p",
+          "text": "We may use providers acting as processors under proper contractual agreements, such as:"
+        },
         {
           "type": "ul",
           "items": [
-            "Infrastructure and database (e.g., Supabase/Postgres) to store data.",
-            "Maps (e.g., Mapbox) to render the map.",
-            "Media storage (buckets) for photos and videos."
+            "Supabase (infrastructure and database).",
+            "Media storage services.",
+            "Mapbox (map services).",
+            "Google Analytics (web metrics).",
+            "Social authentication providers (Apple, Google, Facebook).",
+            "Payment platforms (App Store, Google Play, or others).",
+            "Transactional email and technical monitoring services."
           ]
         },
-        { "type": "h2", "text": "Retention and security" },
         {
           "type": "p",
-          "text": "We apply reasonable measures to protect data. We keep information while your account is active or as needed to operate the service, unless legal obligations require otherwise."
+          "text": "These providers may process data outside Argentina."
         },
-        { "type": "h2", "text": "Your rights" },
+        {
+          "type": "h2",
+          "text": "7. International transfers"
+        },
         {
           "type": "p",
-          "text": "You can request access, correction, or deletion of data. If you delete your account, we’ll attempt to delete or anonymize associated information, except where required by law or to prevent abuse."
+          "text": "When data is processed outside Argentina, we adopt contractual safeguards and reasonable measures according to applicable international regulations."
         },
-        { "type": "h2", "text": "Contact" },
-        { "type": "p", "text": "For privacy questions, email us at support@aerovibe.app." }
+        {
+          "type": "h2",
+          "text": "8. Data retention"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Account data: until account deletion.",
+            "Security logs: up to 12 months.",
+            "Anonymized data: indefinite."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "When deleting an account:"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Access is disabled immediately.",
+            "Identifiable data is deleted or anonymized.",
+            "Public content may remain in anonymized form."
+          ]
+        },
+        {
+          "type": "h2",
+          "text": "9. Security"
+        },
+        {
+          "type": "p",
+          "text": "We apply reasonable technical and organizational measures to protect information."
+        },
+        {
+          "type": "p",
+          "text": "However, no system is completely secure."
+        },
+        {
+          "type": "h2",
+          "text": "10. User rights"
+        },
+        {
+          "type": "p",
+          "text": "You may:"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Access your data.",
+            "Correct your data.",
+            "Request deletion.",
+            "Request restriction.",
+            "Request portability.",
+            "Object to processing based on legitimate interest.",
+            "Withdraw consent at any time."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "You can exercise these rights by emailing support@aerovibe.app."
+        },
+        {
+          "type": "p",
+          "text": "You may also submit a complaint to the data protection authority in your country."
+        },
+        {
+          "type": "h2",
+          "text": "11. Minimum age"
+        },
+        {
+          "type": "p",
+          "text": "AeroVibe is not directed to users under 18 years old or the legal age required by local law."
+        },
+        {
+          "type": "h2",
+          "text": "12. Changes"
+        },
+        {
+          "type": "p",
+          "text": "We may update this policy periodically."
+        },
+        {
+          "type": "p",
+          "text": "Relevant changes will be communicated within the platform."
+        }
       ],
       "sections": {
         "data": {
           "title": "Data we collect",
           "bullets": [
-            "Account: email, authentication identifiers, and settings.",
-            "Content: spots, descriptions, comments, and media you upload.",
-            "Location: if enabled, coordinates to create spots and improve the map.",
-            "Usage: performance metrics and diagnostics to improve stability."
+            "Account: email, authentication, profile, and preferences.",
+            "Content: spots, coordinates, photos, videos, comments, and interactions.",
+            "Location: only with explicit user permission.",
+            "Technical usage: IP, device, session, errors, and performance."
           ]
         },
         "use": {
           "title": "How we use data",
           "bullets": [
-            "Provide features (map, ranking, hangar, notifications).",
-            "Prevent abuse/fraud and enforce moderation.",
-            "Improve performance and fix issues.",
-            "Communicate relevant product changes."
+            "Operate platform features.",
+            "Publish and display content.",
+            "Detect abuse/fraud and moderate content.",
+            "Improve stability, performance, and Pro subscriptions."
           ]
         },
         "sharing": {
-          "title": "Third parties and providers",
+          "title": "Processors and third parties",
           "bullets": [
-            "Infrastructure and database (e.g., Supabase/Postgres) to store data.",
-            "Maps (e.g., Mapbox) to render the map.",
-            "Media storage (buckets) for photos and videos."
+            "Supabase, media storage, and map services.",
+            "Web metrics, social authentication, and payment providers.",
+            "Transactional email and technical monitoring."
           ]
         },
         "retention": {
           "title": "Retention and security",
-          "body": "We apply reasonable measures to protect data. We keep information while your account is active or as needed to operate the service, unless legal obligations require otherwise."
+          "body": "Account data is kept until account deletion. Security logs may be retained up to 12 months. Anonymized data may be retained indefinitely."
         },
         "rights": {
           "title": "Your rights",
-          "body": "You can request access, correction, or deletion of data. If you delete your account, we’ll attempt to delete or anonymize associated information, except where required by law or to prevent abuse."
+          "body": "You may access, correct, delete, restrict, port, object, or withdraw consent by contacting support@aerovibe.app."
         },
         "contact": {
           "title": "Contact",
-          "body": "For privacy questions, email us at {{email}}."
+          "body": "For privacy requests, email us at {{email}}."
         }
       }
     },
@@ -270,59 +497,172 @@
       "title": "Terms of Service",
       "intro": "By using AeroVibe you agree to these terms. We aim for a useful and safe community: real content, respect, and zero spam.",
       "blocks": [
-        { "type": "h2", "text": "Account and access" },
+        {
+          "type": "h2",
+          "text": "1. Acceptance"
+        },
+        {
+          "type": "p",
+          "text": "By using AeroVibe, you accept these terms."
+        },
+        {
+          "type": "h2",
+          "text": "2. Account and access"
+        },
+        {
+          "type": "p",
+          "text": "You are responsible for your credentials."
+        },
+        {
+          "type": "p",
+          "text": "We may suspend or terminate accounts in cases of abuse or non-compliance."
+        },
+        {
+          "type": "h2",
+          "text": "3. User-generated content"
+        },
+        {
+          "type": "p",
+          "text": "You are responsible for the content you publish."
+        },
+        {
+          "type": "p",
+          "text": "The following is not allowed:"
+        },
         {
           "type": "ul",
           "items": [
-            "You’re responsible for your account and credentials.",
-            "Do not attempt to access data or features without authorization.",
-            "We may suspend accounts for abuse or violations."
+            "Illegal content.",
+            "Rights infringement.",
+            "Deliberately false information.",
+            "Coordinates that create evident risks.",
+            "Spam or ranking manipulation."
           ]
         },
-        { "type": "h2", "text": "Content and community" },
-        {
-          "type": "ul",
-          "items": [
-            "Do not post illegal or dangerous content, or content that violates third-party rights.",
-            "Avoid posting sensitive coordinates if they can create risk.",
-            "We may moderate or remove content that violates policies."
-          ]
-        },
-        { "type": "h2", "text": "Pro plans" },
         {
           "type": "p",
-          "text": "Pro features may require a subscription. If you cancel, benefits may remain until the end of the paid period (depending on the payment platform)."
+          "text": "We reserve the right to moderate or remove content."
         },
-        { "type": "h2", "text": "Disclaimer" },
+        {
+          "type": "h2",
+          "text": "4. License"
+        },
         {
           "type": "p",
-          "text": "AeroVibe does not replace local regulations or legal advice. Always verify flight rules, weather, and permissions before operating a drone."
+          "text": "You grant a non-exclusive, worldwide, royalty-free license to host, reproduce, and display content within the platform."
+        },
+        {
+          "type": "p",
+          "text": "You retain ownership."
+        },
+        {
+          "type": "h2",
+          "text": "5. Indemnification"
+        },
+        {
+          "type": "p",
+          "text": "Users agree to indemnify and hold AeroVibe harmless against claims arising from their content or improper use of the service."
+        },
+        {
+          "type": "h2",
+          "text": "6. Pro plans and payments"
+        },
+        {
+          "type": "p",
+          "text": "Pro features may require a subscription."
+        },
+        {
+          "type": "p",
+          "text": "Payments are processed through the corresponding platform (App Store, Google Play, or others)."
+        },
+        {
+          "type": "p",
+          "text": "Cancellations are governed by the payment provider policies."
+        },
+        {
+          "type": "h2",
+          "text": "7. User blocking"
+        },
+        {
+          "type": "p",
+          "text": "Users may block other users."
+        },
+        {
+          "type": "p",
+          "text": "Blocking restricts interactions and visibility according to platform settings."
+        },
+        {
+          "type": "h2",
+          "text": "8. Availability"
+        },
+        {
+          "type": "p",
+          "text": "We may modify features, plans, or service structure without obligation to maintain specific characteristics."
+        },
+        {
+          "type": "p",
+          "text": "We do not guarantee continuous availability."
+        },
+        {
+          "type": "h2",
+          "text": "9. Limitation of liability"
+        },
+        {
+          "type": "p",
+          "text": "AeroVibe does not guarantee coordinate accuracy, weather conditions, or regulatory compliance."
+        },
+        {
+          "type": "p",
+          "text": "Each pilot is responsible for verifying regulations before flying."
+        },
+        {
+          "type": "h2",
+          "text": "10. Termination"
+        },
+        {
+          "type": "p",
+          "text": "Users may delete their account at any time."
+        },
+        {
+          "type": "p",
+          "text": "We may suspend accounts in case of non-compliance."
+        },
+        {
+          "type": "h2",
+          "text": "11. Governing law"
+        },
+        {
+          "type": "p",
+          "text": "These terms are governed by the laws of the Argentine Republic."
+        },
+        {
+          "type": "p",
+          "text": "Any dispute will be submitted to the ordinary courts with jurisdiction in the Province of Mendoza, Argentina."
         }
       ],
       "sections": {
         "accounts": {
           "title": "Account and access",
           "bullets": [
-            "You’re responsible for your account and credentials.",
-            "Do not attempt to access data or features without authorization.",
-            "We may suspend accounts for abuse or violations."
+            "You are responsible for your credentials.",
+            "We may suspend or terminate accounts for abuse or non-compliance."
           ]
         },
         "content": {
           "title": "Content and community",
           "bullets": [
-            "Do not post illegal or dangerous content, or content that violates third-party rights.",
-            "Avoid posting sensitive coordinates if they can create risk.",
-            "We may moderate or remove content that violates policies."
+            "Do not post illegal content or infringe rights.",
+            "Do not post deliberate misinformation.",
+            "Do not manipulate rankings or spam."
           ]
         },
         "pro": {
           "title": "Pro plans",
-          "body": "Pro features may require a subscription. If you cancel, benefits may remain until the end of the paid period (depending on the payment platform)."
+          "body": "Pro features may require a subscription and are managed through App Store, Google Play, or other providers."
         },
         "disclaimer": {
-          "title": "Disclaimer",
-          "body": "AeroVibe does not replace local regulations or legal advice. Always verify flight rules, weather, and permissions before operating a drone."
+          "title": "Liability",
+          "body": "Each pilot is responsible for checking regulations and conditions before flying."
         }
       }
     },
@@ -330,70 +670,138 @@
       "title": "Cookie Policy",
       "intro": "We use local storage (and, in some cases, cookies) to remember preferences and improve the experience.",
       "blocks": [
-        { "type": "h2", "text": "Essential" },
+        {
+          "type": "p",
+          "text": "We use cookies and similar technologies."
+        },
+        {
+          "type": "h2",
+          "text": "Types"
+        },
+        {
+          "type": "h3",
+          "text": "Necessary"
+        },
         {
           "type": "ul",
           "items": [
-            "Language and theme preferences (light/dark).",
-            "Basic security and abuse prevention."
+            "Authentication.",
+            "Security.",
+            "Abuse prevention."
           ]
         },
-        { "type": "h2", "text": "Optional" },
-        { "type": "ul", "items": ["Anonymous metrics to improve performance (if enabled)."] },
-        { "type": "h2", "text": "How to control them" },
+        {
+          "type": "h3",
+          "text": "Functional"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Language preferences.",
+            "Theme."
+          ]
+        },
+        {
+          "type": "h3",
+          "text": "Analytics"
+        },
+        {
+          "type": "ul",
+          "items": [
+            "Google Analytics or similar tools for anonymous performance metrics and technical diagnostics."
+          ]
+        },
         {
           "type": "p",
-          "text": "You can clear cookies and site data from your browser settings. Some features may stop remembering your preferences."
+          "text": "We do not use cookies for personalized advertising."
+        },
+        {
+          "type": "p",
+          "text": "When entering the site, we display a consent banner that allows users to accept or configure non-essential cookies."
+        },
+        {
+          "type": "p",
+          "text": "You can manage cookies in your browser settings."
         }
       ],
       "sections": {
         "essential": {
-          "title": "Essential",
+          "title": "Necessary",
           "bullets": [
-            "Language and theme preferences (light/dark).",
-            "Basic security and abuse prevention."
+            "Authentication.",
+            "Security.",
+            "Abuse prevention."
           ]
         },
         "optional": {
-          "title": "Optional",
+          "title": "Functional and analytics",
           "bullets": [
-            "Anonymous metrics to improve performance (if enabled)."
+            "Language and theme preferences.",
+            "Anonymous technical metrics with Google Analytics or similar tools."
           ]
         },
         "control": {
-          "title": "How to control them",
-          "body": "You can clear cookies and site data from your browser settings. Some features may stop remembering your preferences."
+          "title": "Control",
+          "body": "A consent banner is shown for non-essential cookies, and you can manage cookies in your browser."
         }
       }
     }
   },
   "faq": {
-    "title": "FAQs",
-    "subtitle": "Quick answers to get started without friction.",
+    "title": "Complete FAQs",
+    "subtitle": "Clear answers about accounts, spots, safety, subscriptions, and support.",
     "items": [
       {
         "q": "What is AeroVibe?",
-        "a": "AeroVibe is a platform to discover, create, and plan drone spots with real location, optimized media, and tools to fly with more context."
+        "a": "AeroVibe is a platform to discover, create, and plan drone spots with real location data, optimized media, and tools designed to provide more context before flying. Content is community-generated."
       },
       {
         "q": "Do I need an account to use AeroVibe?",
-        "a": "You can browse public content without an account. To interact (create spots, comment, favorites, flight plans) you need to sign in."
+        "a": "You can explore public content without creating an account. To interact (create spots, comment, favorites, flight plans, or Pro features), you need to sign in."
       },
       {
         "q": "Who can see my spots?",
-        "a": "The product is designed to be collaborative: spots are meant to be public and useful to the community. Additional controls may arrive later."
+        "a": "Spots are designed to be public and collaborative within the community. Additional visibility options may be introduced in the future as the product evolves."
       },
       {
-        "q": "What’s included in Pro?",
-        "a": "More hangar slots, extended forecast, higher limits, and early access to premium features. Details may evolve as the product grows."
+        "q": "Does AeroVibe guarantee that a spot is safe or legal to fly?",
+        "a": "No. AeroVibe does not replace aviation regulations or professional advice. Each pilot is responsible for checking local regulations, permits, and conditions before flying."
       },
       {
         "q": "Does AeroVibe track my location in the background?",
-        "a": "No. We only use location when you allow it and when you need it (for example, to create spots or show nearby content)."
+        "a": "No. We only use location when you authorize it and when it is required for specific features, such as creating a spot or showing nearby content."
       },
       {
-        "q": "How do I report content or get help?",
-        "a": "We’re adding moderation and reporting tools. For support, email support@aerovibe.app."
+        "q": "How do I delete my account?",
+        "a": "From your profile settings, you can delete your account at any time."
+      },
+      {
+        "q": "What data is removed when I delete my account?",
+        "a": "Personally identifiable data is removed. Public content may remain in anonymized form for operational and platform integrity reasons."
+      },
+      {
+        "q": "How do I block a user?",
+        "a": "From a user profile, you can select the block option. Blocking restricts interactions and limits visibility according to the current platform rules."
+      },
+      {
+        "q": "How do I report content?",
+        "a": "Each spot or profile includes a report option. You can also email support@aerovibe.app for urgent situations."
+      },
+      {
+        "q": "What does the Pro Plan include?",
+        "a": "The Pro Plan may include expanded limits, more hangar slots, extended forecast, and early access to premium features. Features may change as the product evolves."
+      },
+      {
+        "q": "How are subscriptions managed?",
+        "a": "Subscriptions made from the app are managed through App Store or Google Play, as applicable. Subscriptions made from the web are managed through the corresponding payment provider."
+      },
+      {
+        "q": "How do I restore a purchase on iOS?",
+        "a": "You can restore purchases from the subscriptions section inside the app using your Apple ID."
+      },
+      {
+        "q": "Can I delete a published spot?",
+        "a": "Yes. From the edit section, you can delete your published spots at any time."
       }
     ]
   },
@@ -440,7 +848,10 @@
     "subtitle": "Choose a new password for your account.",
     "success": "Password updated. You can now sign in from the app.",
     "go_store": "Go to the store",
-    "actions": { "submit": "Save password", "saving": "Saving…" },
+    "actions": {
+      "submit": "Save password",
+      "saving": "Saving…"
+    },
     "errors": {
       "missing_token": "Invalid or expired link. Request a new recovery link.",
       "generic": "We couldn't update your password. Please try again."

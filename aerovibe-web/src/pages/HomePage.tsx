@@ -106,6 +106,12 @@ export function HomePage() {
     },
   ]
 
+  const heroPins = [
+    { key: 'community', left: '18%', top: '38%', preview: '/assets/hero/pin-community.png' },
+    { key: 'beach', left: '62%', top: '30%', preview: '/assets/hero/pin-beach.png' },
+    { key: 'mountain', left: '46%', top: '64%', preview: '/assets/hero/pin-mountain.png' },
+  ] as const
+
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
@@ -133,9 +139,11 @@ export function HomePage() {
             <div className={styles.heroRight} aria-hidden="true">
               <div className={styles.heroPanel}>
                 <div className={styles.heroPanelSweep} />
-                <div className={styles.heroPin} style={{ left: '18%', top: '38%' }} />
-                <div className={styles.heroPin} style={{ left: '62%', top: '30%' }} />
-                <div className={styles.heroPin} style={{ left: '46%', top: '64%' }} />
+                {heroPins.map((pin) => (
+                  <div key={pin.key} className={styles.heroPin} style={{ left: pin.left, top: pin.top }}>
+                    <img className={styles.heroThumb} src={pin.preview} alt="" loading="lazy" />
+                  </div>
+                ))}
                 <div className={styles.heroPath} />
               </div>
             </div>

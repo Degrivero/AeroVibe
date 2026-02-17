@@ -4,7 +4,7 @@ import { useMeta } from '../../app/useMeta'
 import { LegalLayout } from './LegalLayout'
 import { LegalDoc, type LegalBlock } from './LegalDoc'
 
-const UPDATED_ON = '2026-02-14'
+const UPDATED_ON = '2026-02-16'
 
 export function PrivacyPage() {
   const { t } = useTranslation()
