@@ -110,7 +110,7 @@
   gap: 10px;
 }
 
-.actionLinks {
+.desktopRail {
   display: none;
   align-items: center;
   gap: 10px;
@@ -120,7 +120,7 @@
   --pill-o: 0;
 }
 
-.actionPill {
+.desktopPill {
   position: absolute;
   left: 0;
   top: 50%;
@@ -243,6 +243,16 @@
 .langBtn:hover {
   opacity: 0.95;
   border-color: color-mix(in oklab, var(--accent) 45%, var(--header-border) 55%);
+}
+
+.pillOnlyIcon {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.pillOnlyIcon:hover,
+.pillOnlyIcon:focus-visible {
+  border-color: transparent !important;
 }
 
 .langMenu {
@@ -380,15 +390,11 @@
 }
 
 @media (min-width: 860px) {
-  .desktopOnly {
-    display: block;
-  }
-
   .mobileOnly {
     display: none;
   }
 
-  .actionLinks {
+  .desktopRail {
     display: inline-flex;
   }
 

@@ -7,6 +7,10 @@ import { setLang, type SupportedLang } from '../app/i18n'
 import { useTheme } from '../app/theme'
 import { AccountModal } from './AccountModal'
 
+function cx(...parts: Array<string | false | null | undefined>) {
+  return parts.filter(Boolean).join(' ')
+}
+
 function IconSun() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -100,13 +104,31 @@ function IconUser() {
   )
 }
 
-function ThemeButton({ label }: { label: string }) {
+function ThemeButton({
+  label,
+  className,
+  buttonRef,
+  onButtonMouseEnter,
+  onButtonFocus,
+  onButtonBlur,
+}: {
+  label: string
+  className?: string
+  buttonRef?: (el: HTMLButtonElement | null) => void
+  onButtonMouseEnter?: (el: HTMLElement) => void
+  onButtonFocus?: (el: HTMLElement) => void
+  onButtonBlur?: () => void
+}) {
   const { theme, toggle } = useTheme()
   return (
     <button
-      className={styles.iconBtn}
+      ref={buttonRef}
+      className={cx(styles.iconBtn, className)}
       type="button"
       onClick={toggle}
+      onMouseEnter={(e) => onButtonMouseEnter?.(e.currentTarget)}
+      onFocus={(e) => onButtonFocus?.(e.currentTarget)}
+      onBlur={onButtonBlur}
       aria-label={label}
     >
       {theme === 'dark' ? <IconSun /> : <IconMoon />}
@@ -114,7 +136,21 @@ function ThemeButton({ label }: { label: string }) {
   )
 }
 
-function LangMenu() {
+function LangMenu({
+  className,
+  buttonClassName,
+  buttonRef,
+  onButtonMouseEnter,
+  onButtonFocus,
+  onButtonBlur,
+}: {
+  className?: string
+  buttonClassName?: string
+  buttonRef?: (el: HTMLButtonElement | null) => void
+  onButtonMouseEnter?: (el: HTMLElement) => void
+  onButtonFocus?: (el: HTMLElement) => void
+  onButtonBlur?: () => void
+}) {
   const { i18n, t } = useTranslation()
   const value = (i18n.resolvedLanguage || i18n.language || 'en').slice(0, 2) as SupportedLang
   const [open, setOpen] = useState(false)
@@ -148,12 +184,16 @@ function LangMenu() {
   ]
 
   return (
-    <div className={styles.tipWrap} data-tip={t('nav.language')} data-open={open ? 'true' : 'false'}>
+    <div className={cx(styles.tipWrap, className)} data-tip={t('nav.language')} data-open={open ? 'true' : 'false'}>
       <div className={styles.langWrap} ref={wrapRef}>
         <button
-          className={styles.langBtn}
+          ref={buttonRef}
+          className={cx(styles.langBtn, buttonClassName)}
           type="button"
           onClick={() => setOpen((v) => !v)}
+          onMouseEnter={(e) => onButtonMouseEnter?.(e.currentTarget)}
+          onFocus={(e) => onButtonFocus?.(e.currentTarget)}
+          onBlur={onButtonBlur}
           aria-label={t('nav.language')}
           aria-haspopup="listbox"
           aria-expanded={open}
@@ -317,34 +357,66 @@ function HeaderNav({ onNavigate }: { onNavigate?: () => void }) {
 
 export function SiteHeader() {
   const { t } = useTranslation()
+  const location = useLocation()
   const [open, setOpen] = useState(false)
   const [accountOpen, setAccountOpen] = useState(false)
-  const quickRef = useRef<HTMLDivElement | null>(null)
+  const desktopRailRef = useRef<HTMLDivElement | null>(null)
+  const desktopItemRefs = useRef<Record<string, HTMLElement | null>>({})
 
-  const positionQuickPill = (el: HTMLElement | null) => {
-    const wrap = quickRef.current
-    if (!wrap) return
+  const homeTo = useMemo(() => {
+    const isHome = location.pathname === '/'
+    return (hash: string) => (isHome ? hash : `/${hash}`)
+  }, [location.pathname])
+
+  const activeNavKey = useMemo(() => {
+    if (location.pathname === '/about') return 'about'
+    if (location.pathname === '/contact') return 'contact'
+    if (location.pathname === '/' && location.hash === '#pricing') return 'pricing'
+    if (location.pathname === '/') return 'home'
+    return null
+  }, [location.pathname, location.hash])
+
+  const positionDesktopPill = (el: HTMLElement | null) => {
+    const rail = desktopRailRef.current
+    if (!rail) return
     if (!el) {
-      wrap.style.setProperty('--pill-o', '0')
+      rail.style.setProperty('--pill-o', '0')
       return
     }
 
-    const wrapRect = wrap.getBoundingClientRect()
+    const railRect = rail.getBoundingClientRect()
     const r = el.getBoundingClientRect()
-    const x = Math.max(0, r.left - wrapRect.left)
+    const x = Math.max(0, r.left - railRect.left)
     const w = Math.max(0, r.width)
-    wrap.style.setProperty('--pill-x', `${x}px`)
-    wrap.style.setProperty('--pill-w', `${w}px`)
-    wrap.style.setProperty('--pill-o', '1')
+    rail.style.setProperty('--pill-x', `${x}px`)
+    rail.style.setProperty('--pill-w', `${w}px`)
+    rail.style.setProperty('--pill-o', '1')
+  }
+
+  const positionDesktopPillToActive = () => {
+    const el = activeNavKey ? desktopItemRefs.current[activeNavKey] : null
+    positionDesktopPill(el)
   }
 
   useEffect(() => {
-    const wrap = quickRef.current
-    if (!wrap) return
-    const onLeave = () => positionQuickPill(null)
-    wrap.addEventListener('mouseleave', onLeave)
-    return () => wrap.removeEventListener('mouseleave', onLeave)
-  }, [])
+    const id = window.requestAnimationFrame(() => positionDesktopPillToActive())
+    const onResize = () => positionDesktopPillToActive()
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.cancelAnimationFrame(id)
+      window.removeEventListener('resize', onResize)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeNavKey])
+
+  useEffect(() => {
+    const rail = desktopRailRef.current
+    if (!rail) return
+    const onLeave = () => positionDesktopPillToActive()
+    rail.addEventListener('mouseleave', onLeave)
+    return () => rail.removeEventListener('mouseleave', onLeave)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeNavKey])
 
   return (
     <>
@@ -356,32 +428,110 @@ export function SiteHeader() {
           </Link>
 
           <div className={styles.actions}>
-            <div className={styles.desktopOnly}>
-              <HeaderNav />
-            </div>
-            <div className={styles.actionLinks} aria-label={t('nav.quick_links')} ref={quickRef}>
-              <span className={styles.actionPill} aria-hidden="true" />
+            <div className={styles.desktopRail} aria-label={t('nav.quick_links')} ref={desktopRailRef}>
+              <span className={styles.desktopPill} aria-hidden="true" />
+              <Link
+                ref={(el) => {
+                  desktopItemRefs.current.home = el
+                }}
+                to="/"
+                className={styles.navLink}
+                aria-current={activeNavKey === 'home' ? 'page' : undefined}
+                onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                onBlur={positionDesktopPillToActive}
+              >
+                {t('common.home')}
+              </Link>
+              <Link
+                ref={(el) => {
+                  desktopItemRefs.current.pricing = el
+                }}
+                to={homeTo('#pricing')}
+                className={styles.navLink}
+                aria-current={activeNavKey === 'pricing' ? 'page' : undefined}
+                onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                onBlur={positionDesktopPillToActive}
+              >
+                {t('nav.pricing')}
+              </Link>
+              <Link
+                ref={(el) => {
+                  desktopItemRefs.current.about = el
+                }}
+                to="/about"
+                className={styles.navLink}
+                aria-current={activeNavKey === 'about' ? 'page' : undefined}
+                onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                onBlur={positionDesktopPillToActive}
+              >
+                {t('nav.about')}
+              </Link>
+              <Link
+                ref={(el) => {
+                  desktopItemRefs.current.contact = el
+                }}
+                to="/contact"
+                className={styles.navLink}
+                aria-current={activeNavKey === 'contact' ? 'page' : undefined}
+                onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                onBlur={positionDesktopPillToActive}
+              >
+                {t('nav.contact')}
+              </Link>
               <div className={styles.tipWrap} data-tip={t('nav.coming_soon')}>
                 <button
+                  ref={(el) => {
+                    desktopItemRefs.current.shop = el
+                  }}
                   className={styles.actionLinkDisabled}
                   type="button"
                   aria-disabled="true"
-                  onMouseEnter={(e) => positionQuickPill(e.currentTarget)}
-                  onFocus={(e) => positionQuickPill(e.currentTarget)}
+                  onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                  onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                  onBlur={positionDesktopPillToActive}
                   onClick={(e) => e.preventDefault()}
                 >
                   {t('nav.shop')}
                 </button>
               </div>
               <button
+                ref={(el) => {
+                  desktopItemRefs.current.account = el
+                }}
                 className={styles.actionLink}
                 type="button"
-                onMouseEnter={(e) => positionQuickPill(e.currentTarget)}
-                onFocus={(e) => positionQuickPill(e.currentTarget)}
+                onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                onBlur={positionDesktopPillToActive}
                 onClick={() => setAccountOpen(true)}
               >
                 {t('nav.account')}
               </button>
+              <LangMenu
+                buttonClassName={styles.pillOnlyIcon}
+                buttonRef={(el) => {
+                  desktopItemRefs.current.language = el
+                }}
+                onButtonMouseEnter={positionDesktopPill}
+                onButtonFocus={positionDesktopPill}
+                onButtonBlur={positionDesktopPillToActive}
+              />
+              <div className={styles.tipWrap} data-tip={t('nav.theme')}>
+                <ThemeButton
+                  label={t('nav.theme')}
+                  className={styles.pillOnlyIcon}
+                  buttonRef={(el) => {
+                    desktopItemRefs.current.theme = el
+                  }}
+                  onButtonMouseEnter={positionDesktopPill}
+                  onButtonFocus={positionDesktopPill}
+                  onButtonBlur={positionDesktopPillToActive}
+                />
+              </div>
             </div>
             <div className={styles.tipWrap} data-tip={t('nav.account')}>
               <button
@@ -396,9 +546,11 @@ export function SiteHeader() {
                 <IconUser />
               </button>
             </div>
-            <LangMenu />
-            <div className={styles.tipWrap} data-tip={t('nav.theme')}>
-              <ThemeButton label={t('nav.theme')} />
+            <div className={styles.mobileOnly}>
+              <LangMenu buttonClassName={styles.pillOnlyIcon} />
+            </div>
+            <div className={`${styles.tipWrap} ${styles.mobileOnly}`} data-tip={t('nav.theme')}>
+              <ThemeButton label={t('nav.theme')} className={styles.pillOnlyIcon} />
             </div>
             <button
               className={styles.menuBtn}

@@ -864,8 +864,15 @@
     "created_go_store": "Vamos a ello",
     "create_ok": "Cuenta creada. Ahora podés iniciar sesión en la app.",
     "recover_ok": "Listo. Si el correo existe, te va a llegar un email con el enlace de recuperación.",
+    "legal": {
+      "prefix": "Confirmo que he leído y acepto los",
+      "terms_link": "Términos y Condiciones",
+      "middle": "de uso y la",
+      "privacy_link": "Política de Privacidad"
+    },
     "errors": {
       "missing_api_base": "Falta configurar VITE_API_BASE_URL.",
+      "legal_required": "Debes aceptar los Términos y Condiciones y la Política de Privacidad para crear la cuenta.",
       "generic": "No pudimos completar la operación. Intenta de nuevo."
     }
   }

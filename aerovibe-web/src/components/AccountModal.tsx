@@ -27,10 +27,12 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
+  const [legalAccepted, setLegalAccepted] = useState(false)
   const emailRef = useRef<HTMLInputElement | null>(null)
 
   const appStoreUrl = (import.meta.env.VITE_APP_STORE_URL as string | undefined) || '#'
   const googlePlayUrl = (import.meta.env.VITE_GOOGLE_PLAY_URL as string | undefined) || '#'
+  const legalAcceptanceMethod = 'web_account_modal_checkbox_v1'
 
   const title = useMemo(() => {
     return mode === 'recover' ? t('nav.recover_password') : t('nav.create_account')
@@ -79,6 +81,7 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
     if (mode === 'recover') return null
     if (!password) return t('auth.error_password')
     if (password !== password2) return t('auth.error_password_match')
+    if (!legalAccepted) return t('account_modal.errors.legal_required')
     return null
   }
 
@@ -107,7 +110,13 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
       const payload =
         mode === 'recover'
           ? { email: email.trim().toLowerCase() }
-          : { email: email.trim().toLowerCase(), password }
+          : {
+              email: email.trim().toLowerCase(),
+              password,
+              legalAccepted: true,
+              legalAcceptanceMethod,
+              legalAcceptedAtClient: new Date().toISOString(),
+            }
 
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -129,6 +138,7 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
       } else {
         setPassword('')
         setPassword2('')
+        setLegalAccepted(false)
         setCreatedOk(true)
       }
     } catch (err) {
@@ -231,6 +241,26 @@ export function AccountModal({ onClose }: { onClose: () => void }) {
                   disabled={busy}
                   required
                 />
+              </label>
+
+              <label className={styles.legalRow}>
+                <input
+                  className={styles.legalCheck}
+                  type="checkbox"
+                  checked={legalAccepted}
+                  onChange={(e) => setLegalAccepted(e.target.checked)}
+                  disabled={busy}
+                />
+                <span className={styles.legalText}>
+                  {t('account_modal.legal.prefix')}{' '}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer">
+                    {t('account_modal.legal.terms_link')}
+                  </a>{' '}
+                  {t('account_modal.legal.middle')}{' '}
+                  <a href="/privacy" target="_blank" rel="noopener noreferrer">
+                    {t('account_modal.legal.privacy_link')}
+                  </a>
+                </span>
               </label>
             </>
           ) : null}

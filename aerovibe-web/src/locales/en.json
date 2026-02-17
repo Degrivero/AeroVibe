@@ -864,8 +864,15 @@
     "created_go_store": "Go to the store",
     "create_ok": "Account created. You can now sign in from the app.",
     "recover_ok": "Done. If the email exists, you'll receive a password reset link shortly.",
+    "legal": {
+      "prefix": "I confirm that I have read and accept the",
+      "terms_link": "Terms and Conditions",
+      "middle": "of use and the",
+      "privacy_link": "Privacy Policy"
+    },
     "errors": {
       "missing_api_base": "VITE_API_BASE_URL is not configured.",
+      "legal_required": "You must accept the Terms and Conditions and Privacy Policy to create an account.",
       "generic": "We couldn't complete this request. Please try again."
     }
   }
