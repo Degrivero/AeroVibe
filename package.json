@@ -4,6 +4,7 @@
   "scripts": {
     "bootstrap": "./scripts/bootstrap.sh",
     "dev": "./scripts/dev.sh",
+    "dev:no-nats": "./scripts/dev-no-nats.sh",
     "start": "npm run dev",
     "build": "./scripts/build.sh",
     "test": "./scripts/test.sh"

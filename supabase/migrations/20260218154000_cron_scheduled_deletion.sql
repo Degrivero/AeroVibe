@@ -1,0 +1,23 @@
+-- Cron job: eliminar usuarios cuyo scheduled_deletion_at < now()
+-- Requiere pg_cron. La eliminación real de auth.users debe hacerse vía Supabase Admin API.
+-- Esta migración crea la función que devuelve los IDs a eliminar.
+-- Opciones de ejecución:
+-- 1) pg_cron + pg_net: llama a un Edge Function que use auth.admin.deleteUser()
+-- 2) Cron externo (Vercel, GitHub Actions, etc.) que llama a un endpoint protegido
+
+-- Función que devuelve los IDs pendientes de borrado (ya existente en 20260218150000)
+-- Solo documentamos aquí el flujo del cron.
+
+-- Ejemplo de uso con pg_cron (si está habilitado en tu proyecto):
+-- select cron.schedule(
+--   'delete-scheduled-users',
+--   '0 3 * * *',  -- 3:00 UTC diario
+--   $$ select net.http_post(
+--        'https://YOUR_PROJECT.supabase.co/functions/v1/delete-scheduled-users',
+--        '{}'::jsonb,
+--        '{"Authorization": "Bearer SERVICE_ROLE_KEY"}'::jsonb
+--      ) $$
+-- );
+-- NOTA: Sustituye YOUR_PROJECT y SERVICE_ROLE_KEY. La Edge Function debe:
+-- 1) Llamar a get_users_scheduled_for_deletion()
+-- 2) Para cada id, llamar a supabase.auth.admin.deleteUser(id)

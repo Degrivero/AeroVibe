@@ -4,7 +4,7 @@
 }
 
 .inner {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--page-pad);
 }
@@ -32,6 +32,15 @@
   margin: 10px 0 4px;
   font-family: var(--font-display);
   letter-spacing: -0.6px;
+}
+
+.adminLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.adminLink:hover {
+  text-decoration: underline;
 }
 
 .muted {
@@ -112,6 +121,30 @@
   color: var(--fg);
 }
 
+.btnSmall {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-weight: 760;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.clickableRow {
+  cursor: pointer;
+}
+.clickableRow:hover {
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+
 .error {
   padding: 12px 12px;
   border-radius: 14px;
@@ -151,6 +184,19 @@
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 14%, transparent);
 }
 
+.textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  color: var(--fg);
+  font: inherit;
+  resize: vertical;
+  outline: none;
+}
+
 .formActions {
   margin-top: 12px;
   display: flex;
@@ -182,6 +228,35 @@
   color: var(--muted);
   font-size: 12px;
   font-weight: 650;
+}
+
+.reportCountBtn {
+  min-width: 32px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-weight: 760;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.reportCountOk {
+  background: color-mix(in oklab, #22c55e 25%, transparent);
+  border-color: color-mix(in oklab, #22c55e 60%, transparent);
+  color: #22c55e;
+}
+
+.reportCountWarn {
+  background: color-mix(in oklab, #eab308 25%, transparent);
+  border-color: color-mix(in oklab, #eab308 60%, transparent);
+  color: #eab308;
+}
+
+.reportCountDanger {
+  background: color-mix(in oklab, #ef4444 25%, transparent);
+  border-color: color-mix(in oklab, #ef4444 60%, transparent);
+  color: #ef4444;
 }
 
 .pillOk,
@@ -308,15 +383,8 @@
 .sparkHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 10px;
-}
-
-.sparkTitle {
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.2px;
-  color: var(--muted);
 }
 
 .sparkControls {
@@ -324,7 +392,7 @@
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .sparkSelect {
@@ -465,6 +533,65 @@
   font-size: 13px;
 }
 
+.threadContainer {
+  margin-top: 14px;
+  max-height: 280px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.threadLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.threadLoading {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 16px 0;
+}
+
+.threadList {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.threadBubble {
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.threadBubble[data-author="user"] {
+  background: color-mix(in oklab, var(--border) 40%, transparent);
+  border-left: 3px solid color-mix(in oklab, var(--accent) 70%, var(--border) 30%);
+}
+
+.threadBubble[data-author="admin"] {
+  background: color-mix(in oklab, var(--accent) 18%, transparent);
+  border-left: 3px solid var(--accent);
+}
+
+.threadMeta {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.threadText {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .modalGrid {
   margin-top: 12px;
   display: grid;
@@ -494,5 +621,11 @@
 
   .modalGrid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
