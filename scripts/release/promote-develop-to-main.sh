@@ -11,6 +11,7 @@ REPOS=(
   aerovibe-users
   aerovibe-spots-service
   aerovibe-nats-redis
+  aerovibe-notifications-service
   aerovibe-web
 )
 

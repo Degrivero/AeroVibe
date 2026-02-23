@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${ROOT:-/srv/aerovibe-prod}"
+ROOT="${ROOT:-/srv/aerovibe-qa}"
 
 REPOS=(
   aerovibe-api-gateway
@@ -20,28 +20,34 @@ for repo in "${REPOS[@]}"; do
 
   echo "\n==> sync $repo"
   git -C "$dir" fetch --all --prune
-  git -C "$dir" checkout main
-  git -C "$dir" pull --ff-only origin main
+  git -C "$dir" checkout develop
+  git -C "$dir" pull --ff-only origin develop
+
+  npm --prefix "$dir" ci
 
   if [[ "$repo" == "aerovibe-web" ]]; then
-    npm --prefix "$dir" ci
     npm --prefix "$dir" run build
-  elif [[ "$repo" == "aerovibe-nats-redis" ]]; then
-    npm --prefix "$dir" ci
-  else
-    npm --prefix "$dir" ci
   fi
+
 done
+
+echo "\n==> setup NATS streams"
+if [[ -d "$ROOT/aerovibe-nats-redis" ]]; then
+  npm --prefix "$ROOT/aerovibe-nats-redis" run nats:setup || true
+fi
+if [[ -d "$ROOT/aerovibe-notifications-service" ]]; then
+  npm --prefix "$ROOT/aerovibe-notifications-service" run nats:setup || true
+fi
 
 echo "\n==> restart PM2"
 APPS=(
-  aerovibe-api-gateway
-  aerovibe-api-service
-  aerovibe-iam-service
-  aerovibe-users
-  aerovibe-spots-service
-  aerovibe-workers
-  aerovibe-notifications-service
+  aerovibe-api-gateway-qa
+  aerovibe-api-service-qa
+  aerovibe-iam-service-qa
+  aerovibe-users-qa
+  aerovibe-spots-service-qa
+  aerovibe-workers-qa
+  aerovibe-notifications-service-qa
 )
 for app in "${APPS[@]}"; do
   if pm2 describe "$app" >/dev/null 2>&1; then
@@ -55,4 +61,4 @@ sudo nginx -t
 sudo systemctl reload nginx
 
 echo "\n==> health"
-curl -fsS http://127.0.0.1:3000/api/health && echo
+curl -fsS http://127.0.0.1:3100/api/health && echo

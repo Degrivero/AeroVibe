@@ -10,6 +10,7 @@ SERVICES=(
   "aerovibe-spots-service"
   "aerovibe-users"
   "aerovibe-nats-redis"
+  "aerovibe-notifications-service"
   "aerovibe-web"
 )
 
