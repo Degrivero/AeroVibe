@@ -62,3 +62,5 @@ sudo systemctl reload nginx
 
 echo "\n==> health"
 curl -fsS http://127.0.0.1:3100/api/health && echo
+curl -fsS http://127.0.0.1:3105/health && echo
+curl -fsS http://127.0.0.1:3100/api/notifications/health && echo
