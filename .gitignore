@@ -2,6 +2,10 @@
 **/.env.*
 !**/.env.example
 
+# Local runtime state (NATS/Redis fallback in scripts/dev.sh)
+/.local/
+/supabase/.temp/
+
 # Nested service repositories (each has its own Git remote)
 /aerovibe-api-gateway/
 /aerovibe-api-service/

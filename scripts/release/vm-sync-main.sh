@@ -33,6 +33,14 @@ for repo in "${REPOS[@]}"; do
   fi
 done
 
+echo "\n==> setup NATS streams"
+if [[ -d "$ROOT/aerovibe-nats-redis" ]]; then
+  npm --prefix "$ROOT/aerovibe-nats-redis" run nats:setup || true
+fi
+if [[ -d "$ROOT/aerovibe-notifications-service" ]]; then
+  npm --prefix "$ROOT/aerovibe-notifications-service" run nats:setup || true
+fi
+
 echo "\n==> restart PM2"
 APPS=(
   aerovibe-api-gateway
