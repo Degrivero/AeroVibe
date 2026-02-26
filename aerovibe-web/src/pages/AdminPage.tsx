@@ -154,6 +154,22 @@ type AuthPayload = {
   user: { id: string; email: string | null; role: string | null } | null
 }
 
+type MfaRequiredPayload = {
+  code?: string
+  message?: string
+  challengeId?: string
+  expiresInMinutes?: number
+  maskedEmail?: string
+}
+
+type PendingMfaChallenge = {
+  email: string
+  password: string
+  challengeId: string
+  maskedEmail: string
+  expiresInMinutes: number
+}
+
 type Metrics = {
   ok: true
   asOf: string
@@ -500,6 +516,11 @@ export function AdminPage() {
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [mfaPending, setMfaPending] = useState<PendingMfaChallenge | null>(null)
+  const [mfaCode, setMfaCode] = useState('')
+  const [mfaBusy, setMfaBusy] = useState(false)
+  const [mfaError, setMfaError] = useState<string | null>(null)
+  const mfaInputRef = useRef<HTMLInputElement | null>(null)
 
   const [accessToken, setAccessToken] = useState<string | null>(() => window.localStorage.getItem(LS_ACCESS))
   const [refreshToken, setRefreshToken] = useState<string | null>(() => window.localStorage.getItem(LS_REFRESH))
@@ -1232,15 +1253,35 @@ export function AdminPage() {
 
   async function signIn() {
     setError(null)
+    setMfaError(null)
     if (!base) return setError('Falta configurar VITE_API_BASE_URL.')
     if (!email.trim() || !password) return setError('Completá email y contraseña.')
 
     setBusy(true)
     try {
+      const normalizedEmail = email.trim().toLowerCase()
+
+      const completeSignIn = async (payload: AuthPayload) => {
+        if (!payload?.accessToken) throw new Error('Respuesta inválida del servidor.')
+
+        await Promise.all([loadMetrics(payload.accessToken), loadHealth()])
+
+        window.localStorage.setItem(LS_EMAIL, normalizedEmail)
+        window.localStorage.setItem(LS_ACCESS, payload.accessToken)
+        window.localStorage.setItem(LS_REFRESH, payload.refreshToken || '')
+
+        setAccessToken(payload.accessToken)
+        setRefreshToken(payload.refreshToken || null)
+        setPassword('')
+        setMfaPending(null)
+        setMfaCode('')
+        setMfaError(null)
+      }
+
       const { res, data } = await fetchJson(`${base}/api/iam/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
+        body: JSON.stringify({ email: normalizedEmail, password }),
       })
 
       if (!res.ok) {
@@ -1251,24 +1292,87 @@ export function AdminPage() {
         throw new Error(msg)
       }
 
-      const payload = data as AuthPayload
-      if (!payload?.accessToken) throw new Error('Respuesta inválida del servidor.')
+      const mfaPayload = data as MfaRequiredPayload
+      if (mfaPayload?.code === 'MFA_EMAIL_REQUIRED' && mfaPayload?.challengeId) {
+        setMfaPending({
+          email: normalizedEmail,
+          password,
+          challengeId: mfaPayload.challengeId,
+          maskedEmail: mfaPayload.maskedEmail || normalizedEmail,
+          expiresInMinutes: Number(mfaPayload.expiresInMinutes || 10),
+        })
+        setMfaCode('')
+        setMfaError(null)
+        setPassword('')
+        return
+      }
 
-      await Promise.all([loadMetrics(payload.accessToken), loadHealth()])
-
-      window.localStorage.setItem(LS_EMAIL, email.trim())
-      window.localStorage.setItem(LS_ACCESS, payload.accessToken)
-      window.localStorage.setItem(LS_REFRESH, payload.refreshToken || '')
-
-      setAccessToken(payload.accessToken)
-      setRefreshToken(payload.refreshToken || null)
-      setPassword('')
+      await completeSignIn(data as AuthPayload)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'No pudimos iniciar sesión.')
     } finally {
       setBusy(false)
     }
   }
+
+  async function submitMfaCode() {
+    if (!base || !mfaPending) return
+    const typedCode = mfaCode.trim()
+    if (!typedCode) {
+      setMfaError('Ingresa el código MFA para continuar.')
+      return
+    }
+
+    setMfaBusy(true)
+    setMfaError(null)
+    setError(null)
+
+    try {
+      const verify = await fetchJson(`${base}/api/iam/mfa/login/verify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: mfaPending.email,
+          password: mfaPending.password,
+          challengeId: mfaPending.challengeId,
+          code: typedCode,
+        }),
+      })
+
+      if (!verify.res.ok) {
+        const msg =
+          (verify.data && typeof verify.data.message === 'string' && verify.data.message) ||
+          (verify.data && typeof verify.data.error === 'string' && verify.data.error) ||
+          'No pudimos verificar MFA.'
+        throw new Error(msg)
+      }
+
+      const payload = verify.data as AuthPayload
+      if (!payload?.accessToken) {
+        throw new Error('Respuesta inválida del servidor al verificar MFA.')
+      }
+
+      await Promise.all([loadMetrics(payload.accessToken), loadHealth()])
+      window.localStorage.setItem(LS_EMAIL, mfaPending.email)
+      window.localStorage.setItem(LS_ACCESS, payload.accessToken)
+      window.localStorage.setItem(LS_REFRESH, payload.refreshToken || '')
+      setAccessToken(payload.accessToken)
+      setRefreshToken(payload.refreshToken || null)
+      setMfaPending(null)
+      setMfaCode('')
+      setMfaError(null)
+    } catch (e) {
+      setMfaError(e instanceof Error ? e.message : 'No pudimos verificar MFA.')
+    } finally {
+      setMfaBusy(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!mfaPending) return
+    const timer = window.setTimeout(() => mfaInputRef.current?.focus(), 50)
+    return () => window.clearTimeout(timer)
+  }, [mfaPending])
 
   function signOut() {
     window.localStorage.removeItem(LS_ACCESS)
@@ -2520,6 +2624,64 @@ export function AdminPage() {
                     </button>
                     <button className={styles.btn} type="button" onClick={() => void downloadReportCsv()} disabled={reportBusy}>
                       {reportBusy ? 'Descargando…' : 'Descargar'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+            {!accessToken && mfaPending ? (
+              <div
+                className={styles.modalBackdrop}
+                role="presentation"
+                onClick={(e) => {
+                  if (e.target === e.currentTarget && !mfaBusy) {
+                    setMfaPending(null)
+                    setMfaCode('')
+                    setMfaError(null)
+                  }
+                }}
+              >
+                <div className={styles.modalCard} role="dialog" aria-modal="true" aria-label="Verificación MFA" onClick={(e) => e.stopPropagation()}>
+                  <div className={styles.modalTitle}>Verificación en 2 pasos</div>
+                  <div className={styles.modalSub}>
+                    Te enviamos un código a <strong>{mfaPending.maskedEmail}</strong>. Expira en {mfaPending.expiresInMinutes} minutos.
+                  </div>
+                  {mfaError ? <div className={styles.error}>{mfaError}</div> : null}
+                  <label className={styles.field} style={{ marginTop: 16 }}>
+                    <div className={styles.label}>Código MFA</div>
+                    <input
+                      ref={mfaInputRef}
+                      className={styles.input}
+                      inputMode="numeric"
+                      value={mfaCode}
+                      onChange={(e) => setMfaCode(e.target.value.replace(/\s+/g, ''))}
+                      maxLength={8}
+                      disabled={mfaBusy}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault()
+                          void submitMfaCode()
+                        }
+                      }}
+                      placeholder="Ej: 123456"
+                    />
+                  </label>
+                  <div className={styles.modalActions}>
+                    <button
+                      className={styles.btnGhost}
+                      type="button"
+                      onClick={() => {
+                        setMfaPending(null)
+                        setMfaCode('')
+                        setMfaError(null)
+                      }}
+                      disabled={mfaBusy}
+                    >
+                      Cancelar
+                    </button>
+                    <button className={styles.btn} type="button" onClick={() => void submitMfaCode()} disabled={mfaBusy || !mfaCode.trim()}>
+                      {mfaBusy ? 'Verificando…' : 'Validar código'}
                     </button>
                   </div>
                 </div>
