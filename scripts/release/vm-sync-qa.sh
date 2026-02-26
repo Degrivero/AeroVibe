@@ -14,6 +14,11 @@ REPOS=(
   aerovibe-web
 )
 
+if [[ ! -d "$ROOT" ]]; then
+  echo "[ERROR] ROOT no existe: $ROOT"
+  exit 1
+fi
+
 upsert_env_var() {
   local file="$1"
   local key="$2"
@@ -28,9 +33,11 @@ upsert_env_var() {
   fi
 }
 
+synced_repos=0
 for repo in "${REPOS[@]}"; do
   dir="$ROOT/$repo"
   [[ -d "$dir/.git" ]] || { echo "[WARN] repo faltante: $dir"; continue; }
+  synced_repos=$((synced_repos + 1))
 
   echo "\n==> sync $repo"
   git -C "$dir" fetch --all --prune
@@ -44,6 +51,11 @@ for repo in "${REPOS[@]}"; do
   fi
 
 done
+
+if [[ "$synced_repos" -eq 0 ]]; then
+  echo "[ERROR] No se encontró ningún repo Git en $ROOT/<repo>. Revisa ROOT y la estructura del servidor."
+  exit 1
+fi
 
 echo "\n==> enforce ports and targets"
 upsert_env_var "$ROOT/aerovibe-api-gateway/.env" "PORT" "3100"
@@ -89,7 +101,6 @@ APPS=(
   aerovibe-iam-service-qa
   aerovibe-users-qa
   aerovibe-spots-service-qa
-  aerovibe-workers-qa
   aerovibe-notifications-service-qa
 )
 for app in "${APPS[@]}"; do
@@ -124,6 +135,8 @@ for app in "${APPS[@]}"; do
         pm2 restart "$app" --update-env
         ;;
     esac
+  else
+    echo "[WARN] PM2 app no encontrada: $app (skip)"
   fi
 done
 pm2 save
