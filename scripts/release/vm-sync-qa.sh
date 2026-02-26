@@ -103,41 +103,82 @@ APPS=(
   aerovibe-spots-service-qa
   aerovibe-notifications-service-qa
 )
-for app in "${APPS[@]}"; do
+
+ensure_pm2_app() {
+  local app="$1"
+  local cwd="$2"
+
   if pm2 describe "$app" >/dev/null 2>&1; then
-    case "$app" in
-      aerovibe-api-gateway-qa)
-        PORT=3100 \
-        BIND_HOST=127.0.0.1 \
-        API_URL=http://127.0.0.1:3102 \
-        IAM_URL=http://127.0.0.1:3101 \
-        USERS_URL=http://127.0.0.1:3103 \
-        SPOTS_URL=http://127.0.0.1:3104 \
-        NOTIFICATIONS_URL=http://127.0.0.1:3105 \
-        pm2 restart "$app" --update-env
-        ;;
-      aerovibe-api-service-qa)
-        PORT=3102 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
-        ;;
-      aerovibe-iam-service-qa)
-        PORT=3101 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
-        ;;
-      aerovibe-users-qa)
-        PORT=3103 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
-        ;;
-      aerovibe-spots-service-qa)
-        PORT=3104 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
-        ;;
-      aerovibe-notifications-service-qa)
-        PORT=3105 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
-        ;;
-      *)
-        pm2 restart "$app" --update-env
-        ;;
-    esac
-  else
-    echo "[WARN] PM2 app no encontrada: $app (skip)"
+    return 0
   fi
+
+  echo "[WARN] PM2 app no encontrada: $app. Creando con npm start en $cwd"
+
+  if [[ ! -d "$cwd" ]]; then
+    echo "[ERROR] No existe directorio para crear $app: $cwd"
+    return 1
+  fi
+
+  pm2 start npm --name "$app" --cwd "$cwd" -- start >/dev/null
+}
+
+for app in "${APPS[@]}"; do
+  case "$app" in
+    aerovibe-api-gateway-qa)
+      app_dir="$ROOT/aerovibe-api-gateway"
+      ;;
+    aerovibe-api-service-qa)
+      app_dir="$ROOT/aerovibe-api-service"
+      ;;
+    aerovibe-iam-service-qa)
+      app_dir="$ROOT/aerovibe-iam-service"
+      ;;
+    aerovibe-users-qa)
+      app_dir="$ROOT/aerovibe-users"
+      ;;
+    aerovibe-spots-service-qa)
+      app_dir="$ROOT/aerovibe-spots-service"
+      ;;
+    aerovibe-notifications-service-qa)
+      app_dir="$ROOT/aerovibe-notifications-service"
+      ;;
+    *)
+      app_dir="$ROOT"
+      ;;
+  esac
+
+  ensure_pm2_app "$app" "$app_dir"
+
+  case "$app" in
+    aerovibe-api-gateway-qa)
+      PORT=3100 \
+      BIND_HOST=127.0.0.1 \
+      API_URL=http://127.0.0.1:3102 \
+      IAM_URL=http://127.0.0.1:3101 \
+      USERS_URL=http://127.0.0.1:3103 \
+      SPOTS_URL=http://127.0.0.1:3104 \
+      NOTIFICATIONS_URL=http://127.0.0.1:3105 \
+      pm2 restart "$app" --update-env
+      ;;
+    aerovibe-api-service-qa)
+      PORT=3102 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
+      ;;
+    aerovibe-iam-service-qa)
+      PORT=3101 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
+      ;;
+    aerovibe-users-qa)
+      PORT=3103 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
+      ;;
+    aerovibe-spots-service-qa)
+      PORT=3104 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
+      ;;
+    aerovibe-notifications-service-qa)
+      PORT=3105 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
+      ;;
+    *)
+      pm2 restart "$app" --update-env
+      ;;
+  esac
 done
 pm2 save
 
