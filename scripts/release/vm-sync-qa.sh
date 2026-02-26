@@ -56,18 +56,23 @@ upsert_env_var "$ROOT/aerovibe-api-gateway/.env" "NOTIFICATIONS_URL" "http://127
 
 upsert_env_var "$ROOT/aerovibe-api-service/.env" "PORT" "3102"
 upsert_env_var "$ROOT/aerovibe-api-service/.env" "BIND_HOST" "127.0.0.1"
+upsert_env_var "$ROOT/aerovibe-api-service/.env" "NATS_URL" "127.0.0.1:4222"
 
 upsert_env_var "$ROOT/aerovibe-iam-service/.env" "PORT" "3101"
 upsert_env_var "$ROOT/aerovibe-iam-service/.env" "BIND_HOST" "127.0.0.1"
+upsert_env_var "$ROOT/aerovibe-iam-service/.env" "NATS_URL" "127.0.0.1:4222"
 
 upsert_env_var "$ROOT/aerovibe-users/.env" "PORT" "3103"
 upsert_env_var "$ROOT/aerovibe-users/.env" "BIND_HOST" "127.0.0.1"
+upsert_env_var "$ROOT/aerovibe-users/.env" "NATS_URL" "127.0.0.1:4222"
 
 upsert_env_var "$ROOT/aerovibe-spots-service/.env" "PORT" "3104"
 upsert_env_var "$ROOT/aerovibe-spots-service/.env" "BIND_HOST" "127.0.0.1"
+upsert_env_var "$ROOT/aerovibe-spots-service/.env" "NATS_URL" "127.0.0.1:4222"
 
 upsert_env_var "$ROOT/aerovibe-notifications-service/.env" "PORT" "3105"
 upsert_env_var "$ROOT/aerovibe-notifications-service/.env" "BIND_HOST" "127.0.0.1"
+upsert_env_var "$ROOT/aerovibe-notifications-service/.env" "NATS_URL" "127.0.0.1:4222"
 
 echo "\n==> setup NATS streams"
 if [[ -d "$ROOT/aerovibe-nats-redis" ]]; then
@@ -101,19 +106,19 @@ for app in "${APPS[@]}"; do
         pm2 restart "$app" --update-env
         ;;
       aerovibe-api-service-qa)
-        PORT=3102 BIND_HOST=127.0.0.1 pm2 restart "$app" --update-env
+        PORT=3102 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
         ;;
       aerovibe-iam-service-qa)
-        PORT=3101 BIND_HOST=127.0.0.1 pm2 restart "$app" --update-env
+        PORT=3101 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
         ;;
       aerovibe-users-qa)
-        PORT=3103 BIND_HOST=127.0.0.1 pm2 restart "$app" --update-env
+        PORT=3103 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
         ;;
       aerovibe-spots-service-qa)
-        PORT=3104 BIND_HOST=127.0.0.1 pm2 restart "$app" --update-env
+        PORT=3104 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
         ;;
       aerovibe-notifications-service-qa)
-        PORT=3105 BIND_HOST=127.0.0.1 pm2 restart "$app" --update-env
+        PORT=3105 BIND_HOST=127.0.0.1 NATS_URL=127.0.0.1:4222 pm2 restart "$app" --update-env
         ;;
       *)
         pm2 restart "$app" --update-env
