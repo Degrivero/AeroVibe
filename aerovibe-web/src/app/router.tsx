@@ -11,6 +11,7 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { AdminPage } from '../pages/AdminPage'
 import { ContactPage } from '../pages/ContactPage'
 import { ResetPasswordPage } from '../pages/ResetPasswordPage'
+import { EmailVerifiedPage } from '../pages/EmailVerifiedPage'
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: 'cookies', element: <CookiesPage /> },
       { path: 'faq', element: <FaqPage /> },
       { path: 'reset-password', element: <ResetPasswordPage /> },
+      { path: 'email-verified', element: <EmailVerifiedPage /> },
       // Hidden entry (no nav link): admin dashboard
       { path: '__admin', element: <AdminPage /> },
       { path: '*', element: <NotFoundPage /> },

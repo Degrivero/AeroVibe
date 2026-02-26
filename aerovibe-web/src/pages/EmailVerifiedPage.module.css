@@ -1,0 +1,108 @@
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px var(--page-pad) 24px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: color-mix(in oklab, var(--card) 82%, transparent);
+  padding: 28px 24px 34px;
+  text-align: center;
+}
+
+:global(html[data-theme='dark']) .card {
+  background: #000;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 12px;
+  width: min(200px, 55vw);
+  height: auto;
+}
+
+.statusOk,
+.statusError {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin-bottom: 12px;
+}
+
+.statusOk {
+  color: #0b2914;
+  background: color-mix(in oklab, var(--accent) 30%, transparent);
+  border-color: color-mix(in oklab, var(--accent) 55%, var(--border) 45%);
+}
+
+.statusError {
+  color: #3f0f0f;
+  background: color-mix(in oklab, #ff8a8a 35%, transparent);
+  border-color: color-mix(in oklab, #ff6c6c 60%, var(--border) 40%);
+}
+
+.h1 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 5vw, 42px);
+  line-height: 1.06;
+  letter-spacing: -0.5px;
+}
+
+.body {
+  margin: 0 auto 18px;
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+}
+
+.badge {
+  display: block;
+  height: auto;
+  width: 168px;
+  max-width: 42vw;
+}
+
+.homeLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-weight: 800;
+}
+
+.homeLink:hover {
+  border-color: color-mix(in oklab, var(--border) 50%, var(--accent) 50%);
+}
+
+@media (max-width: 560px) {
+  .card {
+    padding: 24px 16px 24px;
+  }
+
+  .badge {
+    width: 150px;
+    max-width: 80vw;
+  }
+}
