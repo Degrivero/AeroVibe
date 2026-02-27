@@ -154,20 +154,82 @@ type AuthPayload = {
   user: { id: string; email: string | null; role: string | null } | null
 }
 
-type MfaRequiredPayload = {
-  code?: string
-  message?: string
-  challengeId?: string
-  expiresInMinutes?: number
-  maskedEmail?: string
-}
-
 type PendingMfaChallenge = {
   email: string
   password: string
   challengeId: string
   maskedEmail: string
   expiresInMinutes: number
+}
+
+function asRecord(value: unknown): Record<string, unknown> {
+  if (value && typeof value === 'object') return value as Record<string, unknown>
+  return {}
+}
+
+function asString(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  const trimmed = value.trim()
+  return trimmed ? trimmed : null
+}
+
+function parseMfaRequiredPayload(payload: unknown) {
+  const root = asRecord(payload)
+  const data = asRecord(root.data)
+  const payloadNode = asRecord(root.payload)
+  const result = asRecord(root.result)
+  const nested = asRecord(root.mfa)
+  const nestedDataMfa = asRecord(data.mfa)
+  const nestedPayloadMfa = asRecord(payloadNode.mfa)
+  const nodes = [root, data, payloadNode, result, nested, nestedDataMfa, nestedPayloadMfa]
+  const pickString = (...keys: string[]) => {
+    for (const node of nodes) {
+      for (const key of keys) {
+        const value = asString(node[key])
+        if (value) return value
+      }
+    }
+    return null
+  }
+
+  const code = pickString('code')
+  const challengeId = pickString('challengeId', 'challenge_id')
+  const maskedEmail = pickString('maskedEmail', 'masked_email')
+  const expiresRaw =
+    root.expiresInMinutes ??
+    root.expires_in_minutes ??
+    data.expiresInMinutes ??
+    data.expires_in_minutes ??
+    payloadNode.expiresInMinutes ??
+    payloadNode.expires_in_minutes ??
+    result.expiresInMinutes ??
+    result.expires_in_minutes ??
+    nested.expiresInMinutes ??
+    nested.expires_in_minutes ??
+    nestedDataMfa.expiresInMinutes ??
+    nestedDataMfa.expires_in_minutes ??
+    nestedPayloadMfa.expiresInMinutes ??
+    nestedPayloadMfa.expires_in_minutes
+  const expiresParsed = Number(expiresRaw)
+  const expiresInMinutes = Number.isFinite(expiresParsed) && expiresParsed > 0 ? expiresParsed : 10
+  const required =
+    code === 'MFA_EMAIL_REQUIRED' ||
+    code === 'MFA_REQUIRED' ||
+    code === 'MFA_CHALLENGE_REQUIRED' ||
+    root.mfaRequired === true ||
+    root.mfa_required === true ||
+    data.mfaRequired === true ||
+    data.mfa_required === true ||
+    payloadNode.mfaRequired === true ||
+    payloadNode.mfa_required === true ||
+    result.mfaRequired === true ||
+    result.mfa_required === true ||
+    nested.required === true ||
+    nestedDataMfa.required === true ||
+    nestedPayloadMfa.required === true ||
+    Boolean(challengeId)
+
+  return { required, challengeId, maskedEmail, expiresInMinutes }
 }
 
 type Metrics = {
@@ -1284,27 +1346,31 @@ export function AdminPage() {
         body: JSON.stringify({ email: normalizedEmail, password }),
       })
 
+      const mfaPayload = parseMfaRequiredPayload(data)
+      const isMfaLoginFlow = res.status === 202 || mfaPayload.required
+      if (isMfaLoginFlow) {
+        if (!mfaPayload.challengeId) {
+          throw new Error('El servidor pidió MFA pero no devolvió challengeId.')
+        }
+        setMfaPending({
+          email: normalizedEmail,
+          password,
+          challengeId: mfaPayload.challengeId,
+          maskedEmail: mfaPayload.maskedEmail || normalizedEmail,
+          expiresInMinutes: mfaPayload.expiresInMinutes,
+        })
+        setMfaCode('')
+        setMfaError(null)
+        setPassword('')
+        return
+      }
+
       if (!res.ok) {
         const msg =
           (data && typeof data.message === 'string' && data.message) ||
           (data && typeof data.error === 'string' && data.error) ||
           'No pudimos iniciar sesión.'
         throw new Error(msg)
-      }
-
-      const mfaPayload = data as MfaRequiredPayload
-      if (mfaPayload?.code === 'MFA_EMAIL_REQUIRED' && mfaPayload?.challengeId) {
-        setMfaPending({
-          email: normalizedEmail,
-          password,
-          challengeId: mfaPayload.challengeId,
-          maskedEmail: mfaPayload.maskedEmail || normalizedEmail,
-          expiresInMinutes: Number(mfaPayload.expiresInMinutes || 10),
-        })
-        setMfaCode('')
-        setMfaError(null)
-        setPassword('')
-        return
       }
 
       await completeSignIn(data as AuthPayload)
@@ -2630,64 +2696,65 @@ export function AdminPage() {
               </div>
             ) : null}
 
-            {!accessToken && mfaPending ? (
-              <div
-                className={styles.modalBackdrop}
-                role="presentation"
-                onClick={(e) => {
-                  if (e.target === e.currentTarget && !mfaBusy) {
+          </>
+        ) : null}
+
+        {!accessToken && mfaPending ? (
+          <div
+            className={styles.modalBackdrop}
+            role="presentation"
+            onClick={(e) => {
+              if (e.target === e.currentTarget && !mfaBusy) {
+                setMfaPending(null)
+                setMfaCode('')
+                setMfaError(null)
+              }
+            }}
+          >
+            <div className={styles.modalCard} role="dialog" aria-modal="true" aria-label="Verificación MFA" onClick={(e) => e.stopPropagation()}>
+              <div className={styles.modalTitle}>Verificación en 2 pasos</div>
+              <div className={styles.modalSub}>
+                Te enviamos un código a <strong>{mfaPending.maskedEmail}</strong>. Expira en {mfaPending.expiresInMinutes} minutos.
+              </div>
+              {mfaError ? <div className={styles.error}>{mfaError}</div> : null}
+              <label className={styles.field} style={{ marginTop: 16 }}>
+                <div className={styles.label}>Código MFA</div>
+                <input
+                  ref={mfaInputRef}
+                  className={styles.input}
+                  inputMode="numeric"
+                  value={mfaCode}
+                  onChange={(e) => setMfaCode(e.target.value.replace(/\s+/g, ''))}
+                  maxLength={8}
+                  disabled={mfaBusy}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      void submitMfaCode()
+                    }
+                  }}
+                  placeholder="Ej: 123456"
+                />
+              </label>
+              <div className={styles.modalActions}>
+                <button
+                  className={styles.btnGhost}
+                  type="button"
+                  onClick={() => {
                     setMfaPending(null)
                     setMfaCode('')
                     setMfaError(null)
-                  }
-                }}
-              >
-                <div className={styles.modalCard} role="dialog" aria-modal="true" aria-label="Verificación MFA" onClick={(e) => e.stopPropagation()}>
-                  <div className={styles.modalTitle}>Verificación en 2 pasos</div>
-                  <div className={styles.modalSub}>
-                    Te enviamos un código a <strong>{mfaPending.maskedEmail}</strong>. Expira en {mfaPending.expiresInMinutes} minutos.
-                  </div>
-                  {mfaError ? <div className={styles.error}>{mfaError}</div> : null}
-                  <label className={styles.field} style={{ marginTop: 16 }}>
-                    <div className={styles.label}>Código MFA</div>
-                    <input
-                      ref={mfaInputRef}
-                      className={styles.input}
-                      inputMode="numeric"
-                      value={mfaCode}
-                      onChange={(e) => setMfaCode(e.target.value.replace(/\s+/g, ''))}
-                      maxLength={8}
-                      disabled={mfaBusy}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault()
-                          void submitMfaCode()
-                        }
-                      }}
-                      placeholder="Ej: 123456"
-                    />
-                  </label>
-                  <div className={styles.modalActions}>
-                    <button
-                      className={styles.btnGhost}
-                      type="button"
-                      onClick={() => {
-                        setMfaPending(null)
-                        setMfaCode('')
-                        setMfaError(null)
-                      }}
-                      disabled={mfaBusy}
-                    >
-                      Cancelar
-                    </button>
-                    <button className={styles.btn} type="button" onClick={() => void submitMfaCode()} disabled={mfaBusy || !mfaCode.trim()}>
-                      {mfaBusy ? 'Verificando…' : 'Validar código'}
-                    </button>
-                  </div>
-                </div>
+                  }}
+                  disabled={mfaBusy}
+                >
+                  Cancelar
+                </button>
+                <button className={styles.btn} type="button" onClick={() => void submitMfaCode()} disabled={mfaBusy || !mfaCode.trim()}>
+                  {mfaBusy ? 'Verificando…' : 'Validar código'}
+                </button>
               </div>
-            ) : null}
-          </>
+            </div>
+          </div>
         ) : null}
       </div>
     </div>
