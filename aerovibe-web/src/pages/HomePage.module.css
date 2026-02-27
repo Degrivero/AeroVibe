@@ -104,6 +104,7 @@
   margin: 0 auto;
   padding: 82px var(--page-pad) 56px;
   position: relative;
+  z-index: 5;
 }
 
 .heroGrid {
@@ -117,22 +118,16 @@
   min-width: 0;
 }
 
-.heroRight {
+.floatingGlobe {
   display: none;
-}
-
-.heroPanel {
   position: relative;
-  height: 320px;
-  border-radius: 26px;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--card) 78%, transparent);
-  overflow: hidden;
 }
 
-:global(html[data-theme='light']) .heroPanel {
-  background: color-mix(in oklab, var(--card) 92%, transparent);
-  box-shadow: 0 18px 44px rgba(10, 14, 18, 0.12);
+.floatingGlobeFallback {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  opacity: 0;
 }
 
 .heroPanelSweep {
@@ -487,6 +482,8 @@
   padding: 64px 0;
   /* Sticky header offset for #pricing/#features anchor navigation */
   scroll-margin-top: calc(var(--header-h, 72px) + 18px);
+  position: relative;
+  z-index: 5;
 }
 
 .sectionInner {
@@ -833,17 +830,26 @@
 
 @media (min-width: 960px) {
   .heroGrid {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr;
     align-items: center;
     gap: 26px;
   }
 
-  .heroRight {
-    display: block;
+  .heroLeft {
+    max-width: min(640px, 58vw);
   }
 
-  .heroPanel {
-    height: 360px;
+  .floatingGlobe {
+    display: block;
+    position: fixed;
+    right: max(12px, calc((100vw - var(--page-max)) / 2 + var(--page-pad) - 10px));
+    top: calc(var(--header-h, 72px) + 6px);
+    width: clamp(360px, 34vw, 620px);
+    aspect-ratio: 1 / 1;
+    overflow: visible;
+    transform: translateX(15px);
+    z-index: 3;
+    pointer-events: auto;
   }
 
   .title {
@@ -870,4 +876,30 @@
 }
 
 @media (min-width: 1100px) {
+  .floatingGlobe {
+    right: max(18px, calc((100vw - var(--page-max)) / 2 + var(--page-pad) - 4px));
+    top: calc(var(--header-h, 72px) + 2px);
+    width: clamp(420px, 35vw, 700px);
+  }
+}
+
+@media (min-width: 1600px) {
+  .heroInner,
+  .sectionInner {
+    max-width: 1720px;
+  }
+
+  .title {
+    font-size: 62px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .floatingGlobe {
+    right: max(24px, calc((100vw - 1720px) / 2 + var(--page-pad) - 8px));
+    top: calc(var(--header-h, 72px) - 2px);
+    width: clamp(500px, 33vw, 760px);
+  }
 }

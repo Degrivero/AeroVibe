@@ -125,7 +125,10 @@ function ThemeButton({
       ref={buttonRef}
       className={cx(styles.iconBtn, className)}
       type="button"
-      onClick={toggle}
+      onClick={(event) => {
+        toggle()
+        event.currentTarget.blur()
+      }}
       onMouseEnter={(e) => onButtonMouseEnter?.(e.currentTarget)}
       onFocus={(e) => onButtonFocus?.(e.currentTarget)}
       onBlur={onButtonBlur}

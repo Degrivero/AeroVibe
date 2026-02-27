@@ -1,7 +1,14 @@
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import styles from './HomePage.module.css'
 import { useMeta } from '../app/useMeta'
+
+const GlobeHero = lazy(() =>
+  import('../components/GlobeHero').then((module) => ({
+    default: module.GlobeHero,
+  })),
+)
 
 function StoreBadges() {
   const { t } = useTranslation()
@@ -73,6 +80,18 @@ function PricingCard({
 
 export function HomePage() {
   const { t } = useTranslation()
+  const [showGlobe, setShowGlobe] = useState<boolean>(() =>
+    typeof window !== 'undefined' ? window.innerWidth >= 960 : false,
+  )
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 960px)')
+    const listener = (event: MediaQueryListEvent) => setShowGlobe(event.matches)
+    setShowGlobe(query.matches)
+    query.addEventListener('change', listener)
+    return () => query.removeEventListener('change', listener)
+  }, [])
+
   useMeta({ title: t('meta.title'), description: t('meta.description') })
 
   const freeBullets = t('sections.pricing.free.bullets', { returnObjects: true }) as string[]
@@ -106,12 +125,6 @@ export function HomePage() {
     },
   ]
 
-  const heroPins = [
-    { key: 'community', left: '18%', top: '38%', preview: '/assets/hero/pin-community.png' },
-    { key: 'beach', left: '62%', top: '30%', preview: '/assets/hero/pin-beach.png' },
-    { key: 'mountain', left: '46%', top: '64%', preview: '/assets/hero/pin-mountain.png' },
-  ] as const
-
   return (
     <div className={styles.page}>
       <section className={styles.hero}>
@@ -135,20 +148,16 @@ export function HomePage() {
                 <div className={styles.heroNote}>{t('hero.note')}</div>
               </div>
             </div>
-
-            <div className={styles.heroRight} aria-hidden="true">
-              <div className={styles.heroPanel}>
-                <div className={styles.heroPanelSweep} />
-                {heroPins.map((pin) => (
-                  <div key={pin.key} className={styles.heroPin} style={{ left: pin.left, top: pin.top }}>
-                    <img className={styles.heroThumb} src={pin.preview} alt="" loading="lazy" />
-                  </div>
-                ))}
-                <div className={styles.heroPath} />
-              </div>
-            </div>
           </div>
         </div>
+
+        {showGlobe ? (
+          <div className={styles.floatingGlobe} aria-hidden="true">
+            <Suspense fallback={<div className={styles.floatingGlobeFallback} />}>
+              <GlobeHero />
+            </Suspense>
+          </div>
+        ) : null}
 
         <section className={styles.section} id="features">
           <div className={styles.sectionInner}>

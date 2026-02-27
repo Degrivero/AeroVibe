@@ -72,11 +72,20 @@
   margin: 0 0 18px;
 }
 
+.badgeLink {
+  width: 168px;
+  height: 52px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .badge {
   display: block;
+  width: auto;
   height: auto;
-  width: 168px;
-  max-width: 42vw;
+  max-width: 168px;
+  max-height: 52px;
 }
 
 .homeLink {
@@ -102,7 +111,12 @@
   }
 
   .badge {
+    max-width: 150px;
+  }
+
+  .badgeLink {
     width: 150px;
+    height: 48px;
     max-width: 80vw;
   }
 }

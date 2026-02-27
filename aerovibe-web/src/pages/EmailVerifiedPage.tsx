@@ -82,7 +82,7 @@ export function EmailVerifiedPage() {
         <p className={styles.body}>{copy.body}</p>
 
         <div className={styles.badges}>
-          <a href={appStoreUrl} target="_blank" rel="noreferrer">
+          <a className={styles.badgeLink} href={appStoreUrl} target="_blank" rel="noreferrer">
             <img
               className={styles.badge}
               src="/assets/badges/app-store.png"
@@ -92,7 +92,7 @@ export function EmailVerifiedPage() {
               loading="lazy"
             />
           </a>
-          <a href={googlePlayUrl} target="_blank" rel="noreferrer">
+          <a className={styles.badgeLink} href={googlePlayUrl} target="_blank" rel="noreferrer">
             <img
               className={styles.badge}
               src="/assets/badges/google-play.png"

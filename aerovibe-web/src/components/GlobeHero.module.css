@@ -1,0 +1,63 @@
+.shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.shell :global(canvas) {
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+  background: transparent;
+}
+
+.previewCard {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 172px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(120, 255, 196, 0.26);
+  background: rgba(4, 8, 12, 0.68);
+  backdrop-filter: blur(9px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity 160ms ease-out,
+    transform 160ms ease-out;
+}
+
+.previewCardVisible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.previewThumb {
+  width: 100%;
+  height: 96px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(128, 255, 201, 0.34);
+}
+
+.previewMeta {
+  min-width: 0;
+  text-align: center;
+}
+
+.previewPilot {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e8f3ee;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
