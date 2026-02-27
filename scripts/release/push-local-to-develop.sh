@@ -18,6 +18,7 @@ REPOS=(
   aerovibe-nats-redis
   aerovibe-notifications-service
   aerovibe-web
+  aerovibe-app
 )
 
 for repo in "${REPOS[@]}"; do

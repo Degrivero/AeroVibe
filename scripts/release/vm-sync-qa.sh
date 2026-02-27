@@ -33,6 +33,24 @@ upsert_env_var() {
   fi
 }
 
+assert_web_email_assets() {
+  local web_dir="$1"
+  local dist_assets="$web_dir/dist/assets"
+  local required=(
+    "badges/app-store.png"
+    "badges/google-play.png"
+    "social/instagram.png"
+    "brand/logotipo.png"
+  )
+
+  for rel in "${required[@]}"; do
+    if [[ ! -f "$dist_assets/$rel" ]]; then
+      echo "[ERROR] Faltan assets para emails en build web: $dist_assets/$rel"
+      exit 1
+    fi
+  done
+}
+
 synced_repos=0
 for repo in "${REPOS[@]}"; do
   dir="$ROOT/$repo"
@@ -48,6 +66,7 @@ for repo in "${REPOS[@]}"; do
 
   if [[ "$repo" == "aerovibe-web" ]]; then
     npm --prefix "$dir" run build
+    assert_web_email_assets "$dir"
   fi
 
 done

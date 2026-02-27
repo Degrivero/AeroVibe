@@ -583,6 +583,7 @@ export function AdminPage() {
   const [mfaBusy, setMfaBusy] = useState(false)
   const [mfaError, setMfaError] = useState<string | null>(null)
   const mfaInputRef = useRef<HTMLInputElement | null>(null)
+  const signInInFlightRef = useRef(false)
 
   const [accessToken, setAccessToken] = useState<string | null>(() => window.localStorage.getItem(LS_ACCESS))
   const [refreshToken, setRefreshToken] = useState<string | null>(() => window.localStorage.getItem(LS_REFRESH))
@@ -1314,11 +1315,14 @@ export function AdminPage() {
   }
 
   async function signIn() {
+    if (signInInFlightRef.current) return
+
     setError(null)
     setMfaError(null)
     if (!base) return setError('Falta configurar VITE_API_BASE_URL.')
     if (!email.trim() || !password) return setError('Completá email y contraseña.')
 
+    signInInFlightRef.current = true
     setBusy(true)
     try {
       const normalizedEmail = email.trim().toLowerCase()
@@ -1378,6 +1382,7 @@ export function AdminPage() {
       setError(e instanceof Error ? e.message : 'No pudimos iniciar sesión.')
     } finally {
       setBusy(false)
+      signInInFlightRef.current = false
     }
   }
 
