@@ -5,6 +5,12 @@ import { useTranslation } from 'react-i18next'
 import styles from './SiteHeader.module.css'
 import { setLang, type SupportedLang } from '../app/i18n'
 import { useTheme } from '../app/theme'
+import {
+  onAccountModalOpen,
+  onAuthSessionChange,
+  readAuthSession,
+  type AccountModalTab,
+} from '../app/auth'
 import { AccountModal } from './AccountModal'
 
 function cx(...parts: Array<string | false | null | undefined>) {
@@ -363,6 +369,8 @@ export function SiteHeader() {
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const [accountOpen, setAccountOpen] = useState(false)
+  const [accountTab, setAccountTab] = useState<AccountModalTab>('login')
+  const [session, setSession] = useState(() => readAuthSession())
   const desktopRailRef = useRef<HTMLDivElement | null>(null)
   const desktopItemRefs = useRef<Record<string, HTMLElement | null>>({})
 
@@ -420,6 +428,20 @@ export function SiteHeader() {
     return () => rail.removeEventListener('mouseleave', onLeave)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeNavKey])
+
+  useEffect(() => onAuthSessionChange(() => setSession(readAuthSession())), [])
+
+  useEffect(
+    () =>
+      onAccountModalOpen((detail) => {
+        setOpen(false)
+        setAccountTab(detail.tab ?? 'login')
+        setAccountOpen(true)
+      }),
+    [],
+  )
+
+  const isLoggedIn = !!session?.accessToken
 
   return (
     <>
@@ -501,19 +523,37 @@ export function SiteHeader() {
                   {t('nav.shop')}
                 </button>
               </div>
-              <button
-                ref={(el) => {
-                  desktopItemRefs.current.account = el
-                }}
-                className={styles.actionLink}
-                type="button"
-                onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
-                onFocus={(e) => positionDesktopPill(e.currentTarget)}
-                onBlur={positionDesktopPillToActive}
-                onClick={() => setAccountOpen(true)}
-              >
-                {t('nav.account')}
-              </button>
+              {isLoggedIn ? (
+                <Link
+                  ref={(el) => {
+                    desktopItemRefs.current.account = el
+                  }}
+                  className={styles.actionLink}
+                  to="/account"
+                  onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                  onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                  onBlur={positionDesktopPillToActive}
+                >
+                  {t('nav.account')}
+                </Link>
+              ) : (
+                <button
+                  ref={(el) => {
+                    desktopItemRefs.current.account = el
+                  }}
+                  className={styles.actionLink}
+                  type="button"
+                  onMouseEnter={(e) => positionDesktopPill(e.currentTarget)}
+                  onFocus={(e) => positionDesktopPill(e.currentTarget)}
+                  onBlur={positionDesktopPillToActive}
+                  onClick={() => {
+                    setAccountTab('login')
+                    setAccountOpen(true)
+                  }}
+                >
+                  {t('nav.account')}
+                </button>
+              )}
               <LangMenu
                 buttonClassName={styles.pillOnlyIcon}
                 buttonRef={(el) => {
@@ -537,17 +577,29 @@ export function SiteHeader() {
               </div>
             </div>
             <div className={styles.tipWrap} data-tip={t('nav.account')}>
-              <button
-                className={`${styles.iconBtn} ${styles.mobileOnly}`}
-                type="button"
-                onClick={() => {
-                  setOpen(false)
-                  setAccountOpen(true)
-                }}
-                aria-label={t('nav.account')}
-              >
-                <IconUser />
-              </button>
+              {isLoggedIn ? (
+                <Link
+                  className={`${styles.iconBtn} ${styles.mobileOnly}`}
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  aria-label={t('nav.account')}
+                >
+                  <IconUser />
+                </Link>
+              ) : (
+                <button
+                  className={`${styles.iconBtn} ${styles.mobileOnly}`}
+                  type="button"
+                  onClick={() => {
+                    setOpen(false)
+                    setAccountTab('login')
+                    setAccountOpen(true)
+                  }}
+                  aria-label={t('nav.account')}
+                >
+                  <IconUser />
+                </button>
+              )}
             </div>
             <div className={styles.mobileOnly}>
               <LangMenu buttonClassName={styles.pillOnlyIcon} />
@@ -588,7 +640,9 @@ export function SiteHeader() {
         ) : null}
       </header>
 
-      {accountOpen ? <AccountModal onClose={() => setAccountOpen(false)} /> : null}
+      {accountOpen ? (
+        <AccountModal initialTab={accountTab} onClose={() => setAccountOpen(false)} />
+      ) : null}
     </>
   )
 }

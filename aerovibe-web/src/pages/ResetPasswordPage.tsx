@@ -2,14 +2,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import { getApiBase } from '../app/auth'
 import { useMeta } from '../app/useMeta'
 import styles from './ResetPasswordPage.module.css'
-
-function apiBase() {
-  const raw = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').trim()
-  const trimmed = raw.replace(/\/$/, '')
-  return trimmed.endsWith('/api') ? trimmed.slice(0, -4) : trimmed
-}
 
 function parseAccessToken(hash: string, search: string) {
   const hashParams = new URLSearchParams(String(hash || '').replace(/^#/, ''))
@@ -74,7 +69,7 @@ export function ResetPasswordPage() {
     if (!password) return setError(t('auth.error_password'))
     if (password !== password2) return setError(t('auth.error_password_match'))
 
-    const base = apiBase()
+    const base = getApiBase()
     if (!base) return setError(t('account_modal.errors.missing_api_base'))
 
     setBusy(true)

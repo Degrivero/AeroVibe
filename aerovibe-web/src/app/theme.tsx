@@ -17,8 +17,12 @@ const ThemeContext = createContext<ThemeContextValue | null>(null)
 function detectInitialTheme(): ThemeMode {
   if (typeof window === 'undefined') return 'dark'
 
-  const saved = window.localStorage.getItem(THEME_STORAGE_KEY)
-  if (saved === 'dark' || saved === 'light') return saved
+  try {
+    const saved = window.localStorage.getItem(THEME_STORAGE_KEY)
+    if (saved === 'dark' || saved === 'light') return saved
+  } catch {
+    // localStorage can throw (e.g. SecurityError in private/opaque origins)
+  }
 
   const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? true
   return prefersDark ? 'dark' : 'light'

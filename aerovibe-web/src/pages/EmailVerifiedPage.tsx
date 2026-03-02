@@ -85,7 +85,7 @@ export function EmailVerifiedPage() {
           <a className={styles.badgeLink} href={appStoreUrl} target="_blank" rel="noreferrer">
             <img
               className={styles.badge}
-              src="/assets/badges/app-store.png"
+              src="/assets/badges/app-store.svg"
               alt={copy.appStoreAlt}
               width={168}
               height={50}
@@ -95,7 +95,7 @@ export function EmailVerifiedPage() {
           <a className={styles.badgeLink} href={googlePlayUrl} target="_blank" rel="noreferrer">
             <img
               className={styles.badge}
-              src="/assets/badges/google-play.png"
+              src="/assets/badges/google-play.svg"
               alt={copy.playStoreAlt}
               width={168}
               height={50}

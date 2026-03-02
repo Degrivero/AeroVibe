@@ -1,0 +1,31 @@
+{
+  "name": "aerovibe-payments-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "build": "node -e \"process.stdout.write('No build step for payments-service\\n')\"",
+    "test": "node --test",
+    "check": "node --check src/index.js",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.56.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.4",
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.0",
+    "nats": "^2.29.3",
+    "stripe": "^18.5.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "nodemon": "^3.1.10"
+  }
+}

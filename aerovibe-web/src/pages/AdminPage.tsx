@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type ClipboardEvent, type KeyboardEvent, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import styles from './AdminPage.module.css'
 import { useMeta } from '../app/useMeta'
+import { getApiBase } from '../app/auth'
 
 type AdminUsersItem = {
   id: string
@@ -148,6 +150,29 @@ type TrendResponse = {
   series: TrendPoint[]
 }
 
+type AdminPricingCountry = {
+  country: string
+  usd_rate: number
+  monthly_local: number
+  annual_local: number
+  updated_at?: string | null
+  updated_by?: string | null
+}
+
+type AdminPricingResponse = {
+  ok: true
+  base_prices_usd: {
+    monthly: number
+    annual: number
+  }
+  countries: AdminPricingCountry[]
+}
+
+type PricingModalState = {
+  cl: AdminPricingCountry
+  ar: AdminPricingCountry
+}
+
 type AuthPayload = {
   accessToken: string
   refreshToken: string | null
@@ -276,6 +301,7 @@ type TrendChartProps = {
   ariaLabel: string
   points: TrendPoint[]
   rangeDays: RangeDays
+  rangeOptions: Array<{ value: RangeDays; label: string }>
   onRangeChange: (value: RangeDays) => void
   onOpenReport: () => void
   reportDisabled?: boolean
@@ -288,12 +314,11 @@ const LS_REFRESH = 'aerovibe_admin_refresh_token'
 const LS_EMAIL = 'aerovibe_admin_email'
 const LS_HEALTH = 'aerovibe_admin_health_v1'
 const PER_PAGE = 20
+const MFA_CODE_LENGTH = 6
 
-const RANGE_OPTIONS: Array<{ value: RangeDays; label: string }> = [
-  { value: 30, label: '30 días' },
-  { value: 90, label: '90 días' },
-  { value: 180, label: '180 días' },
-]
+function emptyMfaDigits() {
+  return Array.from({ length: MFA_CODE_LENGTH }, () => '')
+}
 
 function reportStatusToApi(value: string): string {
   if (value === 'new') return 'pending'
@@ -317,20 +342,6 @@ const REASON_LABELS: Record<string, string> = {
   scam: 'Estafa o engaño',
   policy: 'Incumplimiento de políticas de la comunidad',
   other: 'Otro',
-}
-
-const REPORT_SECTION_LABELS: Record<SectionKey, string> = {
-  users: 'usuarios',
-  pro: 'usuarios-pro',
-  spots: 'spots',
-  support: 'soporte',
-  reports: 'reportes',
-}
-
-function apiBase() {
-  const raw = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').trim()
-  const trimmed = raw.replace(/\/$/, '')
-  return trimmed.endsWith('/api') ? trimmed.slice(0, -4) : trimmed
 }
 
 function pad2(n: number) {
@@ -473,6 +484,7 @@ function TrendChart({
   ariaLabel,
   points,
   rangeDays,
+  rangeOptions,
   onRangeChange,
   onOpenReport,
   reportDisabled,
@@ -508,7 +520,7 @@ function TrendChart({
             onChange={(e) => onRangeChange(normalizeDays(Number(e.target.value)))}
             aria-label="Rango de tiempo"
           >
-            {RANGE_OPTIONS.map((opt) => (
+            {rangeOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}
               </option>
@@ -570,20 +582,40 @@ function TrendChart({
 }
 
 export function AdminPage() {
+  const { t } = useTranslation()
   useMeta({ title: 'Admin — AeroVibe', description: 'Admin dashboard' })
 
-  const base = useMemo(() => apiBase(), [])
+  const base = useMemo(() => getApiBase(), [])
+  const rangeOptions = useMemo<Array<{ value: RangeDays; label: string }>>(
+    () => [
+      { value: 30, label: t('admin.range_days_30') },
+      { value: 90, label: t('admin.range_days_90') },
+      { value: 180, label: t('admin.range_days_180') },
+    ],
+    [t]
+  )
+  const reportSectionLabels = useMemo<Record<SectionKey, string>>(
+    () => ({
+      users: t('admin.section_users'),
+      pro: t('admin.section_pro'),
+      spots: t('admin.section_spots'),
+      support: t('admin.section_support'),
+      reports: t('admin.section_reports'),
+    }),
+    [t]
+  )
   const [section, setSection] = useState<'dashboard' | 'users' | 'spots' | 'pro' | 'support' | 'reports'>('dashboard')
   const [email, setEmail] = useState(() => window.localStorage.getItem(LS_EMAIL) || '')
   const [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [mfaPending, setMfaPending] = useState<PendingMfaChallenge | null>(null)
-  const [mfaCode, setMfaCode] = useState('')
+  const [mfaDigits, setMfaDigits] = useState<string[]>(() => emptyMfaDigits())
   const [mfaBusy, setMfaBusy] = useState(false)
   const [mfaError, setMfaError] = useState<string | null>(null)
-  const mfaInputRef = useRef<HTMLInputElement | null>(null)
+  const mfaInputRefs = useRef<Array<HTMLInputElement | null>>([])
   const signInInFlightRef = useRef(false)
+  const mfaCode = mfaDigits.join('')
 
   const [accessToken, setAccessToken] = useState<string | null>(() => window.localStorage.getItem(LS_ACCESS))
   const [refreshToken, setRefreshToken] = useState<string | null>(() => window.localStorage.getItem(LS_REFRESH))
@@ -719,13 +751,13 @@ export function AdminPage() {
   const [supportModalMessage, setSupportModalMessage] = useState('')
   const [supportModalStatus, setSupportModalStatus] = useState<string>('pending')
 
-  const rolesSummary = useMemo(() => {
-    const roles = metrics?.users?.roles || {}
-    const entries = Object.entries(roles).sort((a, b) => (b[1] || 0) - (a[1] || 0))
-    const top = entries.filter(([, n]) => (n || 0) > 0).slice(0, 8)
-    if (top.length === 0) return '-'
-    return top.map(([k, n]) => `${k} ${fmt(n || 0)}`).join(' · ')
-  }, [metrics])
+  const [pricingLoading, setPricingLoading] = useState(false)
+  const [pricingSaving, setPricingSaving] = useState(false)
+  const [pricingError, setPricingError] = useState<string | null>(null)
+  const [pricingMessage, setPricingMessage] = useState<string | null>(null)
+  const [pricingClRate, setPricingClRate] = useState('')
+  const [pricingArRate, setPricingArRate] = useState('')
+  const [pricingSummaryModal, setPricingSummaryModal] = useState<PricingModalState | null>(null)
 
   async function authedGet(path: string, tokenOverride?: string | null) {
     if (!base) throw new Error('Falta configurar VITE_API_BASE_URL.')
@@ -797,6 +829,93 @@ export function AdminPage() {
 
     return data
   }
+
+  async function loadPricingConfig() {
+    if (!accessToken) return
+
+    setPricingLoading(true)
+    setPricingError(null)
+
+    try {
+      const data = (await authedGet('/api/payments/admin/pricing')) as AdminPricingResponse
+      const byCountry = new Map(
+        (Array.isArray(data.countries) ? data.countries : []).map((row) => [String(row.country).toUpperCase(), row]),
+      )
+      const cl = byCountry.get('CL')
+      const ar = byCountry.get('AR')
+
+      setPricingClRate(cl?.usd_rate != null ? String(cl.usd_rate) : '')
+      setPricingArRate(ar?.usd_rate != null ? String(ar.usd_rate) : '')
+      setPricingMessage(null)
+    } catch (e) {
+      const rawMessage = e instanceof Error ? e.message : ''
+      if (rawMessage === 'No pudimos cargar el recurso.') {
+        setPricingError('No pudimos cargar la configuración de pricing.')
+      } else {
+        setPricingError(rawMessage || 'No pudimos cargar la configuración de pricing.')
+      }
+    } finally {
+      setPricingLoading(false)
+    }
+  }
+
+  async function savePricingConfig() {
+    setPricingSaving(true)
+    setPricingError(null)
+    setPricingMessage(null)
+
+    const clRate = Number(pricingClRate)
+    const arRate = Number(pricingArRate)
+    if (!Number.isFinite(clRate) || clRate <= 0 || !Number.isFinite(arRate) || arRate <= 0) {
+      setPricingSaving(false)
+      setPricingError('Ingresa tasas USD válidas para Chile y Argentina.')
+      return
+    }
+
+    try {
+      const data = (await authedPost('/api/payments/admin/pricing/update', {
+        clRate,
+        arRate,
+      })) as {
+        countries?: Array<{
+          country: string
+          usd_rate: number
+          monthly_local: number
+          annual_local: number
+        }>
+      }
+
+      const byCountry = new Map(
+        (Array.isArray(data.countries) ? data.countries : []).map((row) => [String(row.country).toUpperCase(), row]),
+      )
+      const cl = byCountry.get('CL')
+      const ar = byCountry.get('AR')
+
+      if (cl && ar) {
+        setPricingSummaryModal({
+          cl: {
+            country: 'CL',
+            usd_rate: cl.usd_rate,
+            monthly_local: cl.monthly_local,
+            annual_local: cl.annual_local,
+          },
+          ar: {
+            country: 'AR',
+            usd_rate: ar.usd_rate,
+            monthly_local: ar.monthly_local,
+            annual_local: ar.annual_local,
+          },
+        })
+      }
+
+      setPricingMessage('Tasas actualizadas correctamente.')
+    } catch (e) {
+      setPricingError(e instanceof Error ? e.message : 'No pudimos guardar la configuración de pricing.')
+    } finally {
+      setPricingSaving(false)
+    }
+  }
+
 
   async function loadHealth() {
     if (!base) return
@@ -1340,7 +1459,7 @@ export function AdminPage() {
         setRefreshToken(payload.refreshToken || null)
         setPassword('')
         setMfaPending(null)
-        setMfaCode('')
+        setMfaDigits(emptyMfaDigits())
         setMfaError(null)
       }
 
@@ -1363,7 +1482,7 @@ export function AdminPage() {
           maskedEmail: mfaPayload.maskedEmail || normalizedEmail,
           expiresInMinutes: mfaPayload.expiresInMinutes,
         })
-        setMfaCode('')
+        setMfaDigits(emptyMfaDigits())
         setMfaError(null)
         setPassword('')
         return
@@ -1389,8 +1508,9 @@ export function AdminPage() {
   async function submitMfaCode() {
     if (!base || !mfaPending) return
     const typedCode = mfaCode.trim()
-    if (!typedCode) {
-      setMfaError('Ingresa el código MFA para continuar.')
+    const mfaCodePattern = new RegExp(`^\\d{${MFA_CODE_LENGTH}}$`)
+    if (!mfaCodePattern.test(typedCode)) {
+      setMfaError('Ingresa los 6 dígitos del código MFA para continuar.')
       return
     }
 
@@ -1430,7 +1550,7 @@ export function AdminPage() {
       setAccessToken(payload.accessToken)
       setRefreshToken(payload.refreshToken || null)
       setMfaPending(null)
-      setMfaCode('')
+      setMfaDigits(emptyMfaDigits())
       setMfaError(null)
     } catch (e) {
       setMfaError(e instanceof Error ? e.message : 'No pudimos verificar MFA.')
@@ -1439,9 +1559,103 @@ export function AdminPage() {
     }
   }
 
+  function focusMfaInput(index: number) {
+    window.setTimeout(() => {
+      const input = mfaInputRefs.current[index]
+      input?.focus()
+      input?.select()
+    }, 0)
+  }
+
+  function fillMfaDigitsFrom(index: number, rawDigits: string) {
+    const digits = rawDigits.replace(/\D/g, '')
+    if (!digits) return
+
+    setMfaDigits((current) => {
+      const next = [...current]
+      let cursor = index
+      for (const digit of digits) {
+        if (cursor >= MFA_CODE_LENGTH) break
+        next[cursor] = digit
+        cursor += 1
+      }
+      return next
+    })
+
+    const nextFocus = Math.min(index + digits.length, MFA_CODE_LENGTH - 1)
+    focusMfaInput(nextFocus)
+  }
+
+  function onMfaDigitChange(index: number, value: string) {
+    const digits = value.replace(/\D/g, '')
+    if (!digits) {
+      setMfaDigits((current) => {
+        const next = [...current]
+        next[index] = ''
+        return next
+      })
+      return
+    }
+
+    fillMfaDigitsFrom(index, digits)
+  }
+
+  function onMfaDigitPaste(index: number, event: ClipboardEvent<HTMLInputElement>) {
+    const pasted = event.clipboardData.getData('text')
+    const digits = pasted.replace(/\D/g, '')
+    if (!digits) return
+    event.preventDefault()
+    fillMfaDigitsFrom(index, digits)
+  }
+
+  function onMfaDigitKeyDown(index: number, event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      void submitMfaCode()
+      return
+    }
+
+    if (event.key === 'ArrowLeft' && index > 0) {
+      event.preventDefault()
+      focusMfaInput(index - 1)
+      return
+    }
+
+    if (event.key === 'ArrowRight' && index < MFA_CODE_LENGTH - 1) {
+      event.preventDefault()
+      focusMfaInput(index + 1)
+      return
+    }
+
+    if (event.key === 'Backspace') {
+      event.preventDefault()
+      if (mfaDigits[index]) {
+        setMfaDigits((current) => {
+          const next = [...current]
+          next[index] = ''
+          return next
+        })
+        return
+      }
+      if (index > 0) {
+        setMfaDigits((current) => {
+          const next = [...current]
+          next[index - 1] = ''
+          return next
+        })
+        focusMfaInput(index - 1)
+      }
+      return
+    }
+
+    if (event.key.length === 1 && !/\d/.test(event.key)) {
+      event.preventDefault()
+    }
+  }
+
   useEffect(() => {
     if (!mfaPending) return
-    const timer = window.setTimeout(() => mfaInputRef.current?.focus(), 50)
+    const timer = window.setTimeout(() => mfaInputRefs.current[0]?.focus(), 50)
     return () => window.clearTimeout(timer)
   }, [mfaPending])
 
@@ -1462,6 +1676,12 @@ export function AdminPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!accessToken) return
+    void loadPricingConfig()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken])
 
   useEffect(() => {
     if (!accessToken) return
@@ -1582,10 +1802,10 @@ export function AdminPage() {
 
       const filtered = (data.series || []).filter((point) => point.date >= fromDay && point.date <= toDay)
       const header = ['fecha', 'cantidad', 'seccion']
-      const rows = filtered.map((point) => [point.date, String(point.count), REPORT_SECTION_LABELS[reportModal.section]])
+      const rows = filtered.map((point) => [point.date, String(point.count), reportSectionLabels[reportModal.section]])
       const csv = [header, ...rows].map((row) => row.map((cell) => escapeCsvCell(cell)).join(',')).join('\n')
 
-      const filename = `admin-${REPORT_SECTION_LABELS[reportModal.section]}-${fromDay}_a_${toDay}.csv`
+      const filename = `admin-${reportSectionLabels[reportModal.section]}-${fromDay}_a_${toDay}.csv`
       triggerCsvDownload(csv, filename)
       setReportModal(null)
     } catch (e) {
@@ -1764,21 +1984,48 @@ export function AdminPage() {
                   </div>
 
                   <div className={styles.card}>
-                    <div className={styles.cardTitle}>Detalle</div>
-                    <div className={styles.kv}>
-                      <div className={styles.k}>Roles</div>
-                      <div className={styles.v}>{rolesSummary}</div>
+                    <div className={styles.cardTitle}>Pricing Config (USD rate)</div>
+                    <div className={styles.formGrid}>
+                      <label className={styles.field}>
+                        <div className={styles.label}>Chile (CLP)</div>
+                        <input
+                          className={styles.input}
+                          type="number"
+                          min="1"
+                          step="0.01"
+                          value={pricingClRate}
+                          onChange={(e) => setPricingClRate(e.target.value)}
+                          disabled={pricingSaving || pricingLoading}
+                          placeholder="950"
+                        />
+                      </label>
+                      <label className={styles.field}>
+                        <div className={styles.label}>Argentina (ARS)</div>
+                        <input
+                          className={styles.input}
+                          type="number"
+                          min="1"
+                          step="0.01"
+                          value={pricingArRate}
+                          onChange={(e) => setPricingArRate(e.target.value)}
+                          disabled={pricingSaving || pricingLoading}
+                          placeholder="1200"
+                        />
+                      </label>
                     </div>
-                    <div className={styles.kv}>
-                      <div className={styles.k}>Contenido</div>
-                      <div className={styles.v}>
-                        comentarios {fmt(metrics?.content.comments.total ?? 0)} · likes {fmt(metrics?.content.favorites.total ?? 0)} · planes{' '}
-                        {fmt(metrics?.content.flightPlans.total ?? 0)}
-                      </div>
-                    </div>
-                    <div className={styles.kv}>
-                      <div className={styles.k}>Actualizado</div>
-                      <div className={styles.v}>{fmtDateTime(metrics?.asOf ?? null)}</div>
+
+                    {pricingError ? <div className={styles.error}>{pricingError}</div> : null}
+                    {pricingMessage ? <div className={styles.legendLine}>{pricingMessage}</div> : null}
+
+                    <div className={styles.formActions}>
+                      <button
+                        className={styles.btn}
+                        type="button"
+                        onClick={() => void savePricingConfig()}
+                        disabled={pricingSaving || pricingLoading}
+                      >
+                        {pricingSaving ? 'Guardando…' : pricingLoading ? 'Cargando…' : 'Guardar cambios'}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1794,6 +2041,7 @@ export function AdminPage() {
                   ariaLabel="Evolución de usuarios"
                   points={section === 'pro' ? proTrend?.series ?? [] : usersTrend?.series ?? []}
                   rangeDays={rangeBySection[section]}
+                  rangeOptions={rangeOptions}
                   onRangeChange={(value) => setSectionRange(section, value)}
                   onOpenReport={() => openReportModal(section, section === 'pro' ? proTrend?.series ?? [] : usersTrend?.series ?? [])}
                   reportDisabled={section === 'pro' ? proTrendBusy : usersTrendBusy}
@@ -2002,6 +2250,7 @@ export function AdminPage() {
                   ariaLabel="Evolución de spots"
                   points={spotsTrend?.series ?? []}
                   rangeDays={rangeBySection.spots}
+                  rangeOptions={rangeOptions}
                   onRangeChange={(value) => setSectionRange('spots', value)}
                   onOpenReport={() => openReportModal('spots', spotsTrend?.series ?? [])}
                   reportDisabled={spotsTrendBusy}
@@ -2148,6 +2397,7 @@ export function AdminPage() {
                   ariaLabel="Evolución de soporte"
                   points={supportTrend?.series ?? []}
                   rangeDays={rangeBySection.support}
+                  rangeOptions={rangeOptions}
                   onRangeChange={(value) => setSectionRange('support', value)}
                   onOpenReport={() => openReportModal('support', supportTrend?.series ?? [])}
                   reportDisabled={supportTrendBusy}
@@ -2305,6 +2555,7 @@ export function AdminPage() {
                   ariaLabel="Evolución de reportes"
                   points={reportsTrend?.series ?? []}
                   rangeDays={rangeBySection.reports}
+                  rangeOptions={rangeOptions}
                   onRangeChange={(value) => setSectionRange('reports', value)}
                   onOpenReport={() => openReportModal('reports', reportsTrend?.series ?? [])}
                   reportDisabled={reportsTrendBusy}
@@ -2661,7 +2912,7 @@ export function AdminPage() {
                 <div className={styles.modalCard} role="dialog" aria-modal="true" aria-label="Descargar reporte CSV">
                   <div className={styles.modalTitle}>Descargar reporte CSV</div>
                   <div className={styles.modalSub}>
-                    Sección: {REPORT_SECTION_LABELS[reportModal.section]} · elegí el rango de fechas (UTC).
+                    Sección: {reportSectionLabels[reportModal.section]} · elegí el rango de fechas (UTC).
                   </div>
 
                   {reportError ? <div className={styles.error}>{reportError}</div> : null}
@@ -2701,6 +2952,28 @@ export function AdminPage() {
               </div>
             ) : null}
 
+            {pricingSummaryModal ? (
+              <div
+                className={styles.modalBackdrop}
+                role="presentation"
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) setPricingSummaryModal(null)
+                }}
+              >
+                <div className={styles.modalCard} role="dialog" aria-modal="true" aria-label="Pricing actualizado" onClick={(e) => e.stopPropagation()}>
+                  <div className={styles.modalTitle}>Precios actualizados correctamente</div>
+                  <div className={styles.modalSub} style={{ whiteSpace: 'pre-line' }}>
+                    {'Chile (CLP)\nPro mensual: ' + fmt(pricingSummaryModal.cl.monthly_local) + '\nPro anual: ' + fmt(pricingSummaryModal.cl.annual_local) + '\n\nArgentina (ARS)\nPro mensual: ' + fmt(pricingSummaryModal.ar.monthly_local) + '\nPro anual: ' + fmt(pricingSummaryModal.ar.annual_local)}
+                  </div>
+                  <div className={styles.modalActions}>
+                    <button className={styles.btn} type="button" onClick={() => setPricingSummaryModal(null)}>
+                      OK
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
           </>
         ) : null}
 
@@ -2711,7 +2984,7 @@ export function AdminPage() {
             onClick={(e) => {
               if (e.target === e.currentTarget && !mfaBusy) {
                 setMfaPending(null)
-                setMfaCode('')
+                setMfaDigits(emptyMfaDigits())
                 setMfaError(null)
               }
             }}
@@ -2724,22 +2997,28 @@ export function AdminPage() {
               {mfaError ? <div className={styles.error}>{mfaError}</div> : null}
               <label className={styles.field} style={{ marginTop: 16 }}>
                 <div className={styles.label}>Código MFA</div>
-                <input
-                  ref={mfaInputRef}
-                  className={styles.input}
-                  inputMode="numeric"
-                  value={mfaCode}
-                  onChange={(e) => setMfaCode(e.target.value.replace(/\s+/g, ''))}
-                  maxLength={8}
-                  disabled={mfaBusy}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault()
-                      void submitMfaCode()
-                    }
-                  }}
-                  placeholder="Ej: 123456"
-                />
+                <div className={styles.mfaDigits} role="group" aria-label="Código MFA de 6 dígitos">
+                  {mfaDigits.map((digit, index) => (
+                    <input
+                      key={`mfa-${index}`}
+                      ref={(node) => {
+                        mfaInputRefs.current[index] = node
+                      }}
+                      className={styles.mfaDigit}
+                      inputMode="numeric"
+                      autoComplete={index === 0 ? 'one-time-code' : 'off'}
+                      pattern="[0-9]*"
+                      value={digit}
+                      maxLength={1}
+                      disabled={mfaBusy}
+                      onFocus={(e) => e.currentTarget.select()}
+                      onChange={(e) => onMfaDigitChange(index, e.target.value)}
+                      onKeyDown={(e) => onMfaDigitKeyDown(index, e)}
+                      onPaste={(e) => onMfaDigitPaste(index, e)}
+                      aria-label={`Dígito ${index + 1} del código MFA`}
+                    />
+                  ))}
+                </div>
               </label>
               <div className={styles.modalActions}>
                 <button
@@ -2747,14 +3026,19 @@ export function AdminPage() {
                   type="button"
                   onClick={() => {
                     setMfaPending(null)
-                    setMfaCode('')
+                    setMfaDigits(emptyMfaDigits())
                     setMfaError(null)
                   }}
                   disabled={mfaBusy}
                 >
                   Cancelar
                 </button>
-                <button className={styles.btn} type="button" onClick={() => void submitMfaCode()} disabled={mfaBusy || !mfaCode.trim()}>
+                <button
+                  className={styles.btn}
+                  type="button"
+                  onClick={() => void submitMfaCode()}
+                  disabled={mfaBusy || mfaCode.length !== MFA_CODE_LENGTH}
+                >
                   {mfaBusy ? 'Verificando…' : 'Validar código'}
                 </button>
               </div>

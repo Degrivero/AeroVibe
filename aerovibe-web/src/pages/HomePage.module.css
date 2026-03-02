@@ -768,6 +768,12 @@
   cursor: pointer;
 }
 
+.priceCta:disabled,
+.priceCtaFeatured:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .priceCtaFeatured {
   background: var(--accent);
   color: #071007;
@@ -780,6 +786,27 @@
 
 .priceCtaFeatured:hover {
   filter: brightness(1.03);
+}
+
+.pricingAlertError,
+.pricingAlertOk {
+  max-width: 760px;
+  margin: 14px auto 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.pricingAlertError {
+  background: color-mix(in oklab, #ff2b2b 14%, transparent);
+  border-color: color-mix(in oklab, #ff2b2b 40%, var(--border) 60%);
+}
+
+.pricingAlertOk {
+  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border) 55%);
 }
 
 @keyframes floaty {
