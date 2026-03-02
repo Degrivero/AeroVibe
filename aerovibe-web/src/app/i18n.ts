@@ -13,12 +13,8 @@ export type SupportedLang = (typeof SUPPORTED)[number]
 function detectInitialLang(): SupportedLang {
   if (typeof window === 'undefined') return 'en'
 
-  try {
-    const saved = window.localStorage.getItem(LANG_STORAGE_KEY)
-    if (saved && (SUPPORTED as readonly string[]).includes(saved)) return saved as SupportedLang
-  } catch {
-    // localStorage can throw (e.g. SecurityError in private/opaque origins)
-  }
+  const saved = window.localStorage.getItem(LANG_STORAGE_KEY)
+  if (saved && (SUPPORTED as readonly string[]).includes(saved)) return saved as SupportedLang
 
   const nav = (navigator.language || 'en').toLowerCase()
   if (nav.startsWith('pt')) return 'pt'

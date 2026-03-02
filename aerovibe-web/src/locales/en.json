@@ -873,75 +873,7 @@
     "errors": {
       "missing_api_base": "VITE_API_BASE_URL is not configured.",
       "legal_required": "You must accept the Terms and Conditions and Privacy Policy to create an account.",
-      "generic": "We couldn't complete this request. Please try again.",
-      "checkout_after_login_failed": "We could not start checkout after login."
+      "generic": "We couldn't complete this request. Please try again."
     }
-  },
-  "pricing_actions": {
-    "errors": {
-      "missing_price_id": "Stripe priceId is missing for this plan.",
-      "generic": "We could not start checkout. Please try again."
-    }
-  },
-  "account_page": {
-    "meta_title": "My account",
-    "meta_description": "Manage your profile, plan, and limits in AeroVibe.",
-    "title": "My account",
-    "subtitle": "Update your profile and manage your plan from here.",
-    "loading": "Loading your account data…",
-    "auth_required": "You need to sign in to continue.",
-    "sign_out": "Sign out",
-    "profile": {
-      "title": "Profile",
-      "email": "Email",
-      "first_name": "First name",
-      "last_name": "Last name",
-      "nickname": "Nickname",
-      "country": "Country",
-      "city": "City",
-      "bio": "Bio",
-      "save": "Save changes",
-      "saving": "Saving…",
-      "saved": "Profile updated successfully.",
-      "select_country": "Select a country",
-      "select_city": "Select a city"
-    },
-    "plan": {
-      "title": "Plan and subscription",
-      "current_plan": "Current plan",
-      "free": "Free",
-      "pro": "Pro",
-      "billing_cycle": "Cycle",
-      "monthly": "Monthly",
-      "annual": "Annual",
-      "next_renewal": "Next renewal",
-      "provider": "Provider",
-      "manage_subscription": "Manage subscription",
-      "portal_opening": "Opening portal…",
-      "current_limits": "Current limits"
-    },
-    "limits": {
-      "hangar": "Hangar drones",
-      "flight_plans": "Active flight plans",
-      "forecast_hours": "Forecast hours",
-      "media_uploads": "Media uploads per day",
-      "marketplace_posts": "Active marketplace posts"
-    },
-    "errors": {
-      "load_failed": "We could not load your account.",
-      "save_failed": "We could not save your profile.",
-      "portal_failed": "We could not open the subscription portal.",
-      "country_city_required": "Country and city are required to save your profile."
-    }
-  },
-  "admin": {
-    "range_days_30": "30 days",
-    "range_days_90": "90 days",
-    "range_days_180": "180 days",
-    "section_users": "users",
-    "section_pro": "users-pro",
-    "section_spots": "spots",
-    "section_support": "support",
-    "section_reports": "reports"
   }
 }

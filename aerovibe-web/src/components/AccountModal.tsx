@@ -1,87 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  getApiBase,
-  popPendingCheckoutPlan,
-  type AccountModalTab,
-  type AuthSession,
-  writeAuthSession,
-} from '../app/auth'
-import { startSubscriptionCheckout } from '../app/payments'
 import styles from './AccountModal.module.css'
 
-type Mode = 'login' | 'create' | 'recover'
+type Mode = 'create' | 'recover'
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null
+function apiBase() {
+  const raw = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').trim()
+  const trimmed = raw.replace(/\/$/, '')
+  // Avoid common misconfig: people set base like "https://gateway.../api".
+  return trimmed.endsWith('/api') ? trimmed.slice(0, -4) : trimmed
 }
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim().toLowerCase())
 }
 
-function modeFromTab(tab: AccountModalTab): Mode {
-  if (tab === 'create') return 'create'
-  if (tab === 'recover') return 'recover'
-  return 'login'
-}
-
-function formatError(payload: unknown, fallback: string) {
-  if (!isRecord(payload)) return fallback
-  const message = payload.message
-  if (typeof message === 'string' && message.trim()) return message.trim()
-  const error = payload.error
-  if (typeof error === 'string' && error.trim()) return error.trim()
-  return fallback
-}
-
-function mapSession(payload: unknown): AuthSession | null {
-  if (!isRecord(payload)) return null
-  const token =
-    (typeof payload.accessToken === 'string' && payload.accessToken.trim()) ||
-    (typeof payload.token === 'string' && payload.token.trim()) ||
-    null
-
-  if (!token) return null
-
-  const refreshToken =
-    typeof payload.refreshToken === 'string' && payload.refreshToken.trim()
-      ? payload.refreshToken.trim()
-      : null
-
-  const userRaw = payload.user
-  if (!isRecord(userRaw)) return null
-
-  const id = typeof userRaw.id === 'string' ? userRaw.id.trim() : ''
-  if (!id) return null
-
-  const role = typeof userRaw.role === 'string' ? userRaw.role : 'user'
-
-  return {
-    accessToken: token,
-    refreshToken,
-    user: {
-      id,
-      email: typeof userRaw.email === 'string' ? userRaw.email : null,
-      role: role || 'user',
-      firstName: typeof userRaw.firstName === 'string' ? userRaw.firstName : null,
-      lastName: typeof userRaw.lastName === 'string' ? userRaw.lastName : null,
-      nickname: typeof userRaw.nickname === 'string' ? userRaw.nickname : null,
-      createdAt: typeof userRaw.createdAt === 'string' ? userRaw.createdAt : null,
-    },
-  }
-}
-
-export function AccountModal({
-  onClose,
-  initialTab = 'login',
-}: {
-  onClose: () => void
-  initialTab?: AccountModalTab
-}) {
+export function AccountModal({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation()
-  const [mode, setMode] = useState<Mode>(() => modeFromTab(initialTab))
+  const [mode, setMode] = useState<Mode>('create')
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -98,31 +35,8 @@ export function AccountModal({
   const legalAcceptanceMethod = 'web_account_modal_checkbox_v1'
 
   const title = useMemo(() => {
-    if (mode === 'login') return t('auth.sign_in')
-    if (mode === 'recover') return t('nav.recover_password')
-    return t('nav.create_account')
+    return mode === 'recover' ? t('nav.recover_password') : t('nav.create_account')
   }, [mode, t])
-
-  function resetFeedback() {
-    setError(null)
-    setMessage(null)
-    setCreatedOk(false)
-  }
-
-  function changeMode(nextMode: Mode) {
-    if (mode !== nextMode) {
-      setPassword('')
-      setPassword2('')
-      setLegalAccepted(false)
-    }
-    setMode(nextMode)
-    resetFeedback()
-  }
-
-  useEffect(() => {
-    changeMode(modeFromTab(initialTab))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialTab])
 
   function preferredStoreUrl() {
     if (typeof navigator === 'undefined') return null
@@ -166,44 +80,15 @@ export function AccountModal({
     if (!trimmed || !isValidEmail(trimmed)) return t('auth.error_email')
     if (mode === 'recover') return null
     if (!password) return t('auth.error_password')
-    if (mode === 'create' && password !== password2) return t('auth.error_password_match')
-    if (mode === 'create' && !legalAccepted) return t('account_modal.errors.legal_required')
+    if (password !== password2) return t('auth.error_password_match')
+    if (!legalAccepted) return t('account_modal.errors.legal_required')
     return null
-  }
-
-  async function handleLogin(payload: unknown) {
-    const session = mapSession(payload)
-    if (!session) {
-      throw new Error(formatError(payload, t('account_modal.errors.generic')))
-    }
-
-    writeAuthSession(session)
-
-    const pendingPlan = popPendingCheckoutPlan()
-    if (!pendingPlan) {
-      onClose()
-      return
-    }
-
-    try {
-      const checkout = await startSubscriptionCheckout({
-        accessToken: session.accessToken,
-        plan: pendingPlan,
-      })
-      if (!checkout.redirected) {
-        if (checkout.message) setMessage(checkout.message)
-        onClose()
-      }
-    } catch (checkoutError) {
-      throw checkoutError instanceof Error
-        ? checkoutError
-        : new Error(t('account_modal.errors.checkout_after_login_failed'))
-    }
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
-    resetFeedback()
+    setError(null)
+    setMessage(null)
 
     const v = validate()
     if (v) {
@@ -211,7 +96,7 @@ export function AccountModal({
       return
     }
 
-    const base = getApiBase()
+    const base = apiBase()
     if (!base) {
       setError(t('account_modal.errors.missing_api_base'))
       return
@@ -219,25 +104,19 @@ export function AccountModal({
 
     setBusy(true)
     try {
-      let endpoint = `${base}/api/iam/login`
-      let payload: Record<string, unknown> = {
-        email: email.trim().toLowerCase(),
-        password,
-      }
+      const endpoint =
+        mode === 'recover' ? `${base}/api/iam/recover` : `${base}/api/iam/register`
 
-      if (mode === 'recover') {
-        endpoint = `${base}/api/iam/recover`
-        payload = { email: email.trim().toLowerCase() }
-      } else if (mode === 'create') {
-        endpoint = `${base}/api/iam/register`
-        payload = {
-          email: email.trim().toLowerCase(),
-          password,
-          legalAccepted: true,
-          legalAcceptanceMethod,
-          legalAcceptedAtClient: new Date().toISOString(),
-        }
-      }
+      const payload =
+        mode === 'recover'
+          ? { email: email.trim().toLowerCase() }
+          : {
+              email: email.trim().toLowerCase(),
+              password,
+              legalAccepted: true,
+              legalAcceptanceMethod,
+              legalAcceptedAtClient: new Date().toISOString(),
+            }
 
       const res = await fetch(endpoint, {
         method: 'POST',
@@ -245,27 +124,25 @@ export function AccountModal({
         body: JSON.stringify(payload),
       })
 
-      const data: unknown = await res.json().catch(() => null)
+      const data = await res.json().catch(() => null)
       if (!res.ok) {
-        throw new Error(formatError(data, t('account_modal.errors.generic')))
+        const msg =
+          (data && typeof data.message === 'string' && data.message) ||
+          (data && typeof data.error === 'string' && data.error) ||
+          null
+        throw new Error(msg || t('account_modal.errors.generic'))
       }
 
       if (mode === 'recover') {
         setMessage(t('account_modal.recover_ok'))
-        return
-      }
-
-      if (mode === 'create') {
+      } else {
         setPassword('')
         setPassword2('')
         setLegalAccepted(false)
         setCreatedOk(true)
-        return
       }
-
-      await handleLogin(data)
-    } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : t('account_modal.errors.generic'))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('account_modal.errors.generic'))
     } finally {
       setBusy(false)
     }
@@ -289,20 +166,16 @@ export function AccountModal({
 
         <div className={styles.tabs} role="tablist" aria-label={t('nav.account')}>
           <button
-            className={mode === 'login' ? styles.tabActive : styles.tab}
-            type="button"
-            role="tab"
-            aria-selected={mode === 'login'}
-            onClick={() => changeMode('login')}
-          >
-            {t('auth.sign_in')}
-          </button>
-          <button
             className={mode === 'create' ? styles.tabActive : styles.tab}
             type="button"
             role="tab"
             aria-selected={mode === 'create'}
-            onClick={() => changeMode('create')}
+            onClick={() => {
+              setMode('create')
+              setError(null)
+              setMessage(null)
+              setCreatedOk(false)
+            }}
           >
             {t('nav.create_account')}
           </button>
@@ -311,7 +184,12 @@ export function AccountModal({
             type="button"
             role="tab"
             aria-selected={mode === 'recover'}
-            onClick={() => changeMode('recover')}
+            onClick={() => {
+              setMode('recover')
+              setError(null)
+              setMessage(null)
+              setCreatedOk(false)
+            }}
           >
             {t('nav.recover_password')}
           </button>
@@ -327,7 +205,7 @@ export function AccountModal({
               ref={emailRef}
               className={styles.input}
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               autoComplete="email"
               inputMode="email"
@@ -337,29 +215,27 @@ export function AccountModal({
             />
           </label>
 
-          {mode !== 'recover' ? (
-            <label className={styles.label}>
-              <span className={styles.labelText}>{t('auth.password')}</span>
-              <input
-                className={styles.input}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                type="password"
-                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                disabled={busy}
-                required
-              />
-            </label>
-          ) : null}
-
           {mode === 'create' ? (
             <>
+              <label className={styles.label}>
+                <span className={styles.labelText}>{t('auth.password')}</span>
+                <input
+                  className={styles.input}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  autoComplete="new-password"
+                  disabled={busy}
+                  required
+                />
+              </label>
+
               <label className={styles.label}>
                 <span className={styles.labelText}>{t('auth.password_confirm')}</span>
                 <input
                   className={styles.input}
                   value={password2}
-                  onChange={(event) => setPassword2(event.target.value)}
+                  onChange={(e) => setPassword2(e.target.value)}
                   type="password"
                   autoComplete="new-password"
                   disabled={busy}
@@ -372,7 +248,7 @@ export function AccountModal({
                   className={styles.legalCheck}
                   type="checkbox"
                   checked={legalAccepted}
-                  onChange={(event) => setLegalAccepted(event.target.checked)}
+                  onChange={(e) => setLegalAccepted(e.target.checked)}
                   disabled={busy}
                 />
                 <span className={styles.legalText}>
@@ -391,20 +267,15 @@ export function AccountModal({
 
           <button className={styles.primary} type="submit" disabled={busy}>
             {busy
-              ? `${mode === 'recover' ? t('auth.send_link') : title}…`
+              ? `${mode === 'recover' ? t('auth.send_link') : t('nav.create_account')}…`
               : mode === 'recover'
                 ? t('auth.send_link')
-                : title}
+                : t('nav.create_account')}
           </button>
         </form>
 
         {createdOk ? (
-          <div
-            className={styles.successOverlay}
-            role="alertdialog"
-            aria-modal="true"
-            aria-label={t('account_modal.created_title')}
-          >
+          <div className={styles.successOverlay} role="alertdialog" aria-modal="true" aria-label={t('account_modal.created_title')}>
             <div className={styles.successCard}>
               <div className={styles.successTitle}>{t('account_modal.created_title')}</div>
               <div className={styles.successBody}>{t('account_modal.create_ok')}</div>

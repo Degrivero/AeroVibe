@@ -873,75 +873,7 @@
     "errors": {
       "missing_api_base": "Falta configurar VITE_API_BASE_URL.",
       "legal_required": "Debes aceptar los Términos y Condiciones y la Política de Privacidad para crear la cuenta.",
-      "generic": "No pudimos completar la operación. Intenta de nuevo.",
-      "checkout_after_login_failed": "No pudimos iniciar checkout después del login."
+      "generic": "No pudimos completar la operación. Intenta de nuevo."
     }
-  },
-  "pricing_actions": {
-    "errors": {
-      "missing_price_id": "Falta configurar el priceId de Stripe para este plan.",
-      "generic": "No pudimos iniciar el checkout. Intenta de nuevo."
-    }
-  },
-  "account_page": {
-    "meta_title": "Mi cuenta",
-    "meta_description": "Gestioná tu perfil, plan y límites de AeroVibe.",
-    "title": "Mi cuenta",
-    "subtitle": "Actualizá tu perfil y gestioná tu plan desde aquí.",
-    "loading": "Cargando datos de tu cuenta…",
-    "auth_required": "Para continuar necesitás iniciar sesión.",
-    "sign_out": "Cerrar sesión",
-    "profile": {
-      "title": "Perfil",
-      "email": "Email",
-      "first_name": "Nombre",
-      "last_name": "Apellido",
-      "nickname": "Nickname",
-      "country": "País",
-      "city": "Ciudad",
-      "bio": "Bio",
-      "save": "Guardar cambios",
-      "saving": "Guardando…",
-      "saved": "Perfil actualizado correctamente.",
-      "select_country": "Selecciona un país",
-      "select_city": "Selecciona una ciudad"
-    },
-    "plan": {
-      "title": "Plan y suscripción",
-      "current_plan": "Plan actual",
-      "free": "Free",
-      "pro": "Pro",
-      "billing_cycle": "Ciclo",
-      "monthly": "Mensual",
-      "annual": "Anual",
-      "next_renewal": "Próxima renovación",
-      "provider": "Proveedor",
-      "manage_subscription": "Gestionar suscripción",
-      "portal_opening": "Abriendo portal…",
-      "current_limits": "Límites actuales"
-    },
-    "limits": {
-      "hangar": "Drones en hangar",
-      "flight_plans": "Planes de vuelo activos",
-      "forecast_hours": "Horas de pronóstico",
-      "media_uploads": "Subidas media por día",
-      "marketplace_posts": "Publicaciones activas en marketplace"
-    },
-    "errors": {
-      "load_failed": "No pudimos cargar tu cuenta.",
-      "save_failed": "No pudimos guardar tu perfil.",
-      "portal_failed": "No pudimos abrir el portal de suscripción.",
-      "country_city_required": "País y ciudad son obligatorios para guardar el perfil."
-    }
-  },
-  "admin": {
-    "range_days_30": "30 días",
-    "range_days_90": "90 días",
-    "range_days_180": "180 días",
-    "section_users": "usuarios",
-    "section_pro": "usuarios-pro",
-    "section_spots": "spots",
-    "section_support": "soporte",
-    "section_reports": "reportes"
   }
 }

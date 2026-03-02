@@ -11,7 +11,6 @@ SERVICES=(
   "aerovibe-users"
   "aerovibe-nats-redis"
   "aerovibe-notifications-service"
-  "aerovibe-payments-service"
   "aerovibe-web"
 )
 

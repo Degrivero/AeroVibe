@@ -873,75 +873,7 @@
     "errors": {
       "missing_api_base": "VITE_API_BASE_URL não está configurado.",
       "legal_required": "Você precisa aceitar os Termos e Condições e a Política de Privacidade para criar a conta.",
-      "generic": "Não foi possível concluir a solicitação. Tente novamente.",
-      "checkout_after_login_failed": "Não foi possível iniciar o checkout após o login."
+      "generic": "Não foi possível concluir a solicitação. Tente novamente."
     }
-  },
-  "pricing_actions": {
-    "errors": {
-      "missing_price_id": "O priceId do Stripe está ausente para este plano.",
-      "generic": "Não foi possível iniciar o checkout. Tente novamente."
-    }
-  },
-  "account_page": {
-    "meta_title": "Minha conta",
-    "meta_description": "Gerencie seu perfil, plano e limites no AeroVibe.",
-    "title": "Minha conta",
-    "subtitle": "Atualize seu perfil e gerencie seu plano por aqui.",
-    "loading": "Carregando dados da sua conta…",
-    "auth_required": "Você precisa entrar para continuar.",
-    "sign_out": "Sair",
-    "profile": {
-      "title": "Perfil",
-      "email": "Email",
-      "first_name": "Nome",
-      "last_name": "Sobrenome",
-      "nickname": "Apelido",
-      "country": "País",
-      "city": "Cidade",
-      "bio": "Bio",
-      "save": "Salvar alterações",
-      "saving": "Salvando…",
-      "saved": "Perfil atualizado com sucesso.",
-      "select_country": "Selecione um país",
-      "select_city": "Selecione uma cidade"
-    },
-    "plan": {
-      "title": "Plano e assinatura",
-      "current_plan": "Plano atual",
-      "free": "Free",
-      "pro": "Pro",
-      "billing_cycle": "Ciclo",
-      "monthly": "Mensal",
-      "annual": "Anual",
-      "next_renewal": "Próxima renovação",
-      "provider": "Provedor",
-      "manage_subscription": "Gerenciar assinatura",
-      "portal_opening": "Abrindo portal…",
-      "current_limits": "Limites atuais"
-    },
-    "limits": {
-      "hangar": "Drones no hangar",
-      "flight_plans": "Planos de voo ativos",
-      "forecast_hours": "Horas de previsão",
-      "media_uploads": "Uploads de mídia por dia",
-      "marketplace_posts": "Publicações ativas no marketplace"
-    },
-    "errors": {
-      "load_failed": "Não foi possível carregar sua conta.",
-      "save_failed": "Não foi possível salvar seu perfil.",
-      "portal_failed": "Não foi possível abrir o portal de assinatura.",
-      "country_city_required": "País e cidade são obrigatórios para salvar o perfil."
-    }
-  },
-  "admin": {
-    "range_days_30": "30 dias",
-    "range_days_90": "90 dias",
-    "range_days_180": "180 dias",
-    "section_users": "usuários",
-    "section_pro": "usuários-pro",
-    "section_spots": "spots",
-    "section_support": "suporte",
-    "section_reports": "relatórios"
   }
 }

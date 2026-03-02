@@ -1,13 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  onAuthSessionChange,
-  openAccountModal,
-  readAuthSession,
-  setPendingCheckoutPlan,
-} from '../app/auth'
-import { startSubscriptionCheckout } from '../app/payments'
 import styles from './HomePage.module.css'
 import { useMeta } from '../app/useMeta'
 
@@ -56,8 +49,6 @@ function PricingCard({
   cta,
   featured,
   badge,
-  onAction,
-  actionBusy,
 }: {
   title: string
   price: string
@@ -66,8 +57,6 @@ function PricingCard({
   cta: string
   featured?: boolean
   badge?: string
-  onAction?: () => void
-  actionBusy?: boolean
 }) {
   return (
     <div className={featured ? styles.priceCardFeatured : styles.priceCard}>
@@ -82,13 +71,8 @@ function PricingCard({
           <li key={b}>{b}</li>
         ))}
       </ul>
-      <button
-        className={featured ? styles.priceCtaFeatured : styles.priceCta}
-        type="button"
-        onClick={onAction}
-        disabled={actionBusy}
-      >
-        {actionBusy ? `${cta}…` : cta}
+      <button className={featured ? styles.priceCtaFeatured : styles.priceCta} type="button">
+        {cta}
       </button>
     </div>
   )
@@ -96,13 +80,9 @@ function PricingCard({
 
 export function HomePage() {
   const { t } = useTranslation()
-  const [session, setSession] = useState(() => readAuthSession())
   const [showGlobe, setShowGlobe] = useState<boolean>(() =>
     typeof window !== 'undefined' ? window.innerWidth >= 960 : false,
   )
-  const [pricingError, setPricingError] = useState<string | null>(null)
-  const [pricingMessage, setPricingMessage] = useState<string | null>(null)
-  const [busyPlan, setBusyPlan] = useState<'pro_monthly' | 'pro_annual' | null>(null)
 
   useEffect(() => {
     const query = window.matchMedia('(min-width: 960px)')
@@ -112,37 +92,11 @@ export function HomePage() {
     return () => query.removeEventListener('change', listener)
   }, [])
 
-  useEffect(() => onAuthSessionChange(() => setSession(readAuthSession())), [])
-
   useMeta({ title: t('meta.title'), description: t('meta.description') })
 
   const freeBullets = t('sections.pricing.free.bullets', { returnObjects: true }) as string[]
   const proMonthBullets = t('sections.pricing.pro_month.bullets', { returnObjects: true }) as string[]
   const proYearBullets = t('sections.pricing.pro_year.bullets', { returnObjects: true }) as string[]
-
-  async function openProCheckout(plan: 'monthly' | 'annual', planCard: 'pro_monthly' | 'pro_annual') {
-    setPricingError(null)
-    setPricingMessage(null)
-
-    const accessToken = session?.accessToken
-    if (!accessToken) {
-      setPendingCheckoutPlan(plan)
-      openAccountModal('login')
-      return
-    }
-
-    setBusyPlan(planCard)
-    try {
-      const checkout = await startSubscriptionCheckout({ accessToken, plan })
-      if (!checkout.redirected && checkout.message) {
-        setPricingMessage(checkout.message)
-      }
-    } catch (error) {
-      setPricingError(error instanceof Error ? error.message : t('pricing_actions.errors.generic'))
-    } finally {
-      setBusyPlan(null)
-    }
-  }
 
   const features = [
     {
@@ -239,12 +193,6 @@ export function HomePage() {
                 period={t('sections.pricing.free.period')}
                 bullets={freeBullets}
                 cta={t('sections.pricing.free.cta')}
-                onAction={() => {
-                  setBusyPlan(null)
-                  setPricingError(null)
-                  setPricingMessage(null)
-                  openAccountModal('create')
-                }}
               />
               <PricingCard
                 title={t('sections.pricing.pro_month.name')}
@@ -252,10 +200,6 @@ export function HomePage() {
                 period={t('sections.pricing.pro_month.period')}
                 bullets={proMonthBullets}
                 cta={t('sections.pricing.pro_month.cta')}
-                onAction={() => {
-                  void openProCheckout('monthly', 'pro_monthly')
-                }}
-                actionBusy={busyPlan === 'pro_monthly'}
               />
               <PricingCard
                 title={t('sections.pricing.pro_year.name')}
@@ -265,16 +209,11 @@ export function HomePage() {
                 cta={t('sections.pricing.pro_year.cta')}
                 featured
                 badge={t('sections.pricing.best_value')}
-                onAction={() => {
-                  void openProCheckout('annual', 'pro_annual')
-                }}
-                actionBusy={busyPlan === 'pro_annual'}
               />
             </div>
-            {pricingError ? <div className={styles.pricingAlertError}>{pricingError}</div> : null}
-            {pricingMessage ? <div className={styles.pricingAlertOk}>{pricingMessage}</div> : null}
           </div>
         </section>
+
       </section>
     </div>
   )

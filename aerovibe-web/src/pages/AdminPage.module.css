@@ -184,35 +184,6 @@
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 14%, transparent);
 }
 
-.mfaDigits {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.mfaDigit {
-  width: 100%;
-  min-width: 42px;
-  height: 48px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--bg) 78%, transparent);
-  color: var(--fg);
-  text-align: center;
-  font-size: 20px;
-  font-weight: 860;
-  outline: none;
-}
-
-.mfaDigit:focus {
-  border-color: color-mix(in oklab, var(--border) 55%, var(--accent) 45%);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 14%, transparent);
-}
-
-.mfaDigit:disabled {
-  opacity: 0.7;
-}
-
 .textarea {
   width: 100%;
   min-height: 80px;
@@ -305,6 +276,27 @@
 .pillBad {
   background: color-mix(in oklab, #ff3355 12%, transparent);
   border: 1px solid color-mix(in oklab, #ff3355 45%, transparent);
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+}
+
+.kv:first-of-type {
+  border-top: 0;
+}
+
+.k {
+  font-weight: 820;
+  color: var(--muted);
+}
+
+.v {
+  color: var(--fg);
 }
 
 .toolbar {

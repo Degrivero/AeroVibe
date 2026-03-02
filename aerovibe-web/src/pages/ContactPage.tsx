@@ -1,9 +1,14 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getApiBase } from '../app/auth'
 import { useMeta } from '../app/useMeta'
 import styles from './ContactPage.module.css'
+
+function apiBase() {
+  const raw = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').trim()
+  const trimmed = raw.replace(/\/$/, '')
+  return trimmed.endsWith('/api') ? trimmed.slice(0, -4) : trimmed
+}
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
@@ -41,7 +46,7 @@ export function ContactPage() {
     if (!isValidEmail(email)) return setError(t('contact.errors.email_invalid'))
     if (!message.trim()) return setError(t('contact.errors.message_required'))
 
-    const base = getApiBase()
+    const base = apiBase()
     if (!base) return setError('Falta configurar VITE_API_BASE_URL.')
     const endpoint = `${base}/api/support/contact`
 
